@@ -1,41 +1,46 @@
-import React from 'react'
 import {
-    DropdownMenu,
-    DropdownItem,
-    MenuMenu,
-    MenuItem,
-    Button,
-    Dropdown,
-    Menu,
-  } from 'semantic-ui-react'
+  DropdownMenu,
+  DropdownItem,
+  MenuMenu,
+  MenuItem,
+  Button,
+  Dropdown,
+  Menu,
+  Image,
+} from "semantic-ui-react";
+import "./Navbar.css";
 
-type Props = {}
+type Props = {};
 
 const Navbar = (props: Props) => {
   return (
-    <Menu inverted size='large'>
-    <MenuItem
-      name='home'
-    />
-    <MenuItem
-      name='messages'
-    />
-
-    <MenuMenu position='right'>
-      <Dropdown item text='Language'>
-        <DropdownMenu>
-          <DropdownItem>English</DropdownItem>
-          <DropdownItem>Russian</DropdownItem>
-          <DropdownItem>Spanish</DropdownItem>
-        </DropdownMenu>
-      </Dropdown>
-
+    <Menu inverted size="large">
       <MenuItem>
-        <Button primary>Sign Up</Button>
+        <Button primary>Ana Sayfa</Button>
       </MenuItem>
-    </MenuMenu>
-  </Menu>
-  )
-}
+      <MenuItem>
+        <Button primary>Hakımızda</Button>
+      </MenuItem>
 
-export default Navbar
+      <Menu.Menu className="menu-logo-container">
+        <Menu.Item>
+          <Image src="/images/rent-a-car-logo.jpg" className="menu-logo" />
+        </Menu.Item>
+      </Menu.Menu>
+
+      <MenuMenu position="right">
+        <Dropdown item text="Sepetiniz">
+          <DropdownMenu>
+            <DropdownItem>English</DropdownItem>
+          </DropdownMenu>
+        </Dropdown>
+
+        <MenuItem>
+          <Button primary>Kayıt Ol</Button>
+        </MenuItem>
+      </MenuMenu>
+    </Menu>
+  );
+};
+
+export default Navbar;
