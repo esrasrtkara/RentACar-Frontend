@@ -1,13 +1,28 @@
-import React from 'react'
+import React from "react";
+import CarCard from "../components/CarCard";
+import { Col, Container, Row } from "react-bootstrap";
 
-type Props = {}
+type Props = {};
 
 const HomePage = (props: Props) => {
   return (
-    <div>
-        HomePage
-    </div>
-  )
-}
+    <Container>
+      <Row> 
+        <Col className="col-3"> 
+          <CarCard name={"Mercedes"} price={"500 $"} />
+        </Col>
+        <Col className="col-3">
+          <CarCard name={"Mercedes"} price={"500 $"} />
+        </Col>
+        <Col className="col-3">
+          <CarCard name={"Mercedes"} price={"500 $"} />
+        </Col>
+        <Col className="col-3">
+          <CarCard name={"Mercedes"} price={"500 $"} />
+        </Col>
+      </Row>
+    </Container>
+  );
+};
 
-export default HomePage
+export default HomePage;
