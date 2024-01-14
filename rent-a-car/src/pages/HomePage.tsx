@@ -1,27 +1,30 @@
 import React from "react";
 import CarCard from "../components/CarCard";
 import { Col, Container, Row } from "react-bootstrap";
+import Teams from "../components/Teams";
+import Footer from "../components/Footer";
 
 type Props = {};
 
 const HomePage = (props: Props) => {
   return (
+    <>
     <Container>
       <Row> 
-        <Col className="col-3"> 
-          <CarCard name={"Mercedes"} price={"500 $"} />
+        <Col> 
+          <CarCard name="Fiat Egea Cross" brandName="Fiat" dailyPrice={150}/>
         </Col>
-        <Col className="col-3">
-          <CarCard name={"Mercedes"} price={"500 $"} />
+        <Col> 
+          <CarCard name="Fiat Egea Cross" brandName="Fiat" dailyPrice={150}/>
         </Col>
-        <Col className="col-3">
-          <CarCard name={"Mercedes"} price={"500 $"} />
-        </Col>
-        <Col className="col-3">
-          <CarCard name={"Mercedes"} price={"500 $"} />
+        <Col> 
+          <CarCard name="Fiat Egea Cross" brandName="Fiat" dailyPrice={150}/>
         </Col>
       </Row>
     </Container>
+    <Teams />
+    <Footer/>
+    </>
   );
 };
 

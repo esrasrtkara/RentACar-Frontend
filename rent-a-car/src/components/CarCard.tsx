@@ -1,35 +1,93 @@
-import React from "react";
-import { Card } from "react-bootstrap";
-import { Button, Container } from "semantic-ui-react";
+import {
+  MDBContainer,
+  MDBRow,
+  MDBCol,
+  MDBCard,
+  MDBCardBody,
+  MDBCardImage,
+  MDBIcon,
+  MDBBtn,
+  MDBRipple,
+} from "mdb-react-ui-kit";
 
 type Props = {
-  name: string;
-  price: string;
+  name: string,
+  brandName:string,
+  dailyPrice: number,
 };
 
 const CarCard = (props: Props) => {
   return (
-      <Container>
-        <Card style={{ width: "18rem" }}>
-          <Card.Img
-            variant="top"
-            src="https://www.topgear.com/sites/default/files/2022/07/13.jpg"
-            style={{ height: 200, width: 250 }}
-          />
-          <Card.Body>
-            <Card.Title>{props.name}</Card.Title>
-            <Card.Text>{props.price}</Card.Text>
-            <div className="ui two buttons">
-              <Button basic color="green">
-                Kirala
-              </Button>
-              <Button basic color="red">
-                Decline
-              </Button>
-            </div>
-          </Card.Body>
-        </Card>
-      </Container>
+    <>
+      <MDBContainer fluid className="my-5">
+        <MDBRow className="justify-content-center">
+          <MDBCol md="6" lg="4" xl="10">
+            <MDBCard style={{ borderRadius: "20px" }}>
+              <MDBRipple
+                rippleColor="lights"
+                rippleTag="div"
+                className="bg-image rounded hover-overlay"
+              >
+                <MDBCardImage
+                  src="https://www.avis.com.tr/Avis/media/Avis/Cars/b-fiat-egea-cross.png"
+                  fluid
+                  className="w-100"
+                  style={{
+                    borderTopLeftRadius: "15px",
+                    borderTopRightRadius: "15px",
+                  }}
+                />
+                <a href="#!">
+                  <div className="mask"></div>
+                </a>
+              </MDBRipple>
+              <MDBCardBody className="pb-0">
+                <div className="d-flex justify-content-between">
+                  <div>
+                    <p>
+                      <a href="#!" className="text-dark">
+                        {props.name}
+                      </a>
+                    </p>
+                    <p className="small text-muted">{props.brandName}</p>
+                  </div>
+                  <div>
+                    <div className="d-flex flex-row justify-content-end mt-1 mb-4 text-danger">
+                      <MDBIcon fas icon="star" />
+                      <MDBIcon fas icon="star" />
+                      <MDBIcon fas icon="star" />
+                      <MDBIcon fas icon="star" />
+                    </div>
+                    <p className="small text-muted">Rated 4.0/5</p>
+                  </div>
+                </div>
+              </MDBCardBody>
+              <hr className="my-0" />
+              <MDBCardBody className="pb-0">
+                <div className="d-flex justify-content-between">
+                  <p>
+                    <a href="#!" className="text-dark">
+                      {props.dailyPrice + " $"}
+                    </a>
+                  </p>
+                  <p className="text-dark">#### 8787</p>
+                </div>
+                <p className="small text-muted">VISA Platinum</p>
+              </MDBCardBody>
+              <hr className="my-0" />
+              <MDBCardBody className="pb-0">
+                <div className="d-flex justify-content-between align-items-center pb-2 mb-4">
+                  <a href="#!" className="text-dark fw-bold">
+                    Cancel
+                  </a>
+                  <MDBBtn color="primary">Hemen Kİrala</MDBBtn>
+                </div>
+              </MDBCardBody>
+            </MDBCard>
+          </MDBCol>
+        </MDBRow>
+      </MDBContainer>
+    </>
   );
 };
 

@@ -16,7 +16,7 @@ const Navbar = (props: Props) => {
   return (
     <Menu inverted size="large">
       <MenuItem>
-        <Button primary>Ana Sayfa</Button>
+        <Button primary><i className="fas fa-house"></i> Ana Sayfa</Button>
       </MenuItem>
       <MenuItem>
         <Button primary>Hakımızda</Button>
@@ -36,7 +36,7 @@ const Navbar = (props: Props) => {
         </Dropdown>
 
         <MenuItem>
-          <Button primary>Kayıt Ol</Button>
+          <Button primary><i className="fas fa-right-to-bracket"></i> Üye Girişi</Button>
         </MenuItem>
       </MenuMenu>
     </Menu>
