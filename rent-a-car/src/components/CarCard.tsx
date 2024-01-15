@@ -9,11 +9,10 @@ import {
   MDBBtn,
   MDBRipple,
 } from "mdb-react-ui-kit";
+import { CarModel } from "../models/CarModel";
 
 type Props = {
-  name: string,
-  brandName:string,
-  dailyPrice: number,
+  car:CarModel
 };
 
 const CarCard = (props: Props) => {
@@ -29,7 +28,7 @@ const CarCard = (props: Props) => {
                 className="bg-image rounded hover-overlay"
               >
                 <MDBCardImage
-                  src="https://www.avis.com.tr/Avis/media/Avis/Cars/b-fiat-egea-cross.png"
+                  src={props.car.imagePath}
                   fluid
                   className="w-100"
                   style={{
@@ -46,10 +45,10 @@ const CarCard = (props: Props) => {
                   <div>
                     <p>
                       <a href="#!" className="text-dark">
-                        {props.name}
+                          {props.car.modelName}
                       </a>
                     </p>
-                    <p className="small text-muted">{props.brandName}</p>
+                    <p className="small text-muted"></p>
                   </div>
                   <div>
                     <div className="d-flex flex-row justify-content-end mt-1 mb-4 text-danger">
@@ -67,7 +66,7 @@ const CarCard = (props: Props) => {
                 <div className="d-flex justify-content-between">
                   <p>
                     <a href="#!" className="text-dark">
-                      {props.dailyPrice + " $"}
+                        {props.car.dailyPrice + "$"}
                     </a>
                   </p>
                   <p className="text-dark">#### 8787</p>
