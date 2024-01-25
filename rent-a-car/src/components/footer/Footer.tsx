@@ -1,4 +1,4 @@
-import "./Teams.css";
+import "../teams/Teams.css";
 
 type Props = {};
 

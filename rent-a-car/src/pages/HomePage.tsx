@@ -1,9 +1,9 @@
 
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-import CarCard from "../components/CarCard";
+import CarCard from "../components/carCard/CarCard";
 import { Col, Container, Row } from "react-bootstrap";
-import Teams from "../components/Teams";
+import Teams from "../components/teams/Teams";
 import { CarModel } from "../models/CarModel";
 
 type Props = {};

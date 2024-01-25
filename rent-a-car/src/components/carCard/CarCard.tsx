@@ -9,7 +9,7 @@ import {
   MDBBtn,
   MDBRipple,
 } from "mdb-react-ui-kit";
-import { CarModel } from "../models/CarModel";
+import { CarModel } from "../../models/CarModel";
 import "./CarCard.css";
 
 type Props = {
