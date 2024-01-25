@@ -5,7 +5,8 @@ import Navbar from './components/navbar/Navbar';
 import { Route, Routes } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import Login from './pages/Login';
-import Footer from './components/footer/Footer';
+import Signin from './pages/Signin';
+
 
 function App() {
   return (
@@ -15,9 +16,9 @@ function App() {
       <Routes>
         <Route path='/' element={<HomePage/>}/>
         <Route path='/login' element={<Login/>}/>
+        <Route path='/signin' element={<Signin/>}/>
       </Routes>
-      <Footer/>
-   
+
     </div>
   );
 }

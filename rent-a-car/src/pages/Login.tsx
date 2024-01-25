@@ -6,6 +6,7 @@ import {
   MDBInput,
   MDBCheckbox,
 } from "mdb-react-ui-kit";
+import { Link } from "react-router-dom";
 
 type Props = {};
 
@@ -58,9 +59,11 @@ const Login = (props: Props) => {
 
             <div className="d-flex flex-row align-items-center justify-content-center pb-4 mb-4 fs-4 mt-4">
               <p className="mb-0">Don't have an account?</p>
+              <Link to={"/signin"}>
               <MDBBtn outline className="mx-2" color="danger">
                 Create New
               </MDBBtn>
+              </Link>
             </div>
           </MDBCol>
         </MDBRow>

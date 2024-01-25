@@ -5,6 +5,7 @@ import CarCard from "../components/carCard/CarCard";
 import { Col, Container, Row } from "react-bootstrap";
 import Teams from "../components/teams/Teams";
 import { CarModel } from "../models/CarModel";
+import Footer from '../components/footer/Footer';
 
 type Props = {};
 
@@ -32,6 +33,7 @@ const HomePage = (props: Props) => {
       </Row>
     </Container>
     <Teams />
+    <Footer/>
     </>
   );
 };
