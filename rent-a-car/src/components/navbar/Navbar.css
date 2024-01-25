@@ -1,0 +1,39 @@
+/*? Navbar genel stil ayarları */
+.menu-logo-container {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.menu-logo {
+    width: 285px;
+    height: auto;
+}
+
+.menu {
+    height: 80px;
+}
+
+/*? Navbar yazı fontu ve arka plan rengi */
+.menu,
+.menu .item .menu .item,
+.menu .item .button.primary {
+    background-color: #E44A48 !important;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+}
+
+/*? Ana Sayfa ve Hakımızda butonlarının üzerine gelindiğinde stil ayarları */
+.menu .item .button.primary:hover,
+.menu .item .button.primary:focus {
+    background-color: white !important;
+    color: red !important;
+}
+
+/*? Üye Girişi butonunun üzerine gelindiğinde stil ayarları */
+.menu .menu .item .button.primary:hover,
+.menu .menu .item .button.primary:focus {
+    background-color: white !important;
+    color: red !important;
+}

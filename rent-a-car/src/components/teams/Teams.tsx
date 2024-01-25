@@ -39,6 +39,7 @@ const Teams = (props: Props) => {
                     className="btn btn-dark btn-social mx-2"
                     href="https://twitter.com/kadir_aydemirr"
                     target="_blank"
+                    rel="noreferrer"
                     aria-label="Abdulkadir Aydemir Twitter Profile"
                   >
                     <i className="fab fa-twitter" />
@@ -47,6 +48,7 @@ const Teams = (props: Props) => {
                     className="btn btn-dark btn-social mx-2"
                     href="https://www.linkedin.com/in/abdulkadir-aydemir-571788243/"
                     target="_blank"
+                    rel="noreferrer"
                     aria-label="Abdulkadir Aydemir LinkedIn Profile"
                   >
                     <i className="fab fa-linkedin-in" />
@@ -66,6 +68,7 @@ const Teams = (props: Props) => {
                     className="btn btn-dark btn-social mx-2"
                     href="https://github.com/esrasrtkara"
                     target="_blank"
+                    rel="noreferrer"
                     aria-label="Esra Akbulut Github Profile"
                   >
                     <i className="fab fa-github" />
@@ -74,6 +77,7 @@ const Teams = (props: Props) => {
                     className="btn btn-dark btn-social mx-2"
                     href="#!"
                     target="_blank"
+                    rel="noreferrer"
                     aria-label="Esra Akbulut Facebook Profile"
                   >
                     <i className="fab fa-facebook-f" />
@@ -82,6 +86,7 @@ const Teams = (props: Props) => {
                     className="btn btn-dark btn-social mx-2"
                     href="https://www.linkedin.com/in/esra-akbulut-123463160/"
                     target="_blank"
+                    rel="noreferrer"
                     aria-label="Esra Akbulut LinkedIn Profile"
                   >
                     <i className="fab fa-linkedin-in" />
@@ -101,6 +106,7 @@ const Teams = (props: Props) => {
                     className="btn btn-dark btn-social mx-2"
                     href="https://github.com/mfu97"
                     target="_blank"
+                    rel="noreferrer"
                     aria-label="Fatih Ünal Github Profile"
                   >
                     <i className="fab fa-github" />
@@ -109,6 +115,7 @@ const Teams = (props: Props) => {
                     className="btn btn-dark btn-social mx-2"
                     href="#!"
                     target="_blank"
+                    rel="noreferrer"
                     aria-label="Fatih Ünal Facebook Profile"
                   >
                     <i className="fab fa-facebook-f" />
@@ -117,6 +124,7 @@ const Teams = (props: Props) => {
                     className="btn btn-dark btn-social mx-2"
                     href="https://www.linkedin.com/in/mehmetfatihunal/"
                     target="_blank"
+                    rel="noreferrer"
                     aria-label="Fatih Ünal LinkedIn Profile"
                   >
                     <i className="fab fa-linkedin-in" />
