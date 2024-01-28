@@ -25,8 +25,8 @@ const HomePage = (props: Props) => {
     <>
     <Container>
       <Row> 
-      {cars.map(car => (
-        <Col key={car.id} className='col-4'> 
+      {cars.map((car, i)=> (
+        <Col key={i} className='col-4'> 
           <CarCard car = {car}/>
         </Col>
         ))}

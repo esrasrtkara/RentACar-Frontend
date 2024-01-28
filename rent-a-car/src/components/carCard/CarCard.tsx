@@ -11,6 +11,7 @@ import {
 } from "mdb-react-ui-kit";
 import { CarModel } from "../../models/CarModel";
 import "./CarCard.css";
+import { Link } from "react-router-dom";
 
 type Props = {
   car: CarModel;
@@ -110,7 +111,7 @@ const CarCard = (props: Props) => {
               <MDBCardBody className="pb-0">
                 <div className="button d-flex justify-content-between align-items-center pb-2 mb-4">
                   <MDBBtn className="rent-button-left fw-bold" color="primary">
-                    Aracı İncele
+                   <Link className="link-left" to={"/cardetail"} > Aracı İncele</Link> 
                   </MDBBtn>
                   <MDBBtn className="rent-button fw-bold" color="danger">
                     Hemen Kİrala

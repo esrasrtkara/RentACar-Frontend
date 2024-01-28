@@ -1,15 +1,3 @@
-.button .rent-button {
-    background-color: #E44A48;
-    font-size: 14px;
-    border-radius: 8px;
-}
-
-.button .rent-button-left .link-left {
-    font-size: 14px;
-    border-radius: 8px;
-    color: #fff;
-}
-
 /*! İkona ve yazıya özel stil */
 
 .row .col-md-4 p.text-dark.description.font-lg {
