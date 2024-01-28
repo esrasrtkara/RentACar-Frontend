@@ -1,5 +1,4 @@
 export interface CarModel {
-	id: number;
 	kilometer: number;
 	year: number;
 	plate: string;
