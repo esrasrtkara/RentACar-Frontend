@@ -28,10 +28,25 @@
 
 .row .col-md-4 p.text-dark.description.font-lg {
     font-size: 17px; /* Yazı boyutu */
+    font-family: "Chakra Petch", sans-serif;
+    font-weight: 500;
 }
   
 /*! Yazı ve ikon arasındaki boşluğu ayarlamak için */
 
 .row .col-md-4 p.text-dark.description.font-lg i {
     margin-right: 5px;
+}
+
+/*! Yıldız İkonları */
+.star-icons .star{
+    color: #E44A48;
+    margin-top: 24px !important;
+}
+
+/*! Kart Başlığı */
+.header .card-title {
+    font-family: "Chakra Petch", sans-serif;
+    font-weight: 600;
+    font-size: 24px;
 }
