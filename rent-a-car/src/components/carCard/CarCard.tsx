@@ -44,22 +44,18 @@ const CarCard = (props: Props) => {
               </MDBRipple>
               <MDBCardBody className="pb-0">
                 <div className="d-flex justify-content-between">
-                  <div>
-                    <p>
-                      <a href="#!" className="text-dark">
-                        {props.car.modelName}
-                      </a>
-                    </p>
-                    <p className="small text-muted"></p>
+                  <div className="header mt-4">
+                    <h1 className="card-title  font-weight-bold">
+                      {props.car.modelName}
+                    </h1>
                   </div>
                   <div>
-                    <div className="d-flex flex-row justify-content-end mt-1 mb-4 text-danger">
-                      <MDBIcon fas icon="star" />
-                      <MDBIcon fas icon="star" />
-                      <MDBIcon fas icon="star" />
-                      <MDBIcon fas icon="star" />
+                    <div className="star-icons justify-content-end mb-4">
+                      <MDBIcon className="star" fas icon="star" />
+                      <MDBIcon className="star" fas icon="star" />
+                      <MDBIcon className="star" fas icon="star" />
+                      <MDBIcon className="star" fas icon="star" />
                     </div>
-                    <p className="small text-muted">Rated 4.0/5</p>
                   </div>
                 </div>
               </MDBCardBody>
@@ -111,7 +107,10 @@ const CarCard = (props: Props) => {
               <MDBCardBody className="pb-0">
                 <div className="button d-flex justify-content-between align-items-center pb-2 mb-4">
                   <MDBBtn className="rent-button-left fw-bold" color="primary">
-                   <Link className="link-left" to={"/cardetail"} > Aracı İncele</Link> 
+                    <Link className="link-left" to={"/cardetail"}>
+                      {" "}
+                      Aracı İncele
+                    </Link>
                   </MDBBtn>
                   <MDBBtn className="rent-button fw-bold" color="danger">
                     Hemen Kİrala

@@ -1,25 +1,51 @@
-/*! İkona ve yazıya özel stil */
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
 
-.row .col-md-4 p.text-dark.description.font-lg {
+/*! Araç İmage*/
+.car-image img{
+    margin-top: 100px;
+}
+
+/*! Kart Başlığı */
+.card-header .card-title {
+    font-family: "Chakra Petch", sans-serif;
+    font-weight: 600;
+}
+
+/*! Günlük Fiyat Bölümü */
+.daily-price .description{
+    margin-top: 1rem;
+    font-size: 2.8rem;
+    font-family: "Chakra Petch", sans-serif;
+    font-weight: 500;
+}
+
+/*! Yıldız İkonları */
+.star-icons .star{
+    margin-top: 1rem;
+    font-size: 1.3rem;
+    color: #E44A48;
+}
+
+/*! Detaylar Bölümü */
+.details {
+    margin-top: 1rem;
+}
+
+/*! Detaylar Bölümündeki Satırlar */
+.details .row {
+    margin-bottom: 1.5rem;
+}
+
+/*! İkonlu Satırlar */
+.details .row p {
     display: flex;
     align-items: center;
+    font-family: "Chakra Petch", sans-serif;
+    font-weight: 500;
+    font-size: 1.17rem;
 }
-  
-/*! İkona özel stil */
 
-.row .col-md-4 p.text-dark.description.font-lg i {
-    font-size: 15px; /* Özel ikon boyutu */
-    margin-right: 8px; /* İkondan yazıya olan boşluk */
-}
-  
-/*! Yazının genel stil */
-
-.row .col-md-4 p.text-dark.description.font-lg {
-    font-size: 17px; /* Yazı boyutu */
-}
-  
-/*! Yazı ve ikon arasındaki boşluğu ayarlamak için */
-
-.row .col-md-4 p.text-dark.description.font-lg i {
-    margin-right: 5px;
+/*! İkonlu Satırlardaki İkonlar */
+.details .row p i {
+    margin-right: 7px;
 }
