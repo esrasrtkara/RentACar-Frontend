@@ -12,12 +12,17 @@ import {
 import { CarModel } from "../../models/CarModel";
 import "./CarCard.css";
 import { Link } from "react-router-dom";
+import carService from "../../services/carService";
+import { GetAllCarResponse } from "../../models/responses/Car/getAllCarResponse";
 
 type Props = {
-  car: CarModel;
+  car:any
 };
 
 const CarCard = (props: Props) => {
+
+ 
+
   return (
     <>
       <MDBContainer fluid className="my-5">
@@ -30,7 +35,7 @@ const CarCard = (props: Props) => {
                 className="bg-image rounded hover-overlay"
               >
                 <MDBCardImage
-                  src={props.car.imagePath}
+                  src={""}
                   fluid
                   className="w-100"
                   style={{
@@ -46,7 +51,7 @@ const CarCard = (props: Props) => {
                 <div className="d-flex justify-content-between">
                   <div className="header mt-4">
                     <h1 className="card-title  font-weight-bold">
-                      {props.car.modelName}
+                      {"props.car.modelName"}
                     </h1>
                   </div>
                   <div>
@@ -65,19 +70,19 @@ const CarCard = (props: Props) => {
                   <div className="col-md-4">
                     <p className="text-dark description font-lg">
                       <i className="fas fa-dollar-sign" title="Daily Price"></i>{" "}
-                      {props.car.dailyPrice}
+                      {"props.car.dailyPrice"}
                     </p>
                   </div>
                   <div className="col-md-4">
                     <p className="text-dark description font-lg">
                       <i className="fas fa-users" title="Capacity"></i>{" "}
-                      {props.car.capacity + " Yetişkin"}
+                      {"props.car.capacity + " +"Yetişkin"}
                     </p>
                   </div>
                   <div className="col-md-4">
                     <p className="text-dark description font-lg">
                       <i className="fas fa-paint-brush" title="Color"></i>{" "}
-                      {props.car.colorName}
+                      {"props.car.colorName"}
                     </p>
                   </div>
                 </div>
@@ -85,19 +90,19 @@ const CarCard = (props: Props) => {
                   <div className="col-md-4">
                     <p className="text-dark description font-lg">
                       <i className="fas fa-road" title="Kilometer"></i>{" "}
-                      {props.car.kilometer + " Km"}
+                      {"props.car.kilometer "+ " Km"}
                     </p>
                   </div>
                   <div className="col-md-4">
                     <p className="text-dark description font-lg">
                       <i className="fas fa-calendar-alt" title="Year"></i>{" "}
-                      {props.car.year}
+                      {"props.car.year"}
                     </p>
                   </div>
                   <div className="col-md-4">
                     <p className="text-dark description font-lg">
                       <i className="fas fa-box" title="Trunk Volume"></i>{" "}
-                      {props.car.trunkVolume}
+                      {"props.car.trunkVolume"}
                     </p>
                   </div>
                 </div>

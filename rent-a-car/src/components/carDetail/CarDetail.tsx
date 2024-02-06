@@ -5,7 +5,7 @@ import {
   MDBIcon,
   MDBBtn,
 } from "mdb-react-ui-kit";
-import "./CarDetail.css";
+import "./carDetail.css"
 import Comments from "../comment/Comments";
 import { useNavigate } from "react-router-dom";
 
