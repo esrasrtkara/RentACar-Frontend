@@ -7,11 +7,19 @@ import {
 } from "mdb-react-ui-kit";
 import "./CarDetail.css";
 import Comments from "../comment/Comments";
+import { useNavigate } from "react-router-dom";
 
 type Props = {};
 
 
 const CarDetail = (props: Props) => {
+
+  const navigate = useNavigate();
+
+  const handleButtonClick = () => {
+    navigate('/rental');
+  };
+
   return (
     <>
       <MDBContainer fluid className="p-3 my-5">
@@ -103,6 +111,7 @@ const CarDetail = (props: Props) => {
               style={{ backgroundColor: "#E44A48" }}
               className="mb-4 w-100"
               size="lg"
+              onClick={handleButtonClick}
             >
               Hemen Kİrala
             </MDBBtn>

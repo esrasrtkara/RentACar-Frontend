@@ -4,6 +4,10 @@
     border-radius: 8px;
 }
 
+.button .rent-button .rent-btn{
+    color: #fff;
+}
+
 .button .rent-button-left .link-left {
     font-size: 14px;
     border-radius: 8px;

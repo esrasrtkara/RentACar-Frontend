@@ -7,6 +7,7 @@ import HomePage from './pages/HomePage';
 import Login from './pages/Login';
 import Signin from './pages/Signin';
 import CarDetail from './components/carDetail/CarDetail';
+import Rental from './components/carRental/Rental';
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
         <Route path='/login' element={<Login/>}/>
         <Route path='/signin' element={<Signin/>}/>
         <Route path='/cardetail' element={<CarDetail/>}/>
+        <Route path='/rental' element={<Rental/>}/>
       </Routes>
 
     </div>
