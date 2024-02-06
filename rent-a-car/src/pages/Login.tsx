@@ -1,4 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   MDBContainer,
   MDBCol,
@@ -8,12 +10,33 @@ import {
   MDBCheckbox,
 } from "mdb-react-ui-kit";
 import { Link } from "react-router-dom";
+import { loginRequest } from '../models/requests/Login/loginRequest';
+import authService from '../services/authService';
+import { setAccessToken } from '../store/auth/authSlice';
+import tokenService from '../services/tokenService';
 
 type Props = {};
 
 const Login = (props: Props) => {
-
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const accessToken = useSelector((state: any) => state.auth.accessToken);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const postData: loginRequest = {
+    email: email,
+    password: password,
+  };
+  const login = () => {
+    authService.login(postData).then((response) => {
+  
+      dispatch(setAccessToken(postData.email));
+      tokenService.setToken(response.data);
+      console.log(response.data);
+    });
+  };
+
   return (
     <>
       <MDBContainer fluid className="p-3 my-5">
@@ -33,6 +56,8 @@ const Login = (props: Props) => {
               id="formControlLg"
               type="email"
               size="lg"
+              value={email}
+              onChange={(e)=>setEmail(e.target.value)}
             />
             <MDBInput
               wrapperClass="mb-4"
@@ -40,6 +65,8 @@ const Login = (props: Props) => {
               id="formControlLg"
               type="password"
               size="lg"
+              value={password}
+              onChange={(e)=>setPassword(e.target.value)}
             />
 
             <div className="d-flex justify-content-between mx-4 mb-4">
@@ -56,6 +83,10 @@ const Login = (props: Props) => {
               style={{ backgroundColor: "#E44A48" }}
               className="mb-4 w-100"
               size="lg"
+              onClick={()=>{
+                login();
+                navigate('/')
+              }}
             >
               Log in
             </MDBBtn>

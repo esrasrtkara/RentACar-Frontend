@@ -1,5 +1,5 @@
 import axiosInstance from "../core/utils/interceptors/axiosInterceptors";
-import { loginRequest } from "../models/requests/loginRequest";
+import { loginRequest } from "../models/requests/Login/loginRequest";
 import { AxiosResponse } from 'axios';
 
 class AuthService{
