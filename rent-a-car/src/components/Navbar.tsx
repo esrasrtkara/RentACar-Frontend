@@ -35,9 +35,9 @@ const Navbar = (props: Props) => {
           </DropdownMenu>
         </Dropdown>
 
-        <MenuItem>
+        <Dropdown>
           <Button primary><i className="fas fa-right-to-bracket"></i> Üye Girişi</Button>
-        </MenuItem>
+        </Dropdown>
       </MenuMenu>
     </Menu>
   );
