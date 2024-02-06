@@ -5,6 +5,8 @@ import { AddCarResponse } from "../models/responses/Car/addCarResponse";
 import { GetByIdCarResponse } from "../models/responses/Car/getByIdCarResponse";
 import { UpdateCarResponse } from "../models/responses/Car/updateCarResponse";
 import { BaseService } from "./baseService";
+import axiosInstance from '../core/utils/interceptors/axiosInterceptors';
+import {AxiosResponse} from "axios";
 
 class CarService extends BaseService<
     GetAllCarResponse,
@@ -18,5 +20,9 @@ class CarService extends BaseService<
         super();
         this.apiUrl = "cars";
     }
+
+   /* getById(id: number): Promise<AxiosResponse<GetByIdCarResponse, any>> {
+		return axiosInstance.get<GetByIdCarResponse>(this.apiUrl);
+	}*/
 }
 export default new CarService();
