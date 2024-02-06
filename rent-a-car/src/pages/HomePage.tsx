@@ -15,7 +15,7 @@ type Props = {};
 
 const HomePage = (props: Props) => {
   const dispatch = useDispatch();
-  const cars = useSelector((state: any) => state.auth.cars);
+  const cars = useSelector((state:any) => state.car.cars);
   useEffect(() => {
     getCars();
   }, [])
@@ -33,11 +33,11 @@ const HomePage = (props: Props) => {
     <>
     <Container>
       <Row> 
-      {/**  {cars.map((car:any,i:number)=> (
+        {cars.map((car:GetAllCarResponse,i:number)=> (
         <Col key={i} className='col-4'> 
           <CarCard car ={car} />
         </Col>
-        ))}*/}
+        ))}
       </Row>
     </Container>
     <Teams />
