@@ -49,3 +49,8 @@
 .details .row p i {
     margin-right: 7px;
 }
+
+/*! rental button*/
+.rent-btn {
+    color: #ffffff;
+}
