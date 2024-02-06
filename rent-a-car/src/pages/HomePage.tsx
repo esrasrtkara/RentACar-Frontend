@@ -1,11 +1,11 @@
 
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
-import CarCard from "../components/CarCard";
+import { useEffect, useState } from 'react'
+import CarCard from "../components/carCard/CarCard";
 import { Col, Container, Row } from "react-bootstrap";
-import Teams from "../components/Teams";
-import Footer from "../components/Footer";
+import Teams from "../components/teams/Teams";
 import { CarModel } from "../models/CarModel";
+import Footer from '../components/footer/Footer';
 
 type Props = {};
 
@@ -25,8 +25,8 @@ const HomePage = (props: Props) => {
     <>
     <Container>
       <Row> 
-      {cars.map(car => (
-        <Col> 
+      {cars.map((car, i)=> (
+        <Col key={i} className='col-4'> 
           <CarCard car = {car}/>
         </Col>
         ))}

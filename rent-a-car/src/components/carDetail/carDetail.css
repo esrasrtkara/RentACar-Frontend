@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
+
+/*! Araç İmage*/
+.car-image img{
+    margin-top: 100px;
+}
+
+/*! Kart Başlığı */
+.card-header .card-title {
+    font-family: "Chakra Petch", sans-serif;
+    font-weight: 600;
+}
+
+/*! Günlük Fiyat Bölümü */
+.daily-price .description{
+    margin-top: 1rem;
+    font-size: 2.8rem;
+    font-family: "Chakra Petch", sans-serif;
+    font-weight: 500;
+}
+
+/*! Yıldız İkonları */
+.star-icons .star{
+    margin-top: 1rem;
+    font-size: 1.3rem;
+    color: #E44A48;
+}
+
+/*! Detaylar Bölümü */
+.details {
+    margin-top: 1rem;
+}
+
+/*! Detaylar Bölümündeki Satırlar */
+.details .row {
+    margin-bottom: 1.5rem;
+}
+
+/*! İkonlu Satırlar */
+.details .row p {
+    display: flex;
+    align-items: center;
+    font-family: "Chakra Petch", sans-serif;
+    font-weight: 500;
+    font-size: 1.17rem;
+}
+
+/*! İkonlu Satırlardaki İkonlar */
+.details .row p i {
+    margin-right: 7px;
+}
+
+/*! rental button*/
+.rent-btn {
+    color: #ffffff;
+}

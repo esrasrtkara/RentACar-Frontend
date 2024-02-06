@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
+
+.comment-header .card-title {
+    font-family: "Chakra Petch", sans-serif;
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+
+.comment-title {
+    margin-left: 160px;
+    margin-bottom: 25px;
+}
+
+.comment-button {
+    margin-left: 550px;
+}
+
+.comment-img {
+    margin-left: 135px;
+}
+
+.comment-text {
+    font-family: "Chakra Petch", sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    margin-left: 25px;
+}
+
+.like-delete-button {
+    margin-left: 25px;
+}
+
+.like-delete-button .like-button {
+    margin-right: 8px;
+}
