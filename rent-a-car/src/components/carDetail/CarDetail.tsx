@@ -8,30 +8,25 @@ import {
 import "./carDetail.css"
 import Comments from "../comment/Comments";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { GetByIdCarResponse } from "../../models/responses/Car/getByIdCarResponse";
 import carService from "../../services/carService";
-import React, { useEffect,useState } from 'react';
-import { GetAllCarResponse } from "../../models/responses/Car/getAllCarResponse";
+import { useEffect,useState } from 'react';
 
 type Props = {
  
 };
 
-
 const CarDetail = (props: Props) => {
 
   const carId = useSelector((state: any) => state.carId.carId);
 
-
   const [car, setCar] = useState<GetByIdCarResponse>()
 
-  
   useEffect(() => {
     getByIdCars();
   }, [])
   
-
   const getByIdCars = () => {
     carService.getById(carId).then((response)=>{
       console.log(response.data);
@@ -39,11 +34,6 @@ const CarDetail = (props: Props) => {
     }) 
   }
 
-
-
- 
-
- 
 
   const navigate = useNavigate();
 

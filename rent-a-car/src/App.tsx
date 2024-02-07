@@ -1,4 +1,3 @@
-import React from 'react';
 import './App.css';
 import 'semantic-ui-css/semantic.min.css'
 import Navbar from './components/navbar/Navbar';
@@ -13,7 +12,6 @@ import Rental from './components/carRental/Rental';
 function App() {
   return (
     <div className="App">
-
       <Navbar/>
       <Routes>
         <Route path='/' element={<HomePage/>}/>
@@ -22,7 +20,6 @@ function App() {
         <Route path='/cardetail' element={<CarDetail/>}/>
         <Route path='/rental' element={<Rental/>}/>
       </Routes>
-
     </div>
   );
 }

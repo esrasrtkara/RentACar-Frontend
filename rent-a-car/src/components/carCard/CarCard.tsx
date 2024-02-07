@@ -9,12 +9,9 @@ import {
   MDBBtn,
   MDBRipple,
 } from "mdb-react-ui-kit";
-import { CarModel } from "../../models/CarModel";
 import "./CarCard.css";
 import { Link } from "react-router-dom";
-import carService from "../../services/carService";
 import { GetAllCarResponse } from "../../models/responses/Car/getAllCarResponse";
-import CarDetail from "../carDetail/CarDetail";
 import { useDispatch, useSelector } from 'react-redux';
 import { setCarId } from "../../store/carId/carIdSlice";
 
@@ -24,7 +21,6 @@ type Props = {
 
 const CarCard = (props: Props) => {
 
-
   const carId = useSelector((state: any) => state.carId.carId);
   const dispatch = useDispatch();
 
@@ -32,9 +28,6 @@ const CarCard = (props: Props) => {
     dispatch(setCarId(props.car.id))
   }
   
-
- 
-
   return (
     <>
       <MDBContainer fluid className="my-5">
@@ -88,7 +81,7 @@ const CarCard = (props: Props) => {
                   <div className="col-md-4">
                     <p className="text-dark description font-lg">
                       <i className="fas fa-users" title="Capacity"></i>{" "}
-                      {props.car.capacity +"Yetişkin"}
+                      {props.car.capacity +" Yetişkin"}
                     </p>
                   </div>
                   <div className="col-md-4">
@@ -124,8 +117,7 @@ const CarCard = (props: Props) => {
               <MDBCardBody className="pb-0">
                 <div className="button d-flex justify-content-between align-items-center pb-2 mb-4">
                   <MDBBtn className="rent-button-left fw-bold" color="primary" onClick={handleCarId}>
-                  
-                  
+                                 
                     <Link className="link-left" to={"/cardetail"}>
                       {" "}
                       Aracı İncele 
