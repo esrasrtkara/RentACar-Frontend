@@ -130,7 +130,7 @@ const CarCard = (props: Props) => {
                       {" "}
                       Aracı İncele 
                     </Link>
-                    o
+                    
                   </MDBBtn>
                   <MDBBtn className="rent-button fw-bold" color="danger">
                    <Link  className="rent-btn" to={"/rental"}> Hemen Kİrala </Link>

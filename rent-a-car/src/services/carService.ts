@@ -21,8 +21,6 @@ class CarService extends BaseService<
         this.apiUrl = "cars";
     }
 
-   /* getById(id: number): Promise<AxiosResponse<GetByIdCarResponse, any>> {
-		return axiosInstance.get<GetByIdCarResponse>(this.apiUrl);
-	}*/
+   
 }
 export default new CarService();
