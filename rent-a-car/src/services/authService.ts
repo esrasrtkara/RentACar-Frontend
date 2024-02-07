@@ -1,4 +1,5 @@
 import axiosInstance from "../core/utils/interceptors/axiosInterceptors";
+import { CustomerRequest } from "../models/requests/Customer/customerRequest";
 import { loginRequest } from "../models/requests/Login/loginRequest";
 import { AxiosResponse } from 'axios';
 
@@ -11,6 +12,7 @@ class AuthService{
     login(request:loginRequest): Promise<AxiosResponse<string,any>>{
         return axiosInstance.post<string>(this.apiUrl, request);
     }
+    
 
 }
 

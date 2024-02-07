@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState ,useEffect} from "react";
 import {
   MDBContainer,
   MDBTabs,
@@ -12,10 +12,60 @@ import {
   MDBRow,
   MDBCol,
 } from "mdb-react-ui-kit";
+import customerService from "../services/customerService";
+import { AddCustomerRequest } from "../models/requests/Customer/addCustomerRequest";
+import { CustomerRequest } from "../models/requests/Customer/customerRequest";
+import authService from "../services/authService";
+import authCustomer from "../services/authCustomer";
+import authCorporate from "../services/authCorporate";
+import { CorporateRequest } from "../models/requests/Corporate/CorporateRequest";
 
 type Props = {};
 
 const Signin = (props: Props) => {
+
+  const [firstName, setFirstName] = useState("")
+  const [lastName, setLastName] = useState("")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [companyName, setCompanyName] = useState("")
+  const [taxNo, setTaxNo] = useState("")
+  const postData:CustomerRequest = {
+    firstName:firstName,
+    lastName:lastName,
+    email:email,
+    password:password
+  }
+
+  const postData2:CorporateRequest={
+  email: email,
+	password: password,
+	companyName: companyName,
+	taxNo: taxNo
+  }
+
+ 
+
+  const handleCustomer = ()=>{
+    authCustomer.customer(postData).then((res)=>{
+      console.log(res.data)
+     })
+
+  }
+
+  const handleCorporate = () =>{
+    authCorporate.corporate(postData2).then((res)=>{
+      console.log(res.data)
+    })
+  }
+ 
+
+
+
+
+
+
+//Customer-CorporateCustomer
   const [justifyActive, setJustifyActive] = useState("tab1");
 
   const handleJustifyClick = (value: string) => {
@@ -25,6 +75,8 @@ const Signin = (props: Props) => {
 
     setJustifyActive(value);
   };
+
+
 
   return (
     <>
@@ -79,6 +131,8 @@ const Signin = (props: Props) => {
                   label="Name"
                   id="form1"
                   type="text"
+                  value={firstName}
+                  onChange={(e)=>setFirstName(e.target.value)}
                 />
 
                 <MDBInput
@@ -86,6 +140,8 @@ const Signin = (props: Props) => {
                   label="Surname"
                   id="form1"
                   type="text"
+                  value={lastName}
+                  onChange={(e)=>setLastName(e.target.value)}
                 />
 
                 <MDBInput
@@ -93,12 +149,16 @@ const Signin = (props: Props) => {
                   label="Email address"
                   id="form1"
                   type="email"
+                  value={email}
+                  onChange={(e)=>setEmail(e.target.value)}
                 />
                 <MDBInput
                   wrapperClass="mb-4"
                   label="Password"
                   id="form2"
                   type="password"
+                  value={password}
+                  onChange={(e)=>setPassword(e.target.value)}
                 />
 
                 <div className="d-flex justify-content-center mb-4">
@@ -109,7 +169,7 @@ const Signin = (props: Props) => {
                   />
                 </div>
 
-                <MDBBtn className="mb-4 w-100">Sign up</MDBBtn>
+                <MDBBtn className="mb-4 w-100" onClick={handleCustomer}>Sign up</MDBBtn>
               </MDBTabsPane>
 
               <MDBTabsPane open={justifyActive === "tab2"}>
@@ -118,24 +178,32 @@ const Signin = (props: Props) => {
                   label="Company Name"
                   id="form1"
                   type="text"
+                  value={companyName}
+                  onChange={(e)=>setCompanyName(e.target.value)}
                 />
                 <MDBInput
                   wrapperClass="mb-4"
                   label="Tax Number"
                   id="form1"
                   type="number"
+                  value={taxNo}
+                  onChange={(e)=>setTaxNo(e.target.value)}
                 />
                 <MDBInput
                   wrapperClass="mb-4"
                   label="Email"
                   id="form1"
                   type="email"
+                  value={email}
+                  onChange={(e)=>setEmail(e.target.value)}
                 />
                 <MDBInput
                   wrapperClass="mb-4"
                   label="Password"
                   id="form1"
                   type="password"
+                  value={password}
+                  onChange={(e)=>setPassword(e.target.value)}
                 />
 
                 <div className="d-flex justify-content-center mb-4">
@@ -146,7 +214,7 @@ const Signin = (props: Props) => {
                   />
                 </div>
 
-                <MDBBtn className="mb-4 w-100">Sign up</MDBBtn>
+                <MDBBtn className="mb-4 w-100" onClick={handleCorporate}>Sign up</MDBBtn>
               </MDBTabsPane>
             </MDBTabsContent>
           </MDBCol>
