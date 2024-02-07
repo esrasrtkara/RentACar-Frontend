@@ -17,6 +17,7 @@ import { CustomerRequest } from "../models/requests/Customer/customerRequest";
 import authCustomer from "../services/authCustomer";
 import authCorporate from "../services/authCorporate";
 import { CorporateRequest } from "../models/requests/Corporate/CorporateRequest";
+import { useNavigate } from "react-router-dom";
 
 type Props = {};
 
@@ -42,10 +43,13 @@ const Signin = (props: Props) => {
     taxNo: taxNo,
   };
 
+  const navigate = useNavigate();
+
   const handleCustomer = () => {
     if (validateEmail(email) && validatePassword(password) && agreeTerms) {
       authCustomer.customer(postData).then((res) => {
         console.log(res.data);
+        navigate('/login');
       });
       setFirstName("");
       setLastName("");
@@ -68,6 +72,7 @@ const Signin = (props: Props) => {
     if (validateEmail(email) && validatePassword(password)) {
       authCorporate.corporate(postData2).then((res) => {
         console.log(res.data);
+        navigate('/login');
       });
       setCompanyName("");
       setTaxNo("");
