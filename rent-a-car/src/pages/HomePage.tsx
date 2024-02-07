@@ -1,11 +1,10 @@
 
 import axios from 'axios'
-import { useEffect, useState } from 'react'
+import { useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import CarCard from "../components/carCard/CarCard";
 import { Col, Container, Row } from "react-bootstrap";
 import Teams from "../components/teams/Teams";
-import { CarModel } from "../models/CarModel";
 import Footer from '../components/footer/Footer';
 import carService from '../services/carService';
 import { GetAllCarResponse } from '../models/responses/Car/getAllCarResponse';

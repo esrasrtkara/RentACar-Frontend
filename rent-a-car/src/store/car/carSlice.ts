@@ -16,5 +16,4 @@ const carSlice = createSlice({
 
 export const {setCars ,clearCars} = carSlice.actions;
 export const selectCars =(state:any) => state.car.cars;
-
 export const carReducer = carSlice.reducer;
