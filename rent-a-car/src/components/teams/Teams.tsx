@@ -6,7 +6,7 @@ type Props = {};
 const Teams = (props: Props) => {
   return (
       <>
-        <section className="page-section bg-light" id="team">
+        <section className="page-section" id="team">
           <div className="container">
             <div className="text-center">
               <h2 className="section-heading text-uppercase">
@@ -17,7 +17,7 @@ const Teams = (props: Props) => {
               </h3>
             </div>
             <div className="row">
-              <div className="col-lg-4">
+              <div className="col-lg-6">
                 <div className="team-member">
                   <img
                     className="mx-auto rounded-circle"
@@ -55,7 +55,7 @@ const Teams = (props: Props) => {
                   </a>
                 </div>
               </div>
-              <div className="col-lg-4">
+              <div className="col-lg-6">
                 <div className="team-member">
                   <img
                     className="mx-auto rounded-circle"
@@ -93,49 +93,11 @@ const Teams = (props: Props) => {
                   </a>
                 </div>
               </div>
-              <div className="col-lg-4">
-                <div className="team-member">
-                  <img
-                    className="mx-auto rounded-circle"
-                    src="https://avatars.githubusercontent.com/u/92528891?v=4"
-                    alt="..."
-                  />
-                  <h4>Mehmet Fatih Ünal</h4>
-                  <p className="text-muted">Full Stack Developer</p>
-                  <a
-                    className="btn btn-dark btn-social mx-2"
-                    href="https://github.com/mfu97"
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label="Fatih Ünal Github Profile"
-                  >
-                    <i className="fab fa-github" />
-                  </a>
-                  <a
-                    className="btn btn-dark btn-social mx-2"
-                    href="#!"
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label="Fatih Ünal Facebook Profile"
-                  >
-                    <i className="fab fa-facebook-f" />
-                  </a>
-                  <a
-                    className="btn btn-dark btn-social mx-2"
-                    href="https://www.linkedin.com/in/mehmetfatihunal/"
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label="Fatih Ünal LinkedIn Profile"
-                  >
-                    <i className="fab fa-linkedin-in" />
-                  </a>
-                </div>
-              </div>
             </div>
             <div className="row">
               <div className="col-lg-8 mx-auto text-center">
                 <p className="large text-muted">
-                  AUTOPIA RENT A CAR PROJESİ <br/> İSTANBUL KODLUYOR PROGRAMI KAPSAMINDA <br/> TOBETO PLATFORMU İLE HAZIRLANMIŞTIR
+                  AUTOPIA RENT A CAR PROJESİ <br/> İSTANBUL KODLUYOR PROGRAMI KAPSAMINDA <br/> HAZIRLANMIŞTIR
                 </p>
               </div>
             </div>
