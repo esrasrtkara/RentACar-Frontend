@@ -16,5 +16,4 @@ const carIdSlice = createSlice({
 
 export const {setCarId ,clearCarId} = carIdSlice.actions;
 export const selectCarId =(state:any) => state.carId.carId;
-
 export const carIdReducer = carIdSlice.reducer;

@@ -1,35 +1,79 @@
 @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
 
 .comment-header .card-title {
-    font-family: "Chakra Petch", sans-serif;
-    font-weight: 600;
-    margin-bottom: 30px;
+  font-family: 'Chakra Petch', sans-serif;
+  font-weight: 600;
 }
 
 .comment-title {
+  margin-left: 160px;
+  margin-bottom: 25px;
+}
+
+.bg-border {
+  border: 1px solid #e44b4825;
+  background-color: #e44b4806;
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.no-data {
+  margin-top: 32px;
+  font-size: 28px;
+  font-weight: 800;
+  opacity: 0.5;
+  text-align: center;
+}
+
+.comment-container {
+  width: max-content !important;
+  position: absolute;
+  right: 120px;
+}
+
+.semi-container {
+  position: relative;
+  height: 400px;
+}
+
+
+.mrl{
     margin-left: 160px;
-    margin-bottom: 25px;
+    height: 100px;
+}
+
+.mrl input{
+    height: 120px !important;
 }
 
 .comment-button {
-    margin-left: 550px;
+  position: absolute;
+  right: 135px;
+  bottom: 0;
+  width: 140px !important;
 }
 
 .comment-img {
-    margin-left: 135px;
+  margin-left: 135px;
 }
 
 .comment-text {
-    font-family: "Chakra Petch", sans-serif;
-    font-weight: 600;
-    font-size: 20px;
-    margin-left: 25px;
+  font-family: 'Chakra Petch', sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  margin-left: 25px;
 }
 
 .like-delete-button {
-    margin-left: 25px;
+  margin-left: 25px;
 }
 
 .like-delete-button .like-button {
-    margin-right: 8px;
+  margin-right: 8px;
+}
+
+.comm {
+  border: 1px solid red;
+  display: flex;
+  justify-content: space-between;
 }
