@@ -128,7 +128,7 @@ const Comments = (props: Props) => {
         </MDBRow>
 
         {/* Yapılan Yorumlar */}
-        {comments.length != 0 ? (
+        {comments.length !== 0 ? (
           comments.map((comment) => (
             <MDBRow
               key={comment.id}

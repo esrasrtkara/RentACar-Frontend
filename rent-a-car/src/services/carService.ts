@@ -19,4 +19,5 @@ class CarService extends BaseService<
         this.apiUrl = "cars";
     }
 }
-export default new CarService();
+const carService = new CarService();
+export default carService

@@ -11,4 +11,5 @@ class AuthCustomer{
         return axiosInstance.post<string>(this.apiUrl,request)
     }
 }
-export default new AuthCustomer();
+const authCustomer = new AuthCustomer();
+export default authCustomer
