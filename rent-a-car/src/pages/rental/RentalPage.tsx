@@ -5,12 +5,13 @@ import { useEffect, useState } from 'react';
 import carService from '../../services/carService';
 import { GetByIdCarResponse } from '../../models/responses/Car/getByIdCarResponse';
 import Layout from '../../components/layout/Layout';
+import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css';
 
 type Props = {};
 
 const RentalPage = (props: Props) => {
   const carId = useSelector((state: any) => state.carId.carId);
-
   const [car, setCar] = useState<GetByIdCarResponse>();
 
   useEffect(() => {
@@ -25,6 +26,18 @@ const RentalPage = (props: Props) => {
   };
 
   // Date Picker
+
+  const [startDate, setStartDate] = useState<Date>(new Date());
+  const maxEndDate = new Date();
+  maxEndDate.setDate(startDate.getDate() + 24);
+  const [endDate, setEndDate] = useState<Date>(maxEndDate);
+
+  const handleStartDateChange = (date: Date) => {
+    setStartDate(date);
+    const newMaxEndDate = new Date(date);
+    newMaxEndDate.setDate(date.getDate() + 24);
+    setEndDate(newMaxEndDate);
+  };
 
   return (
     <Layout>
@@ -81,7 +94,31 @@ const RentalPage = (props: Props) => {
             </div>
           </MDBCol>
 
-          <MDBCol md="6" lg="5" xl="5"></MDBCol>
+          <MDBCol md="6" lg="5" xl="5">
+            <div>
+              <DatePicker
+                className="custom-datepicker"
+                selected={startDate}
+                onChange={handleStartDateChange}
+                startDate={startDate}
+                endDate={endDate}
+                selectsStart
+                maxDate={endDate}
+                dateFormat="dd/MM/yyyy"
+              />
+              <DatePicker
+                className="custom-datepicker"
+                selected={endDate}
+                onChange={(date:Date) => setEndDate(date as Date)}
+                startDate={startDate}
+                endDate={endDate}
+                selectsEnd
+                minDate={startDate}
+                maxDate={endDate}
+                dateFormat="dd/MM/yyyy"
+              />
+            </div>
+          </MDBCol>
         </MDBRow>
       </MDBContainer>
     </Layout>

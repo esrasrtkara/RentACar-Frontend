@@ -24,12 +24,12 @@ import Layout from '../components/layout/Layout';
 type Props = {};
 
 const Signin = (props: Props) => {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [companyName, setCompanyName] = useState('');
-  const [taxNo, setTaxNo] = useState('');
+  const [firstName, setFirstName] = useState<string>('');
+  const [lastName, setLastName] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [companyName, setCompanyName] = useState<string>('');
+  const [taxNo, setTaxNo] = useState<string>('');
 
   const postData: CustomerRequest = {
     firstName: firstName,
@@ -47,16 +47,22 @@ const Signin = (props: Props) => {
 
   const navigate = useNavigate();
 
+  // Toastify
+  const notify = () => toast.success('Kaydınız Başarıyla Oluştu');
+
   const handleCustomer = () => {
     if (validateEmail(email) && validatePassword(password) && agreeTerms) {
       authCustomer.customer(postData).then((res) => {
         console.log(res.data);
-        navigate('/login');
       });
       setFirstName('');
       setLastName('');
       setEmail('');
       setPassword('');
+      notify();
+      setTimeout(() => {
+        navigate('/login');
+      }, 5800);
     } else {
       if (!validateEmail(email)) {
         setEmailError('Geçersiz email adresi');
@@ -74,12 +80,15 @@ const Signin = (props: Props) => {
     if (validateEmail(email) && validatePassword(password) && agreeTerms) {
       authCorporate.corporate(postData2).then((res) => {
         console.log(res.data);
-        navigate('/login');
       });
       setCompanyName('');
       setTaxNo('');
       setEmail('');
       setPassword('');
+      notify();
+      setTimeout(() => {
+        navigate('/login');
+      }, 5800);
     } else {
       if (!validateEmail(email)) {
         setEmailError('Geçersiz email adresi');
@@ -92,6 +101,7 @@ const Signin = (props: Props) => {
       }
     }
   };
+
 
   // Customer-CorporateCustomer Input Alanı
   const [justifyActive, setJustifyActive] = useState('tab1');
@@ -156,8 +166,6 @@ const Signin = (props: Props) => {
     setAgreeTerms(!agreeTerms);
   };
 
-  // Toastify
-  const notify = () => toast.success('Kaydınız Başarıyla Oluştu');
   return (
     <Layout>
       <MDBContainer className="p-3 my-5">
@@ -268,10 +276,7 @@ const Signin = (props: Props) => {
 
                 <MDBBtn
                   className="mb-4 w-100"
-                  onClick={() => {
-                    handleCustomer();
-                    notify();
-                  }}
+                  onClick={handleCustomer}
                   disabled={!agreeTerms}>
                   Sign up
                 </MDBBtn>
@@ -353,10 +358,7 @@ const Signin = (props: Props) => {
 
                 <MDBBtn
                   className="mb-4 w-100"
-                  onClick={() => {
-                    handleCorporate();
-                    notify();
-                  }}
+                  onClick={handleCorporate}
                   disabled={!agreeTerms}>
                   Sign up
                 </MDBBtn>

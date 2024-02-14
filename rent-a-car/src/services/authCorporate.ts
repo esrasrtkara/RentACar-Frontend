@@ -13,4 +13,5 @@ class AuthCorporate{
     }
 
 }
-export default new AuthCorporate();
+const authCorporate = new AuthCorporate();
+export default authCorporate
