@@ -5,12 +5,12 @@ import { useEffect, useState } from 'react';
 import carService from '../../services/carService';
 import { GetByIdCarResponse } from '../../models/responses/Car/getByIdCarResponse';
 import Layout from '../../components/layout/Layout';
-import DatePicker from 'react-datepicker'
+import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
 type Props = {};
 
-const RentalPage = (props: Props) => {
+const RentalPage = () => {
   const carId = useSelector((state: any) => state.carId.carId);
   const [car, setCar] = useState<GetByIdCarResponse>();
 
@@ -20,23 +20,46 @@ const RentalPage = (props: Props) => {
 
   const getByIdCars = () => {
     carService.getById(carId).then((response) => {
-      console.log(response.data);
+      //console.log(response.data);
       setCar(response.data);
     });
   };
 
   // Date Picker
 
-  const [startDate, setStartDate] = useState<Date>(new Date());
-  const maxEndDate = new Date();
-  maxEndDate.setDate(startDate.getDate() + 24);
-  const [endDate, setEndDate] = useState<Date>(maxEndDate);
+  const [startDate, setStartDate] = useState<Date | null>(new Date());
+  const [endDate, setEndDate] = useState<Date | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [dayDifference, setDayDifference] = useState<number | null>(null);
 
-  const handleStartDateChange = (date: Date) => {
-    setStartDate(date);
-    const newMaxEndDate = new Date(date);
-    newMaxEndDate.setDate(date.getDate() + 24);
-    setEndDate(newMaxEndDate);
+  const handleStartDateChange = (date: Date | null) => {
+    if (date && date >= new Date()) {
+      setStartDate(date);
+      setErrorMessage(null);
+      if (endDate) {
+        const differenceInTime = endDate.getTime() - date.getTime();
+        const differenceInDays = Math.ceil(
+          differenceInTime / (1000 * 3600 * 24)
+        );
+        if (differenceInDays > 25) {
+          setErrorMessage('Hata: Tarih aralığı 25 günden fazla olamaz');
+        }
+        setDayDifference(differenceInDays);
+      }
+    }
+  };
+
+  const handleEndDateChange = (date: Date | null) => {
+    setEndDate(date);
+    setErrorMessage(null);
+    if (startDate && date) {
+      const differenceInTime = date.getTime() - startDate.getTime();
+      const differenceInDays = Math.ceil(differenceInTime / (1000 * 3600 * 24));
+      if (differenceInDays > 25) {
+        setErrorMessage('Hata: Tarih aralığı 25 günden fazla olamaz');
+      }
+      setDayDifference(differenceInDays);
+    }
   };
 
   return (
@@ -95,28 +118,38 @@ const RentalPage = (props: Props) => {
           </MDBCol>
 
           <MDBCol md="6" lg="5" xl="5">
-            <div>
+            <div className="datepicker">
+              <div className="date-labels">
+                <h4 className="label1">Araç Kiralama Tarihi</h4>
+                <h4 className="label2">Araç Geri Dönüş Tarihi</h4>
+              </div>
+              {errorMessage && <div>{errorMessage}</div>}
               <DatePicker
                 className="custom-datepicker"
                 selected={startDate}
                 onChange={handleStartDateChange}
+                selectsStart
                 startDate={startDate}
                 endDate={endDate}
-                selectsStart
                 maxDate={endDate}
+                minDate={new Date()}
                 dateFormat="dd/MM/yyyy"
+                placeholderText="Başlangıç Tarihi"
               />
               <DatePicker
-                className="custom-datepicker"
+                className="custom-datepicker datepicker-left"
                 selected={endDate}
-                onChange={(date:Date) => setEndDate(date as Date)}
+                onChange={handleEndDateChange}
+                selectsEnd
                 startDate={startDate}
                 endDate={endDate}
-                selectsEnd
                 minDate={startDate}
-                maxDate={endDate}
                 dateFormat="dd/MM/yyyy"
+                placeholderText="Bitiş Tarihi"
               />
+              {dayDifference !== null && (
+                <div className='days-label'><label>Seçili gün miktarı: {dayDifference}</label></div>
+              )}
             </div>
           </MDBCol>
         </MDBRow>
