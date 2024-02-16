@@ -8,44 +8,43 @@ import {
   MDBIcon,
   MDBBtn,
   MDBRipple,
-} from "mdb-react-ui-kit";
-import "./CarCard.css";
-import { Link } from "react-router-dom";
-import { GetAllCarResponse } from "../../models/responses/Car/getAllCarResponse";
+} from 'mdb-react-ui-kit';
+import './CarCard.css';
+import { Link } from 'react-router-dom';
+import { GetAllCarResponse } from '../../models/responses/Car/getAllCarResponse';
 import { useDispatch, useSelector } from 'react-redux';
-import { setCarId } from "../../store/carId/carIdSlice";
+import { setCarId } from '../../store/carId/carIdSlice';
 
 type Props = {
-  car:GetAllCarResponse
+  car: GetAllCarResponse;
 };
 
 const CarCard = (props: Props) => {
+  useSelector((state: any) => state.carId.carId);
 
-  const carId = useSelector((state: any) => state.carId.carId);
   const dispatch = useDispatch();
 
-  const handleCarId = () =>{
-    dispatch(setCarId(props.car.id))
-  }
-  
+  const handleCarId = () => {
+    dispatch(setCarId(props.car.id));
+  };
+
   return (
     <>
       <MDBContainer fluid className="my-5">
         <MDBRow className="justify-content-center">
           <MDBCol md="6" lg="12" xl="12">
-            <MDBCard style={{ borderRadius: "20px" }}>
+            <MDBCard style={{ borderRadius: '20px' }}>
               <MDBRipple
                 rippleColor="lights"
                 rippleTag="div"
-                className="bg-image rounded hover-overlay"
-              >
+                className="bg-image rounded hover-overlay">
                 <MDBCardImage
                   src={props.car.imagePath}
                   fluid
                   className="w-100"
                   style={{
-                    borderTopLeftRadius: "15px",
-                    borderTopRightRadius: "15px",
+                    borderTopLeftRadius: '15px',
+                    borderTopRightRadius: '15px',
                   }}
                 />
                 <a href="#!">
@@ -74,19 +73,19 @@ const CarCard = (props: Props) => {
                 <div className="row">
                   <div className="col-md-4">
                     <p className="text-dark description font-lg">
-                      <i className="fas fa-dollar-sign" title="Daily Price"></i>{" "}
+                      <i className="fas fa-dollar-sign" title="Daily Price"></i>{' '}
                       {props.car.dailyPrice}
                     </p>
                   </div>
                   <div className="col-md-4">
                     <p className="text-dark description font-lg">
-                      <i className="fas fa-users" title="Capacity"></i>{" "}
-                      {props.car.capacity +" Yetişkin"}
+                      <i className="fas fa-users" title="Capacity"></i>{' '}
+                      {props.car.capacity + ' Yetişkin'}
                     </p>
                   </div>
                   <div className="col-md-4">
                     <p className="text-dark description font-lg">
-                      <i className="fas fa-paint-brush" title="Color"></i>{" "}
+                      <i className="fas fa-paint-brush" title="Color"></i>{' '}
                       {props.car.colorName}
                     </p>
                   </div>
@@ -94,19 +93,19 @@ const CarCard = (props: Props) => {
                 <div className="row">
                   <div className="col-md-4">
                     <p className="text-dark description font-lg">
-                      <i className="fas fa-road" title="Kilometer"></i>{" "}
+                      <i className="fas fa-road" title="Kilometer"></i>{' '}
                       {props.car.kilometer}
                     </p>
                   </div>
                   <div className="col-md-4">
                     <p className="text-dark description font-lg">
-                      <i className="fas fa-calendar-alt" title="Year"></i>{" "}
+                      <i className="fas fa-calendar-alt" title="Year"></i>{' '}
                       {props.car.year}
                     </p>
                   </div>
                   <div className="col-md-4">
                     <p className="text-dark description font-lg">
-                      <i className="fas fa-box" title="Trunk Volume"></i>{" "}
+                      <i className="fas fa-box" title="Trunk Volume"></i>{' '}
                       {props.car.trunkVolume}
                     </p>
                   </div>
@@ -116,16 +115,20 @@ const CarCard = (props: Props) => {
               <hr className="my-0" />
               <MDBCardBody className="pb-0">
                 <div className="button d-flex justify-content-between align-items-center pb-2 mb-4">
-                  <MDBBtn className="rent-button-left fw-bold" color="primary" onClick={handleCarId}>
-                                 
-                    <Link className="link-left" to={"/cardetail"}>
-                      {" "}
-                      Aracı İncele 
+                  <MDBBtn
+                    className="rent-button-left fw-bold"
+                    color="primary"
+                    onClick={handleCarId}>
+                    <Link className="link-left" to={'/cardetail'}>
+                      {' '}
+                      Aracı İncele
                     </Link>
-                    
                   </MDBBtn>
-                  <MDBBtn className="rent-button fw-bold" color="danger" >
-                   <Link  className="rent-btn" to={"/rental"}> Hemen Kİrala </Link>
+                  <MDBBtn className="rent-button fw-bold" color="danger">
+                    <Link className="rent-btn" to={'/rental'}>
+                      {' '}
+                      Hemen Kİrala{' '}
+                    </Link>
                   </MDBBtn>
                 </div>
               </MDBCardBody>

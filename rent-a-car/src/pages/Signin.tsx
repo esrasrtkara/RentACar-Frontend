@@ -52,9 +52,7 @@ const Signin = (props: Props) => {
 
   const handleCustomer = () => {
     if (validateEmail(email) && validatePassword(password) && agreeTerms) {
-      authCustomer.customer(postData).then((res) => {
-        console.log(res.data);
-      });
+      authCustomer.customer(postData).then((res) => {});
       setFirstName('');
       setLastName('');
       setEmail('');
@@ -78,9 +76,7 @@ const Signin = (props: Props) => {
 
   const handleCorporate = () => {
     if (validateEmail(email) && validatePassword(password) && agreeTerms) {
-      authCorporate.corporate(postData2).then((res) => {
-        console.log(res.data);
-      });
+      authCorporate.corporate(postData2).then((res) => {});
       setCompanyName('');
       setTaxNo('');
       setEmail('');
@@ -101,7 +97,6 @@ const Signin = (props: Props) => {
       }
     }
   };
-
 
   // Customer-CorporateCustomer Input Alanı
   const [justifyActive, setJustifyActive] = useState('tab1');
@@ -223,7 +218,7 @@ const Signin = (props: Props) => {
                 <MDBInput
                   wrapperClass="mb-4"
                   label="Surname"
-                  id="form1"
+                  id="form2"
                   type="text"
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
@@ -232,8 +227,9 @@ const Signin = (props: Props) => {
                 <MDBInput
                   wrapperClass="mb-4"
                   label="Email address"
-                  id="form1"
+                  id="form3"
                   type="email"
+                  autoComplete="email"
                   value={email}
                   onChange={(e) => {
                     setEmail(e.target.value);
@@ -249,9 +245,10 @@ const Signin = (props: Props) => {
                 <MDBInput
                   wrapperClass="mb-4"
                   label="Password"
-                  id="form2"
+                  id="form4"
                   type="password"
                   value={password}
+                  autoComplete="new-password"
                   onChange={(e) => {
                     setPassword(e.target.value);
                     handlePasswordChange(e);
@@ -271,6 +268,7 @@ const Signin = (props: Props) => {
                     label="I have read and agree to the terms"
                     checked={agreeTerms}
                     onChange={handleAgreeTermsChange}
+                    autoComplete="off"
                   />
                 </div>
 
@@ -298,7 +296,7 @@ const Signin = (props: Props) => {
                 <MDBInput
                   wrapperClass="mb-4"
                   label="Company Name"
-                  id="form1"
+                  id="form5"
                   type="text"
                   value={companyName}
                   onChange={(e) => setCompanyName(e.target.value)}
@@ -306,7 +304,7 @@ const Signin = (props: Props) => {
                 <MDBInput
                   wrapperClass="mb-4"
                   label="Tax Number"
-                  id="form1"
+                  id="form6"
                   type="number"
                   value={taxNo}
                   onChange={(e) => setTaxNo(e.target.value)}
@@ -314,9 +312,10 @@ const Signin = (props: Props) => {
                 <MDBInput
                   wrapperClass="mb-4"
                   label="Email"
-                  id="form1"
+                  id="form7"
                   type="email"
                   value={email}
+                  autoComplete="email"
                   onChange={(e) => {
                     setEmail(e.target.value);
                     handleEmailChange(e);
@@ -331,9 +330,10 @@ const Signin = (props: Props) => {
                 <MDBInput
                   wrapperClass="mb-4"
                   label="Password"
-                  id="form1"
+                  id="form8"
                   type="password"
                   value={password}
+                  autoComplete="new-password"
                   onChange={(e) => {
                     setPassword(e.target.value);
                     handlePasswordChange(e);
@@ -349,10 +349,11 @@ const Signin = (props: Props) => {
                 <div className="d-flex justify-content-center mb-4">
                   <MDBCheckbox
                     name="flexCheck"
-                    id="flexCheckDefault"
+                    id="flexCheckDefault2"
                     label="I have read and agree to the terms"
                     checked={agreeTerms}
                     onChange={handleAgreeTermsChange}
+                    autoComplete="off"
                   />
                 </div>
 
