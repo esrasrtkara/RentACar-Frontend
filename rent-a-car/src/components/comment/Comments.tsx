@@ -81,7 +81,7 @@ const Comments = (props: Props) => {
             <MDBCol md="6" lg="5" xl="10" className="comment-title">
               <MDBInput
                 type="text"
-                label="Yorum Başlığı"
+                label="Kullanıcı Adınız"
                 value={newComment.title}
                 onChange={(e) => {
                   setNewComment({ ...newComment, title: e.target.value });
@@ -137,7 +137,7 @@ const Comments = (props: Props) => {
                 {/* Kullanıcı Profil Fotoğrafı */}
                 <img
                   className="img-fluid rounded-circle"
-                  src="https://avatars.githubusercontent.com/u/56135111?v=4"
+                  src="https://rajueditor.com/wp-content/uploads/2023/10/instagram-profil-fotografi-netlestirme-1024x1024.jpg"
                   alt="Profil"
                 />
               </MDBCol>

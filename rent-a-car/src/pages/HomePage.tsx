@@ -29,10 +29,13 @@ const HomePage = (props: Props) => {
 
   return (
     <Layout>
-      <Banner/>
+      <Banner />
       <Container>
         <Row>
-          {cars.map((car: GetAllCarResponse, i: number) => (
+          <h2 className="cars-title text-center">KAMPANYALI ARAÇLARIMIZ</h2>
+        </Row>
+        <Row>
+          {cars.slice(0, 6).map((car: GetAllCarResponse, i: number) => (
             <Col key={i} className="col-4">
               <CarCard car={car} />
             </Col>
