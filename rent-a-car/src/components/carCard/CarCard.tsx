@@ -95,7 +95,7 @@ const CarCard = (props: Props) => {
                   <div className="col-md-4">
                     <p className="text-dark description font-lg">
                       <i className="fas fa-road" title="Kilometer"></i>{" "}
-                      {props.car.kilometer + " Km"}
+                      {props.car.kilometer}
                     </p>
                   </div>
                   <div className="col-md-4">

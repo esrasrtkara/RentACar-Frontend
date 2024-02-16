@@ -9,7 +9,9 @@ import {
   Image,
 } from "semantic-ui-react";
 import "./Navbar.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Teams from "../../teams/Teams";
+import { MDBIcon } from "mdb-react-ui-kit";
 
 
 type Props = {};
@@ -26,8 +28,9 @@ const Navbar = (props: Props) => {
           </Button>
           </Link>
         </MenuItem>
-        <MenuItem>
-          <Button primary>Hakımızda</Button>
+        <MenuItem><Link to={"/cars"}>
+          <Button primary><MDBIcon style={{marginRight:7}} icon="car" />Araçlarımız</Button>
+          </Link>
         </MenuItem>
 
         <Menu.Menu className="menu-logo-container">
@@ -37,12 +40,6 @@ const Navbar = (props: Props) => {
         </Menu.Menu>
 
         <MenuMenu position="right">
-          <Dropdown item text="Sepetiniz">
-            <DropdownMenu>
-              <DropdownItem>English</DropdownItem>
-            </DropdownMenu>
-          </Dropdown>
-
           <MenuItem>
             <Link to={"/login"}>
             <Button primary>
