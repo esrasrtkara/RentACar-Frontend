@@ -150,6 +150,8 @@ const RentalPage = () => {
               {dayDifference !== null && (
                 <div className='days-label'><label>Seçili gün miktarı: {dayDifference}</label></div>
               )}
+               <div className='days-label'><label>İndirim Oranı : </label></div>
+               <div className='days-label'><label>Kiralama Bedeli : </label></div>
             </div>
           </MDBCol>
         </MDBRow>
