@@ -21,9 +21,10 @@ type Props = {};
 const Login = (props: Props) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const accessToken = useSelector((state: any) => state.auth.accessToken);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  useSelector((state: any) => state.auth.accessToken);
 
   const postData: loginRequest = {
     email: email,
@@ -33,7 +34,6 @@ const Login = (props: Props) => {
     authService.login(postData).then((response) => {
       dispatch(setAccessToken(postData.email));
       tokenService.setToken(response.data);
-      console.log(response.data);
     });
   };
 
@@ -53,20 +53,22 @@ const Login = (props: Props) => {
             <MDBInput
               wrapperClass="mb-4"
               label="Email address"
-              id="formControlLg"
+              id="email"
               type="email"
               size="lg"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              autoComplete='email'
             />
             <MDBInput
               wrapperClass="mb-4"
               label="Password"
-              id="formControlLg"
+              id="password"
               type="password"
               size="lg"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              autoComplete="new-password"
             />
 
             <div className="d-flex justify-content-between mx-4 mb-4">
@@ -76,7 +78,7 @@ const Login = (props: Props) => {
                 id="flexCheckDefault"
                 label="Remember me"
               />
-              <a href="!#">Forgot password?</a>
+              <a href="/signin">Forgot password?</a>
             </div>
 
             <MDBBtn

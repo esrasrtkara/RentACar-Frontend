@@ -8,19 +8,16 @@ import Layout from '../../components/layout/Layout';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
-type Props = {};
-
 const RentalPage = () => {
   const carId = useSelector((state: any) => state.carId.carId);
   const [car, setCar] = useState<GetByIdCarResponse>();
 
   useEffect(() => {
     getByIdCars();
-  }, []);
+  });
 
   const getByIdCars = () => {
     carService.getById(carId).then((response) => {
-      //console.log(response.data);
       setCar(response.data);
     });
   };

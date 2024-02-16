@@ -51,8 +51,6 @@ const Comments = (props: Props) => {
   };
 
   const handleLikeComment = (commentId: number) => {
-    // Beğeni işlemleri
-    console.log(`Yorum ${commentId} beğenildi.`);
     if (likedComments.includes(commentId)) {
       setLikedComments(likedComments.filter((id) => id !== commentId));
     } else {
@@ -66,7 +64,6 @@ const Comments = (props: Props) => {
       (comment) => comment.id !== commentId
     );
     setComments(updatedComments);
-    console.log(`Yorum ${commentId} silindi.`);
   };
 
   return (

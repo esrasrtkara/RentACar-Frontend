@@ -3,7 +3,7 @@ import Layout from '../../components/layout/Layout';
 import carService from '../../services/carService';
 import { setCars } from '../../store/car/carSlice';
 import './cars.css';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import CarCard from '../../components/carCard/CarCard';
 import { GetAllCarResponse } from '../../models/responses/Car/getAllCarResponse';
@@ -15,7 +15,7 @@ const Cars = (props: Props) => {
 
   useEffect(() => {
     getCars();
-  }, []);
+  });
   const getCars = () => {
     carService.getAll().then((response) => {
       dispatch(setCars(response.data));

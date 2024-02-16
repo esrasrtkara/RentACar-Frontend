@@ -14,18 +14,16 @@ type Props = {};
 const HomePage = (props: Props) => {
   const dispatch = useDispatch();
   const cars = useSelector((state: any) => state.car.cars);
+  
   useEffect(() => {
     getCars();
-  }, []);
+  });
+
   const getCars = () => {
     carService.getAll().then((response) => {
-      console.log(response.data);
-
       dispatch(setCars(response.data));
     });
   };
-
-  console.log(cars);
 
   return (
     <Layout>

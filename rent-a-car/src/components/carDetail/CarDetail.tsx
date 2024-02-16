@@ -20,11 +20,10 @@ const CarDetail = () => {
 
   useEffect(() => {
     getByIdCars();
-  }, []);
+  });
 
   const getByIdCars = () => {
     carService.getById(carId).then((response) => {
-      console.log(response.data);
       setCar(response.data);
     });
   };
