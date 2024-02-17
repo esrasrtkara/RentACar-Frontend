@@ -1,39 +1,33 @@
+import { useEffect, useState } from 'react';
 import {
   MDBContainer,
   MDBCol,
   MDBRow,
   MDBIcon,
   MDBBtn,
-} from "mdb-react-ui-kit";
-import "./carDetail.css"
-import Comments from "../comment/Comments";
-import { useNavigate } from "react-router-dom";
+} from 'mdb-react-ui-kit';
+import './carDetail.css';
+import Comments from '../comment/Comments';
+import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { GetByIdCarResponse } from "../../models/responses/Car/getByIdCarResponse";
-import carService from "../../services/carService";
-import { useEffect,useState } from 'react';
+import { Data, GetByIdCarResponse } from '../../models/responses/Car/getByIdCarResponse';
+import carService from '../../services/carService';
+import Layout from '../layout/Layout';
 
-type Props = {
- 
-};
 
-const CarDetail = (props: Props) => {
-
+const CarDetail = () => {
   const carId = useSelector((state: any) => state.carId.carId);
-
-  const [car, setCar] = useState<GetByIdCarResponse>()
+  const [car, setCar] = useState<Data>();
 
   useEffect(() => {
     getByIdCars();
-  }, [])
-  
-  const getByIdCars = () => {
-    carService.getById(carId).then((response)=>{
-      console.log(response.data);
-      setCar(response.data)
-    }) 
-  }
+  });
 
+  const getByIdCars = () => {
+    carService.getById(carId).then((response) => {
+      setCar(response.data.data);
+    });
+  };
 
   const navigate = useNavigate();
 
@@ -42,7 +36,7 @@ const CarDetail = (props: Props) => {
   };
 
   return (
-    <>
+    <Layout>
       <MDBContainer fluid className="p-3 my-5">
         <MDBRow className="justify-content-center">
           <MDBCol md="6" lg="5" xl="5" className="car-image">
@@ -59,7 +53,8 @@ const CarDetail = (props: Props) => {
             </div>
             <div className="daily-price mt-3">
               <p className="text-dark description font-lg">
-                <i className="fas fa-dollar-sign" title="Daily Price"></i> {car?.dailyPrice}
+                <i className="fas fa-dollar-sign" title="Daily Price"></i>{' '}
+                {car?.dailyPrice}
               </p>
             </div>
             <div className="star-icons justify-content-end mt-1 mb-4">
@@ -78,13 +73,14 @@ const CarDetail = (props: Props) => {
                 </div>
                 <div className="col-md-4">
                   <p>
-                    <MDBIcon icon="tachometer-alt" />{" "}
+                    <MDBIcon icon="tachometer-alt" />{' '}
                     <strong>Kilometre:</strong> {car?.kilometer}
                   </p>
                 </div>
                 <div className="col-md-4">
                   <p>
-                    <MDBIcon icon="car" /> <strong>Plaka:</strong>{car?.plate}
+                    <MDBIcon icon="car" /> <strong>Plaka:</strong>
+                    {car?.plate}
                   </p>
                 </div>
               </div>
@@ -92,19 +88,21 @@ const CarDetail = (props: Props) => {
               <div className="row">
                 <div className="col-md-4">
                   <p>
-                    <MDBIcon icon="credit-card" />{" "}
-                    <strong>Min Findeks Puanı:</strong>{car?.minFindeksRate}
+                    <MDBIcon icon="credit-card" />{' '}
+                    <strong>Min Findeks Puanı:</strong>
+                    {car?.minFindeksRate}
                   </p>
                 </div>
                 <div className="col-md-4">
                   <p>
-                    <MDBIcon icon="suitcase" /> <strong>Bagaç Hacmi:</strong>{" "}
+                    <MDBIcon icon="suitcase" /> <strong>Bagaç Hacmi:</strong>{' '}
                     {car?.trunkVolume}
                   </p>
                 </div>
                 <div className="col-md-4">
                   <p>
-                    <MDBIcon icon="cogs" /> <strong>Vites Türü:</strong> car
+                    <MDBIcon icon="cogs" /> <strong>Vites Türü:</strong>{' '}
+                    Otomatik
                   </p>
                 </div>
               </div>
@@ -112,35 +110,37 @@ const CarDetail = (props: Props) => {
               <div className="row">
                 <div className="col-md-4">
                   <p>
-                    <MDBIcon icon="gas-pump" /> <strong>Yakıt Tipi:</strong>{" "}
+                    <MDBIcon icon="gas-pump" /> <strong>Yakıt Tipi:</strong>
                     Benzinli
                   </p>
                 </div>
                 <div className="col-md-4">
                   <p>
-                    <MDBIcon icon="users" /> <strong>Kapasite:</strong> {car?.capacity}
+                    <MDBIcon icon="users" /> <strong>Kapasite:</strong>{' '}
+                    {car?.capacity}
                   </p>
                 </div>
                 <div className="col-md-4">
                   <p>
-                    <MDBIcon icon="palette" /> <strong>Renk:</strong> {car?.colorName}
+                    <MDBIcon icon="palette" /> <strong>Renk:</strong>{' '}
+                    {car?.colorName}
                   </p>
                 </div>
               </div>
             </div>
             <MDBBtn
-              style={{ backgroundColor: "#E44A48" }}
+              style={{ backgroundColor: '#E44A48' }}
               className="mb-4 w-100"
               size="lg"
               onClick={handleButtonClick}
             >
-              Hemen Kİrala
+              Hemen Kirala
             </MDBBtn>
           </MDBCol>
         </MDBRow>
-        <Comments/>
       </MDBContainer>
-    </>
+      {car && <Comments />}
+    </Layout>
   );
 };
 

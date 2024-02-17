@@ -5,9 +5,10 @@ import { AddCarResponse } from "../models/responses/Car/addCarResponse";
 import { GetByIdCarResponse } from "../models/responses/Car/getByIdCarResponse";
 import { UpdateCarResponse } from "../models/responses/Car/updateCarResponse";
 import { BaseService } from "./baseService";
+import { DataResultResponse } from '../models/responses/Car/dataResultResponse';
 
 class CarService extends BaseService<
-    GetAllCarResponse,
+    DataResultResponse,
 	GetByIdCarResponse,
 	AddCarRequest,
 	AddCarResponse,
@@ -19,4 +20,5 @@ class CarService extends BaseService<
         this.apiUrl = "cars";
     }
 }
-export default new CarService();
+const carService = new CarService();
+export default carService

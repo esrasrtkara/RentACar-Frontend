@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from 'react';
 import {
   MDBContainer,
   MDBTabs,
@@ -12,22 +12,24 @@ import {
   MDBRow,
   MDBCol,
   MDBIcon,
-} from "mdb-react-ui-kit";
-import { CustomerRequest } from "../models/requests/Customer/customerRequest";
-import authCustomer from "../services/authCustomer";
-import authCorporate from "../services/authCorporate";
-import { CorporateRequest } from "../models/requests/Corporate/CorporateRequest";
-import { useNavigate } from "react-router-dom";
+} from 'mdb-react-ui-kit';
+import { CustomerRequest } from '../models/requests/Customer/customerRequest';
+import authCustomer from '../services/authCustomer';
+import authCorporate from '../services/authCorporate';
+import { CorporateRequest } from '../models/requests/Corporate/CorporateRequest';
+import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import Layout from '../components/layout/Layout';
 
 type Props = {};
 
 const Signin = (props: Props) => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [companyName, setCompanyName] = useState("");
-  const [taxNo, setTaxNo] = useState("");
+  const [firstName, setFirstName] = useState<string>('');
+  const [lastName, setLastName] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [companyName, setCompanyName] = useState<string>('');
+  const [taxNo, setTaxNo] = useState<string>('');
 
   const postData: CustomerRequest = {
     firstName: firstName,
@@ -45,51 +47,59 @@ const Signin = (props: Props) => {
 
   const navigate = useNavigate();
 
+  // Toastify
+  const notify = () => toast.success('Kaydınız Başarıyla Oluştu');
+
   const handleCustomer = () => {
     if (validateEmail(email) && validatePassword(password) && agreeTerms) {
-      authCustomer.customer(postData).then((res) => {
-        console.log(res.data);
+      authCustomer.customer(postData).then((res) => {});
+      setFirstName('');
+      setLastName('');
+      setEmail('');
+      setPassword('');
+      notify();
+      setTimeout(() => {
         navigate('/login');
-      });
-      setFirstName("");
-      setLastName("");
-      setEmail("");
-      setPassword("");
+      }, 5800);
     } else {
       if (!validateEmail(email)) {
-        setEmailError("Geçersiz email adresi");
+        setEmailError('Geçersiz email adresi');
       }
       if (!validatePassword(password)) {
-        setPasswordError("Şifre gereksinimleri karşılanmıyor");
+        setPasswordError('Şifre gereksinimleri karşılanmıyor');
       }
       if (!agreeTerms) {
-        alert("Lütfen şartları kabul edin.");
+        alert('Lütfen şartları kabul edin.');
       }
     }
   };
 
   const handleCorporate = () => {
-    if (validateEmail(email) && validatePassword(password)) {
-      authCorporate.corporate(postData2).then((res) => {
-        console.log(res.data);
+    if (validateEmail(email) && validatePassword(password) && agreeTerms) {
+      authCorporate.corporate(postData2).then((res) => {});
+      setCompanyName('');
+      setTaxNo('');
+      setEmail('');
+      setPassword('');
+      notify();
+      setTimeout(() => {
         navigate('/login');
-      });
-      setCompanyName("");
-      setTaxNo("");
-      setEmail("");
-      setPassword("");
+      }, 5800);
     } else {
       if (!validateEmail(email)) {
-        setEmailError("Geçersiz email adresi");
+        setEmailError('Geçersiz email adresi');
       }
       if (!validatePassword(password)) {
-        setPasswordError("Şifre gereksinimleri karşılanmıyor");
+        setPasswordError('Şifre gereksinimleri karşılanmıyor');
+      }
+      if (!agreeTerms) {
+        alert('Lütfen şartları kabul edin.');
       }
     }
   };
 
   // Customer-CorporateCustomer Input Alanı
-  const [justifyActive, setJustifyActive] = useState("tab1");
+  const [justifyActive, setJustifyActive] = useState('tab1');
 
   const handleJustifyClick = (value: string) => {
     if (value === justifyActive) {
@@ -102,10 +112,10 @@ const Signin = (props: Props) => {
   //! Input Kontrolleri ve Validation Alanı
 
   const [emailValid, setEmailValid] = useState<boolean>(true);
-  const [emailError, setEmailError] = useState<string>("");
+  const [emailError, setEmailError] = useState<string>('');
 
   const [passwordValid, setPasswordValid] = useState<boolean>(true);
-  const [passwordError, setPasswordError] = useState<string>("");
+  const [passwordError, setPasswordError] = useState<string>('');
 
   const [agreeTerms, setAgreeTerms] = useState<boolean>(false);
 
@@ -125,10 +135,10 @@ const Signin = (props: Props) => {
 
     if (!validateEmail(email)) {
       setEmailValid(false);
-      setEmailError("Geçersiz email adresi");
+      setEmailError('Geçersiz email adresi');
     } else {
       setEmailValid(true);
-      setEmailError("");
+      setEmailError('');
     }
   };
 
@@ -140,19 +150,18 @@ const Signin = (props: Props) => {
 
     if (!validatePassword(password)) {
       setPasswordValid(false);
-      setPasswordError("Şifreniz Büyük - Küçük Harf ve Rakam içermelidir.");
+      setPasswordError('Şifreniz Büyük - Küçük Harf ve Rakam içermelidir.');
     } else {
       setPasswordValid(true);
-      setPasswordError("");
+      setPasswordError('');
     }
   };
 
   const handleAgreeTermsChange = () => {
     setAgreeTerms(!agreeTerms);
   };
-  
   return (
-    <>
+    <Layout>
       <MDBContainer className="p-3 my-5">
         <MDBRow className="justify-content-center">
           <MDBCol md="6" lg="5" xl="5" className="mt-5">
@@ -167,38 +176,35 @@ const Signin = (props: Props) => {
             <MDBTabs
               pills
               justify
-              className="mb-3 d-flex flex-row justify-content-between"
-            >
+              className="mb-3 d-flex flex-row justify-content-between">
               <MDBTabsItem>
                 <MDBTabsLink
-                  onClick={() => handleJustifyClick("tab1")}
-                  active={justifyActive === "tab1"}
+                  onClick={() => handleJustifyClick('tab1')}
+                  active={justifyActive === 'tab1'}
                   style={{
-                    color: "white",
+                    color: 'white',
                     backgroundColor:
-                      justifyActive === "tab1" ? "#E44A48" : "#CCCCCC",
-                  }}
-                >
+                      justifyActive === 'tab1' ? '#E44A48' : '#CCCCCC',
+                  }}>
                   Bİreysel MÜşterİ
                 </MDBTabsLink>
               </MDBTabsItem>
               <MDBTabsItem>
                 <MDBTabsLink
-                  onClick={() => handleJustifyClick("tab2")}
-                  active={justifyActive === "tab2"}
+                  onClick={() => handleJustifyClick('tab2')}
+                  active={justifyActive === 'tab2'}
                   style={{
-                    color: "white",
+                    color: 'white',
                     backgroundColor:
-                      justifyActive === "tab2" ? "#E44A48" : "#CCCCCC",
-                  }}
-                >
+                      justifyActive === 'tab2' ? '#E44A48' : '#CCCCCC',
+                  }}>
                   Kurumsal MÜşterİ
                 </MDBTabsLink>
               </MDBTabsItem>
             </MDBTabs>
 
             <MDBTabsContent>
-              <MDBTabsPane open={justifyActive === "tab1"}>
+              <MDBTabsPane open={justifyActive === 'tab1'}>
                 <MDBInput
                   wrapperClass="mb-4"
                   label="Name"
@@ -211,7 +217,7 @@ const Signin = (props: Props) => {
                 <MDBInput
                   wrapperClass="mb-4"
                   label="Surname"
-                  id="form1"
+                  id="form2"
                   type="text"
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
@@ -220,8 +226,9 @@ const Signin = (props: Props) => {
                 <MDBInput
                   wrapperClass="mb-4"
                   label="Email address"
-                  id="form1"
+                  id="form3"
                   type="email"
+                  autoComplete="email"
                   value={email}
                   onChange={(e) => {
                     setEmail(e.target.value);
@@ -229,25 +236,26 @@ const Signin = (props: Props) => {
                   }}
                 />
                 {!emailValid && (
-                  <div style={{ color: "red", marginBottom: "0.9em" }}>
-                    <MDBIcon icon="exclamation-circle" className="mr-1" />{" "}
+                  <div style={{ color: 'red', marginBottom: '0.9em' }}>
+                    <MDBIcon icon="exclamation-circle" className="mr-1" />{' '}
                     {emailError}
                   </div>
                 )}
                 <MDBInput
                   wrapperClass="mb-4"
                   label="Password"
-                  id="form2"
+                  id="form4"
                   type="password"
                   value={password}
+                  autoComplete="new-password"
                   onChange={(e) => {
                     setPassword(e.target.value);
                     handlePasswordChange(e);
                   }}
                 />
                 {!passwordValid && (
-                  <div style={{ color: "red", marginBottom: "0.9em" }}>
-                    <MDBIcon icon="exclamation-circle" className="mr-1" />{" "}
+                  <div style={{ color: 'red', marginBottom: '0.9em' }}>
+                    <MDBIcon icon="exclamation-circle" className="mr-1" />{' '}
                     {passwordError}
                   </div>
                 )}
@@ -259,19 +267,35 @@ const Signin = (props: Props) => {
                     label="I have read and agree to the terms"
                     checked={agreeTerms}
                     onChange={handleAgreeTermsChange}
+                    autoComplete="off"
                   />
                 </div>
 
-                <MDBBtn className="mb-4 w-100" onClick={handleCustomer} disabled={!agreeTerms}>
+                <MDBBtn
+                  className="mb-4 w-100"
+                  onClick={handleCustomer}
+                  disabled={!agreeTerms}>
                   Sign up
                 </MDBBtn>
+                <ToastContainer
+                  position="bottom-right"
+                  autoClose={5000}
+                  hideProgressBar={false}
+                  newestOnTop={false}
+                  closeOnClick
+                  rtl={false}
+                  pauseOnFocusLoss
+                  draggable
+                  pauseOnHover
+                  theme="dark"
+                />
               </MDBTabsPane>
 
-              <MDBTabsPane open={justifyActive === "tab2"}>
+              <MDBTabsPane open={justifyActive === 'tab2'}>
                 <MDBInput
                   wrapperClass="mb-4"
                   label="Company Name"
-                  id="form1"
+                  id="form5"
                   type="text"
                   value={companyName}
                   onChange={(e) => setCompanyName(e.target.value)}
@@ -279,7 +303,7 @@ const Signin = (props: Props) => {
                 <MDBInput
                   wrapperClass="mb-4"
                   label="Tax Number"
-                  id="form1"
+                  id="form6"
                   type="number"
                   value={taxNo}
                   onChange={(e) => setTaxNo(e.target.value)}
@@ -287,34 +311,36 @@ const Signin = (props: Props) => {
                 <MDBInput
                   wrapperClass="mb-4"
                   label="Email"
-                  id="form1"
+                  id="form7"
                   type="email"
                   value={email}
+                  autoComplete="email"
                   onChange={(e) => {
                     setEmail(e.target.value);
                     handleEmailChange(e);
                   }}
                 />
                 {!emailValid && (
-                  <div style={{ color: "red", marginBottom: "0.9em" }}>
-                    <MDBIcon icon="exclamation-circle" className="mr-1" />{" "}
+                  <div style={{ color: 'red', marginBottom: '0.9em' }}>
+                    <MDBIcon icon="exclamation-circle" className="mr-1" />{' '}
                     {emailError}
                   </div>
                 )}
                 <MDBInput
                   wrapperClass="mb-4"
                   label="Password"
-                  id="form1"
+                  id="form8"
                   type="password"
                   value={password}
+                  autoComplete="new-password"
                   onChange={(e) => {
                     setPassword(e.target.value);
                     handlePasswordChange(e);
                   }}
                 />
                 {!passwordValid && (
-                  <div style={{ color: "red", marginBottom: "0.9em" }}>
-                    <MDBIcon icon="exclamation-circle" className="mr-1" />{" "}
+                  <div style={{ color: 'red', marginBottom: '0.9em' }}>
+                    <MDBIcon icon="exclamation-circle" className="mr-1" />{' '}
                     {passwordError}
                   </div>
                 )}
@@ -322,20 +348,38 @@ const Signin = (props: Props) => {
                 <div className="d-flex justify-content-center mb-4">
                   <MDBCheckbox
                     name="flexCheck"
-                    id="flexCheckDefault"
+                    id="flexCheckDefault2"
                     label="I have read and agree to the terms"
+                    checked={agreeTerms}
+                    onChange={handleAgreeTermsChange}
+                    autoComplete="off"
                   />
                 </div>
 
-                <MDBBtn className="mb-4 w-100" onClick={handleCorporate} disabled={!agreeTerms}>
+                <MDBBtn
+                  className="mb-4 w-100"
+                  onClick={handleCorporate}
+                  disabled={!agreeTerms}>
                   Sign up
                 </MDBBtn>
+                <ToastContainer
+                  position="bottom-right"
+                  autoClose={5000}
+                  hideProgressBar={false}
+                  newestOnTop={false}
+                  closeOnClick
+                  rtl={false}
+                  pauseOnFocusLoss
+                  draggable
+                  pauseOnHover
+                  theme="dark"
+                />
               </MDBTabsPane>
             </MDBTabsContent>
           </MDBCol>
         </MDBRow>
       </MDBContainer>
-    </>
+    </Layout>
   );
 };
 

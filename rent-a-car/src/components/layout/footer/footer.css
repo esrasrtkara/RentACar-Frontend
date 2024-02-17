@@ -1,0 +1,10 @@
+.footer {
+    position: absolute;
+    bottom: 0 !important;
+    width: 100%;
+    z-index: 1;
+}
+
+.bg-dark .text-center {
+    background-color: rgba(0, 0, 0, 0.2);
+}
