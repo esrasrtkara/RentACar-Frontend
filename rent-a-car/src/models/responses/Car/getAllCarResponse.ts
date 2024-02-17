@@ -1,5 +1,5 @@
 export interface GetAllCarResponse {
-    id:number;
+	id: number;
 	kilometer: number;
 	year: number;
 	plate: string;
@@ -8,7 +8,11 @@ export interface GetAllCarResponse {
 	imagePath: string;
 	trunkVolume: number;
 	capacity: number;
+	caseType: string;
+	fuelType: string;
+	gearType: string;
 	modelName: string;
 	colorName: string;
-
 }
+
+

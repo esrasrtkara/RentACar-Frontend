@@ -13,25 +13,32 @@ import { useSelector } from 'react-redux';
 import { GetByIdCarResponse } from '../../models/responses/Car/getByIdCarResponse';
 import carService from '../../services/carService';
 import Layout from '../layout/Layout';
+import { useParams } from 'react-router-dom'
+
+
+
 
 const CarDetail = () => {
-  const carId = useSelector((state: any) => state.carId.carId);
   const [car, setCar] = useState<GetByIdCarResponse>();
+  let { id } = useParams();
 
   useEffect(() => {
-    getByIdCars();
+    if(id){
+      getByIdCars();
+    }
+    
   });
 
   const getByIdCars = () => {
-    carService.getById(carId).then((response) => {
-      setCar(response.data);
+    carService.getById(Number(id)).then((response) => {
+      setCar(response.data.data);
     });
   };
 
   const navigate = useNavigate();
 
   const handleButtonClick = () => {
-    navigate('/rental');
+    navigate('/rental/'+id);
   };
 
   return (

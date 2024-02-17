@@ -18,7 +18,7 @@ const Cars = (props: Props) => {
   });
   const getCars = () => {
     carService.getAll().then((response) => {
-      dispatch(setCars(response.data));
+      dispatch(setCars(response.data.data));
     });
   };
   return (
@@ -28,7 +28,7 @@ const Cars = (props: Props) => {
           <h2 className="cars-title text-center">ARAÇLARIMIZ</h2>
         </Row>
         <Row>
-          {cars.slice(0, 9).map((car: GetAllCarResponse, i: number) => (
+          {cars.map((car: GetAllCarResponse, i: number) => (
             <Col key={i} className="col-4">
               <CarCard car={car} />
             </Col>

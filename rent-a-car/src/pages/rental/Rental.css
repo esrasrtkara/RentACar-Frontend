@@ -10,14 +10,17 @@
 }
 
 .datepicker .date-labels .label2 {
-    margin-right: 305px;
+    margin-right: 210px;
     margin-bottom: 10px;
+}
+.datepicker .date-labels .label1 {
+    margin-bottom: 7px;
 }
 
 .datepicker h4 {
     font-family: 'Chakra Petch', sans-serif;
     font-weight: 600;
-    font-size: 20px;
+    font-size: 13px;
     display: flex;
     flex-direction: row;
     align-items: center;

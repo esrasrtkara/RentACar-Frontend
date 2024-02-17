@@ -1,33 +1,82 @@
-import { MDBCol, MDBContainer, MDBIcon, MDBRow } from 'mdb-react-ui-kit';
+import { MDBCol,MDBBtn, MDBContainer, MDBIcon, MDBRow } from 'mdb-react-ui-kit';
 import './Rental.css';
-import { useSelector } from 'react-redux';
+import { useSelector,useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import carService from '../../services/carService';
 import { GetByIdCarResponse } from '../../models/responses/Car/getByIdCarResponse';
 import Layout from '../../components/layout/Layout';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import rentalService from '../../services/rentalService';
+import { AddRentalRequest } from '../../models/requests/Rental/addRentalRequest';
+import { Button } from '@mui/material';
+import { AddRentalResponse } from '../../models/responses/Rental/addRentalResponse';
+import { GetFilterRentalResponse } from '../../models/responses/Rental/getFilterRentalResponse';
+import { setCarId } from '../../store/carId/carIdSlice';
+import { useParams } from 'react-router-dom'
+import PaymentForm from '../../components/payment/PaymentForm';
+import { setTotalPrice } from '../../store/totalPrice/totalPrice';
+
 
 const RentalPage = () => {
-  const carId = useSelector((state: any) => state.carId.carId);
   const [car, setCar] = useState<GetByIdCarResponse>();
+  const [startDate, setStartDate] = useState<Date>(new Date());
+  const [endDate, setEndDate] = useState<Date>(new Date());
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [dayDifference, setDayDifference] = useState<number | null>(null);
+  const [discountCode, setDiscountCode] = useState(null)  
+  const [rental, setRental] = useState<GetFilterRentalResponse>();
+
+  const dispatch = useDispatch();
+ 
+  let { id } = useParams();
+  
+  const postData:AddRentalRequest={
+    startDate: startDate,
+	  endDate: endDate,
+	  discountCode: discountCode,
+	  carId: Number(id),
+    id:0
+  }
+ 
 
   useEffect(() => {
-    getByIdCars();
-  });
+    if(id){
+      getByIdCars();
+    }
+      
+    
+  },[]);
 
   const getByIdCars = () => {
-    carService.getById(carId).then((response) => {
-      setCar(response.data);
+    carService.getById(Number(id)).then((response) => {
+      setCar(response.data.data);
+      console.log(response.data.data)
+      
     });
   };
 
+  /*const handleAddRental =() =>{
+    rentalService.addRental(postData).then(response =>{
+      setRental(response.data.data)
+      console.log(response.data.data)
+    })
+  }*/
+
+  const handleGetTotal =()=>{
+    rentalService.getTotal(postData).then(response =>{
+      setRental(response.data)
+      dispatch(setTotalPrice(response.data.totalPrice))
+      console.log(response.data)
+    })
+  }
+ 
+  
+
+
   // Date Picker
 
-  const [startDate, setStartDate] = useState<Date | null>(new Date());
-  const [endDate, setEndDate] = useState<Date | null>(null);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [dayDifference, setDayDifference] = useState<number | null>(null);
+  
 
   const handleStartDateChange = (date: Date | null) => {
     if (date && date >= new Date()) {
@@ -46,7 +95,7 @@ const RentalPage = () => {
     }
   };
 
-  const handleEndDateChange = (date: Date | null) => {
+  const handleEndDateChange = (date: Date) => {
     setEndDate(date);
     setErrorMessage(null);
     if (startDate && date) {
@@ -95,13 +144,13 @@ const RentalPage = () => {
                 <div className="col-md-4">
                   <p>
                     <MDBIcon icon="cogs" /> <strong>Vites Türü:</strong>{' '}
-                    Otomatik
+                    {car?.gearType}
                   </p>
                 </div>
                 <div className="col-md-4">
                   <p>
                     <MDBIcon icon="gas-pump" /> <strong>Yakıt Tipi:</strong>
-                    Benzinli
+                    {car?.fuelType}
                   </p>
                 </div>
                 <div className="col-md-4">
@@ -144,11 +193,13 @@ const RentalPage = () => {
                 dateFormat="dd/MM/yyyy"
                 placeholderText="Bitiş Tarihi"
               />
+              <MDBBtn onClick={handleGetTotal} className="rent-button fw-bold" color="danger"></MDBBtn>
+              <PaymentForm/>
               {dayDifference !== null && (
                 <div className='days-label'><label>Seçili gün miktarı: {dayDifference}</label></div>
               )}
-               <div className='days-label'><label>İndirim Oranı : </label></div>
-               <div className='days-label'><label>Kiralama Bedeli : </label></div>
+               <div className='days-label'><label>İndirim Oranı :{rental?.discount} </label></div>
+               <div className='days-label'><label>Kiralama Bedeli :{rental?.totalPrice} </label></div>
             </div>
           </MDBCol>
         </MDBRow>

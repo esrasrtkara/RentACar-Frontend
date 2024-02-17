@@ -20,13 +20,6 @@ type Props = {
 };
 
 const CarCard = (props: Props) => {
-  useSelector((state: any) => state.carId.carId);
-
-  const dispatch = useDispatch();
-
-  const handleCarId = () => {
-    dispatch(setCarId(props.car.id));
-  };
 
   return (
     <>
@@ -118,14 +111,15 @@ const CarCard = (props: Props) => {
                   <MDBBtn
                     className="rent-button-left fw-bold"
                     color="primary"
-                    onClick={handleCarId}>
-                    <Link className="link-left" to={'/cardetail'}>
+                  >
+                    <Link to={"/cardetail/" + props.car.id} className="link-left">
                       {' '}
                       Aracı İncele
                     </Link>
                   </MDBBtn>
-                  <MDBBtn className="rent-button fw-bold" color="danger">
-                    <Link className="rent-btn" to={'/rental'}>
+                  <MDBBtn  className="rent-button fw-bold" color="danger">
+                    
+                    <Link to={"/rental/" + props.car.id} className="rent-btn" >
                       {' '}
                       Hemen Kİrala{' '}
                     </Link>

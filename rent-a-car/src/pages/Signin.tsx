@@ -160,7 +160,6 @@ const Signin = (props: Props) => {
   const handleAgreeTermsChange = () => {
     setAgreeTerms(!agreeTerms);
   };
-
   return (
     <Layout>
       <MDBContainer className="p-3 my-5">

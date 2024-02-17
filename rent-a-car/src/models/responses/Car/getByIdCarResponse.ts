@@ -1,5 +1,5 @@
 export interface GetByIdCarResponse {
-    id:number;
+	id: number;
 	kilometer: number;
 	year: number;
 	plate: string;
@@ -8,6 +8,10 @@ export interface GetByIdCarResponse {
 	imagePath: string;
 	trunkVolume: number;
 	capacity: number;
+	caseType: string;
+	fuelType: string;
+	gearType: string;
 	modelName: string;
 	colorName: string;
 }
+

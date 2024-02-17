@@ -4,7 +4,7 @@ import CarCard from '../components/carCard/CarCard';
 import { Col, Container, Row } from 'react-bootstrap';
 import Teams from '../components/teams/Teams';
 import carService from '../services/carService';
-import { GetAllCarResponse } from '../models/responses/Car/getAllCarResponse';
+import {GetAllCarResponse } from '../models/responses/Car/getAllCarResponse';
 import { setCars } from '../store/car/carSlice';
 import Layout from '../components/layout/Layout';
 import Banner from '../components/banner/Banner';
@@ -17,11 +17,12 @@ const HomePage = (props: Props) => {
   
   useEffect(() => {
     getCars();
-  });
+  },[]);
 
   const getCars = () => {
     carService.getAll().then((response) => {
-      dispatch(setCars(response.data));
+      dispatch(setCars(response.data.data));
+      console.log(response.data.data)
     });
   };
 
@@ -33,7 +34,7 @@ const HomePage = (props: Props) => {
           <h2 className="cars-title text-center">KAMPANYALI ARAÇLARIMIZ</h2>
         </Row>
         <Row>
-          {cars.slice(0, 6).map((car: GetAllCarResponse, i: number) => (
+          {cars.map((car: GetAllCarResponse, i: number) => (
             <Col key={i} className="col-4">
               <CarCard car={car} />
             </Col>
