@@ -1,5 +1,4 @@
-
-export interface Data {
+export interface GetByIdCarResponse {
 	id: number;
 	kilometer: number;
 	year: number;
@@ -16,8 +15,3 @@ export interface Data {
 	colorName: string;
 }
 
-export interface GetByIdCarResponse {
-	success: boolean;
-	message?: any;
-	data: Data;
-}
