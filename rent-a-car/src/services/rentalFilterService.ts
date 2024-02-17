@@ -13,17 +13,10 @@ import { BaseService } from "./baseService";
 import axiosInstance from '../core/utils/interceptors/axiosInterceptors';
 import { GetFilterRentalResponse } from '../models/responses/Rental/getFilterRentalResponse';
 
-class RentalFilterService extends BaseService<
-    AllDataResultResponse<GetAllRentalResponse>,
-    DataResultByIdResponse<GetByIdRentalResponse>,
-    DataResultByIdResponse<AddRentalResponse>,
-    UpdateRentalResponse,
-    AddRentalRequest,
-    UpdateRentalRequest
-
->{
+class RentalFilterService{
+    public apiUrl:string;
     constructor(){
-        super();
+        
         this.apiUrl = "rentals/filter";
     }
 

@@ -6,15 +6,18 @@ import { PaymentRequest } from '../../models/requests/Payment/paymentRequest';
 import { AddRentalRequest } from '../../models/requests/Rental/addRentalRequest';
 import { useDispatch, useSelector } from 'react-redux';
 import { setPayment } from '../../store/payment/paymentSlice';
+import rentalService from '../../services/rentalService';
 
 
 
 const PaymentForm = () => {
   const accessToken = useSelector((state: any) => state.auth.accessToken);
   const totalPrice = useSelector((state:any) => state.totalPrice.totalPrice);
+  const rentalData = useSelector((state:any) => state.rental.rental);
    
 
   const dispatch = useDispatch();
+
   
 
   
@@ -32,13 +35,20 @@ const PaymentForm = () => {
         paymentService.payment(paymentData)
           .then(response => {
             console.log(response)
-            dispatch(setPayment(response.status));
           })
             
           .catch(error => console.error('Ödeme işleminde hata oluştu:', error));
       } else {
         console.error('Geçersiz token:', token);
       }
+
+      
+
+     
+        rentalService.addRental(rentalData).then(response =>{
+          console.log(response);
+        })
+      
     };
  
 
