@@ -1,15 +1,22 @@
 
 import StripeCheckout, { Token } from 'react-stripe-checkout';
 import paymentService from '../../services/paymentService';
-import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { PaymentRequest } from '../../models/requests/Payment/paymentRequest';
+import { AddRentalRequest } from '../../models/requests/Rental/addRentalRequest';
+import { useDispatch, useSelector } from 'react-redux';
+import { setPayment } from '../../store/payment/paymentSlice';
 
 
 
 const PaymentForm = () => {
   const accessToken = useSelector((state: any) => state.auth.accessToken);
   const totalPrice = useSelector((state:any) => state.totalPrice.totalPrice);
+   
+
+  const dispatch = useDispatch();
+  
+
   
   
   const handleToken = (token: Token) => {
@@ -24,12 +31,16 @@ const PaymentForm = () => {
   
         paymentService.payment(paymentData)
           .then(response => {
-            console.log(response)})
+            console.log(response)
+            dispatch(setPayment(response.status));
+          })
+            
           .catch(error => console.error('Ödeme işleminde hata oluştu:', error));
       } else {
         console.error('Geçersiz token:', token);
       }
     };
+ 
 
   return (
     <StripeCheckout

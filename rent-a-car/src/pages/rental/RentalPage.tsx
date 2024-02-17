@@ -16,6 +16,7 @@ import { setCarId } from '../../store/carId/carIdSlice';
 import { useParams } from 'react-router-dom'
 import PaymentForm from '../../components/payment/PaymentForm';
 import { setTotalPrice } from '../../store/totalPrice/totalPrice';
+import rentalFilterService from '../../services/rentalFilterService';
 
 
 const RentalPage = () => {
@@ -26,6 +27,7 @@ const RentalPage = () => {
   const [dayDifference, setDayDifference] = useState<number | null>(null);
   const [discountCode, setDiscountCode] = useState(null)  
   const [rental, setRental] = useState<GetFilterRentalResponse>();
+  const payment =useSelector((state:any)=>state.payment.payment);
 
   const dispatch = useDispatch();
  
@@ -36,7 +38,6 @@ const RentalPage = () => {
 	  endDate: endDate,
 	  discountCode: discountCode,
 	  carId: Number(id),
-    id:0
   }
  
 
@@ -44,8 +45,7 @@ const RentalPage = () => {
     if(id){
       getByIdCars();
     }
-      
-    
+    console.log(payment);
   },[]);
 
   const getByIdCars = () => {
@@ -56,18 +56,19 @@ const RentalPage = () => {
     });
   };
 
-  /*const handleAddRental =() =>{
-    rentalService.addRental(postData).then(response =>{
-      setRental(response.data.data)
-      console.log(response.data.data)
-    })
-  }*/
+
 
   const handleGetTotal =()=>{
-    rentalService.getTotal(postData).then(response =>{
+    rentalFilterService.getTotal(postData).then(response =>{
       setRental(response.data)
       dispatch(setTotalPrice(response.data.totalPrice))
       console.log(response.data)
+    })
+  }
+
+  const addRental =() =>{
+    rentalService.addRental(postData).then(response =>{
+      console.log(response);
     })
   }
  
