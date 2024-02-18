@@ -1,5 +1,6 @@
 import { Dropdown, Image, Menu } from 'semantic-ui-react'
 import tokenService from '../../../services/tokenService';
+import { useNavigate } from 'react-router-dom';
 
 type Props = {
 };
@@ -7,7 +8,9 @@ type Props = {
 const SignIn = (props: Props) => {
     const handleToken = () => {
       tokenService.clearToken();
+      navigate("/");
     }
+    const navigate = useNavigate();
   return (
     <div>
       <Menu.Item>
