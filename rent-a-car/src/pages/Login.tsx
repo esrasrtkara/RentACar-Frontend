@@ -35,8 +35,14 @@ const Login = (props: Props) => {
       dispatch(setAccessToken(postData.email));
       console.log(response.data);
       tokenService.setToken(response.data);
+      navigate('/')
     });
   };
+  const handleToken =()=>{
+    tokenService.getToken();
+    
+  }
+  const token = tokenService.getToken();
 
   return (
     <Layout>
@@ -88,7 +94,8 @@ const Login = (props: Props) => {
               size="lg"
               onClick={() => {
                 login();
-                navigate('/');
+                
+                
               }}>
               Log in
             </MDBBtn>
