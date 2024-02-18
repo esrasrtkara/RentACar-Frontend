@@ -1,3 +1,4 @@
+import { Token } from 'react-stripe-checkout';
 class TokenService {
     getToken(){
         return localStorage.getItem("token");
@@ -5,7 +6,10 @@ class TokenService {
     setToken(token:string){
         localStorage.setItem("token",token);
     }
+    clearToken(){
+        localStorage.removeItem("token");
+    }
 }
 
-const tokenService = new TokenService();
+const tokenService = new TokenService()
 export default tokenService;

@@ -33,6 +33,7 @@ const Login = (props: Props) => {
   const login = () => {
     authService.login(postData).then((response) => {
       dispatch(setAccessToken(postData.email));
+      console.log(response.data);
       tokenService.setToken(response.data);
     });
   };
