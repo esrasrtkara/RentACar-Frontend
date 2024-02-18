@@ -7,6 +7,9 @@ import { AddCustomerResponse } from './../models/responses/Customer/addCustomerR
 import { GetByIdCustomerResponse } from './../models/responses/Customer/getByIdCustomerResponse';
 import { GetAllCustomerResponse } from '../models/responses/Customer/getAllCustomerResponse';
 import { BaseService } from './baseService';
+import { AxiosResponse } from 'axios';
+import { GetCustomerResponse } from '../models/responses/Customer/getCustomerResponse';
+import axiosInstance from '../core/utils/interceptors/axiosInterceptors';
 class CustomerService extends BaseService<
   AllDataResultResponse<GetAllCustomerResponse>,
   DataResultByIdResponse<GetByIdCustomerResponse>,
@@ -18,7 +21,11 @@ class CustomerService extends BaseService<
 
     constructor(){
         super();
-        this.apiUrl = "customers";
+        this.apiUrl = "customers/customer";
+    }
+
+    getCustomer():Promise<AxiosResponse<GetCustomerResponse, any>>{
+      return axiosInstance.get<GetCustomerResponse>(this.apiUrl);
     }
 
 }

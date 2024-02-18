@@ -6,16 +6,21 @@ import SignIn from '../SignController/Signin';
 import SignOut from '../SignController/SignOut';
 import { useState } from 'react';
 import tokenService from '../../../services/tokenService';
+import customerService from '../../../services/customerService';
 
 
 type Props = {};
 
 const Navbar = (props: Props) => {
+  
 
-
-  const navigate = useNavigate();
+ 
 
   const token = tokenService.getToken();
+
+  
+
+  
 
 
   return (
