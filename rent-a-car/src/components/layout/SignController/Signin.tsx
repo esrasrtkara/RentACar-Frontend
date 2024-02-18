@@ -1,10 +1,13 @@
 import { Dropdown, Image, Menu } from 'semantic-ui-react'
+import tokenService from '../../../services/tokenService';
 
 type Props = {
-    signOut:any;
 };
 
 const SignIn = (props: Props) => {
+    const handleToken = () => {
+      tokenService.clearToken();
+    }
   return (
     <div>
       <Menu.Item>
@@ -17,7 +20,7 @@ const SignIn = (props: Props) => {
           <Dropdown.Menu>
             <Dropdown.Item text="Bilgilerim" icon="info" />
             <Dropdown.Item
-              onClick={props.signOut}
+              onClick={handleToken}
               text="Çıkış Yap"
               icon="sign-out"
             />

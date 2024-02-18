@@ -12,20 +12,11 @@ type Props = {};
 
 const Navbar = (props: Props) => {
 
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const navigate = useNavigate();
 
-  
+  const token = tokenService.getToken();
 
-  function handleSignedOut(params:any) {
-    setIsAuthenticated(false);
-    navigate("/");
-  }
-
-  function handleSignedIn(params:any) {
-    setIsAuthenticated(true);
-  }
 
   return (
     <>
@@ -53,7 +44,7 @@ const Navbar = (props: Props) => {
         </Menu.Menu>
 
         <MenuMenu position="right">
-        {isAuthenticated?<SignIn signOut={handleSignedOut} />:<SignOut signIn={handleSignedIn}/>}
+        {token?<SignIn/>:<SignOut/>}
         </MenuMenu>
       </Menu>
     </>
