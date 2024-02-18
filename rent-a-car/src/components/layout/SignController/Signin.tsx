@@ -6,6 +6,9 @@ type Props = {
 };
 
 const SignIn = (props: Props) => {
+  const name = "Abdulkadir";
+  const firstInitial = name.charAt(0).toUpperCase();
+  const avatarUrl = `https://ui-avatars.com/api/?name=${firstInitial}&size=128`;
     const handleToken = () => {
       tokenService.clearToken();
       navigate("/");
@@ -17,9 +20,9 @@ const SignIn = (props: Props) => {
         <Image
           avatar
           spaced="right"
-          src="https://media.licdn.com/dms/image/D4D03AQFlT0d2oZzewA/profile-displayphoto-shrink_800_800/0/1671223716657?e=1709769600&v=beta&t=53Htu6mkFY3FFEzJpXfJ89jI2dop2hTIl6dMCBY70lg"
+          src={avatarUrl}
         />
-        <Dropdown pointing="top left" text="Esra">
+        <Dropdown pointing="top left" text={name}>
           <Dropdown.Menu>
             <Dropdown.Item text="Bilgilerim" icon="info" />
             <Dropdown.Item

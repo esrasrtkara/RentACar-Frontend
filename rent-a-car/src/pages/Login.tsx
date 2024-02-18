@@ -38,11 +38,7 @@ const Login = (props: Props) => {
       navigate('/')
     });
   };
-  const handleToken =()=>{
-    tokenService.getToken();
-    
-  }
-  const token = tokenService.getToken();
+
 
   return (
     <Layout>
@@ -94,7 +90,6 @@ const Login = (props: Props) => {
               size="lg"
               onClick={() => {
                 login();
-                
                 
               }}>
               Log in
