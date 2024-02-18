@@ -17,6 +17,7 @@ import { useParams } from 'react-router-dom'
 import PaymentForm from '../../components/payment/PaymentForm';
 import { setTotalPrice } from '../../store/totalPrice/totalPrice';
 import rentalFilterService from '../../services/rentalFilterService';
+import { setRental } from '../../store/rental/rentalSlice';
 
 
 const RentalPage = () => {
@@ -26,11 +27,13 @@ const RentalPage = () => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [dayDifference, setDayDifference] = useState<number | null>(null);
   const [discountCode, setDiscountCode] = useState(null)  
-  const [rental, setRental] = useState<GetFilterRentalResponse>();
-  const payment =useSelector((state:any)=>state.payment.payment);
+  const [rentaldata, setRentaldata] = useState<GetFilterRentalResponse>()
+ 
+ 
 
   const dispatch = useDispatch();
- 
+
+  
   let { id } = useParams();
   
   const postData:AddRentalRequest={
@@ -39,38 +42,37 @@ const RentalPage = () => {
 	  discountCode: discountCode,
 	  carId: Number(id),
   }
- 
+  
+  
 
   useEffect(() => {
     if(id){
       getByIdCars();
     }
-    console.log(payment);
   },[]);
 
   const getByIdCars = () => {
     carService.getById(Number(id)).then((response) => {
       setCar(response.data.data);
-      console.log(response.data.data)
+      console.log(response.data.data)  
       
     });
   };
 
+  
 
 
+  
   const handleGetTotal =()=>{
     rentalFilterService.getTotal(postData).then(response =>{
-      setRental(response.data)
+      setRentaldata(response.data)
       dispatch(setTotalPrice(response.data.totalPrice))
       console.log(response.data)
+      dispatch(setRental(response.data))
+      
     })
   }
 
-  const addRental =() =>{
-    rentalService.addRental(postData).then(response =>{
-      console.log(response);
-    })
-  }
  
   
 
@@ -199,8 +201,8 @@ const RentalPage = () => {
               {dayDifference !== null && (
                 <div className='days-label'><label>Seçili gün miktarı: {dayDifference}</label></div>
               )}
-               <div className='days-label'><label>İndirim Oranı :{rental?.discount} </label></div>
-               <div className='days-label'><label>Kiralama Bedeli :{rental?.totalPrice} </label></div>
+               <div className='days-label'><label>İndirim Oranı :{rentaldata?.discount} </label></div>
+               <div className='days-label'><label>Kiralama Bedeli :{rentaldata?.totalPrice} </label></div>
             </div>
           </MDBCol>
         </MDBRow>

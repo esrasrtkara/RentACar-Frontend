@@ -4,12 +4,14 @@ import { carReducer } from "./car/carSlice";
 import { carIdReducer } from "./carId/carIdSlice";
 import { totalPriceReducer } from "./totalPrice/totalPrice";
 import { PaymentReducer } from "./payment/paymentSlice";
+import { rentalReducer } from "./rental/rentalSlice";
 const rootReducer = combineReducers({
     auth: authReducer,
     car: carReducer,
     carId:carIdReducer,
     totalPrice:totalPriceReducer,
-    payment : PaymentReducer
+    payment : PaymentReducer,
+    rental:rentalReducer
    
 });
 

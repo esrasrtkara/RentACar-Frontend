@@ -5,6 +5,7 @@ import { MDBIcon } from 'mdb-react-ui-kit';
 import SignIn from '../SignController/Signin';
 import SignOut from '../SignController/SignOut';
 import { useState } from 'react';
+import tokenService from '../../../services/tokenService';
 
 
 type Props = {};
@@ -14,6 +15,8 @@ const Navbar = (props: Props) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const navigate = useNavigate();
+
+  
 
   function handleSignedOut(params:any) {
     setIsAuthenticated(false);
