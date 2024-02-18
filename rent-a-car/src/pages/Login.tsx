@@ -15,6 +15,8 @@ import authService from '../services/authService';
 import { setAccessToken } from '../store/auth/authSlice';
 import tokenService from '../services/tokenService';
 import Layout from '../components/layout/Layout';
+import { setCustomerName } from '../store/customer/customerNameSlice';
+import customerService from '../services/customerService';
 
 type Props = {};
 
@@ -36,8 +38,13 @@ const Login = (props: Props) => {
       console.log(response.data);
       tokenService.setToken(response.data);
       navigate('/')
+      customerService.getCustomer().then(response =>{
+        dispatch(setCustomerName(response.data.firstName))
+      })
     });
+    
   };
+  
 
 
   return (
@@ -90,6 +97,7 @@ const Login = (props: Props) => {
               size="lg"
               onClick={() => {
                 login();
+      
                 
               }}>
               Log in
