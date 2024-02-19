@@ -12,15 +12,12 @@ import {
 import './CarCard.css';
 import { Link } from 'react-router-dom';
 import { GetAllCarResponse } from '../../models/responses/Car/getAllCarResponse';
-import { useDispatch, useSelector } from 'react-redux';
-import { setCarId } from '../../store/carId/carIdSlice';
 
 type Props = {
   car: GetAllCarResponse;
 };
 
 const CarCard = (props: Props) => {
-
   return (
     <>
       <MDBContainer fluid className="my-5">
@@ -108,18 +105,16 @@ const CarCard = (props: Props) => {
               <hr className="my-0" />
               <MDBCardBody className="pb-0">
                 <div className="button d-flex justify-content-between align-items-center pb-2 mb-4">
-                  <MDBBtn
-                    className="rent-button-left fw-bold"
-                    color="primary"
-                  >
-                    <Link to={"/cardetail/" + props.car.id} className="link-left">
+                  <MDBBtn className="rent-button-left fw-bold" color="primary">
+                    <Link
+                      to={'/cardetail/' + props.car.id}
+                      className="link-left">
                       {' '}
                       Aracı İncele
                     </Link>
                   </MDBBtn>
-                  <MDBBtn  className="rent-button fw-bold" color="danger">
-                    
-                    <Link to={"/rental/" + props.car.id} className="rent-btn" >
+                  <MDBBtn className="rent-button fw-bold" color="danger">
+                    <Link to={'/rental/' + props.car.id} className="rent-btn">
                       {' '}
                       Hemen Kİrala{' '}
                     </Link>

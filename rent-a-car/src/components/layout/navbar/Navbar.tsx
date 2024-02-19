@@ -1,27 +1,15 @@
 import { MenuMenu, MenuItem, Button, Menu, Image } from 'semantic-ui-react';
 import './Navbar.css';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { MDBIcon } from 'mdb-react-ui-kit';
 import SignIn from '../SignController/Signin';
 import SignOut from '../SignController/SignOut';
-import { useState } from 'react';
 import tokenService from '../../../services/tokenService';
-import customerService from '../../../services/customerService';
-
 
 type Props = {};
 
 const Navbar = (props: Props) => {
-  
-
- 
-
   const token = tokenService.getToken();
-
-  
-
-  
-
 
   return (
     <>
@@ -49,7 +37,7 @@ const Navbar = (props: Props) => {
         </Menu.Menu>
 
         <MenuMenu position="right">
-        {token?<SignIn/>:<SignOut/>}
+          <MenuItem className="menu-item">{token ? <SignIn /> : <SignOut />}</MenuItem>
         </MenuMenu>
       </Menu>
     </>

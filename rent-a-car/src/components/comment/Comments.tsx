@@ -96,7 +96,7 @@ const Comments = (props: Props) => {
               )}
             </MDBCol>
 
-            <MDBCol md="6" lg="5" xl="10" className='mrl'>
+            <MDBCol md="6" lg="5" xl="10" className="mrl">
               <MDBInput
                 type="textarea"
                 label="Yorum Metni"
