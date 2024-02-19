@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   MDBContainer,
@@ -15,8 +15,9 @@ import authService from '../services/authService';
 import { setAccessToken } from '../store/auth/authSlice';
 import tokenService from '../services/tokenService';
 import Layout from '../components/layout/Layout';
-import { setCustomerName } from '../store/customer/customerNameSlice';
 import customerService from '../services/customerService';
+import corporeteService from '../services/corporeteService';
+import { setName } from '../store/login/nameSlice';
 
 type Props = {};
 
@@ -25,33 +26,43 @@ const Login = (props: Props) => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [customerName, setCustomerName] = useState<string>();
+  const [companyName, setCompanyName] = useState<string>();
 
-  useSelector((state: any) => state.auth.accessToken);
+  const token = useSelector((state: any) => state.auth.accessToken);
 
   const postData: loginRequest = {
     email: email,
     password: password,
   };
+
+  useEffect(() => {
+    if (companyName) {
+      dispatch(setName(companyName));
+      console.log(companyName);
+      navigate("/");
+    } else if (customerName) {
+      dispatch(setName(customerName));
+      console.log(customerName);
+      navigate("/");
+    }
+  }, [companyName, customerName]);
+
   const login = () => {
     authService.login(postData).then((response) => {
       dispatch(setAccessToken(postData.email));
       console.log(response.data);
       tokenService.setToken(response.data);
-     // navigate('/')
-     
+      customerService.getCustomer().then((response) => {
+        setCustomerName(response.data.firstName);
+        console.log(response.data);
+      });
+      corporeteService.getCorporate().then((response) => {
+        setCompanyName(response.data.companyName);
+        console.log(response.data);
+      });
     });
-    
   };
-
-  const getCustomer=()=>{
-
-    customerService.getCustomer().then(response =>{
-      dispatch(setCustomerName(response.data.firstName))
-    })
-
-  }
-  
-
 
   return (
     <Layout>
@@ -74,7 +85,7 @@ const Login = (props: Props) => {
               size="lg"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              autoComplete='email'
+              autoComplete="email"
             />
             <MDBInput
               wrapperClass="mb-4"
@@ -103,12 +114,9 @@ const Login = (props: Props) => {
               size="lg"
               onClick={() => {
                 login();
-      
-                
               }}>
               Log in
             </MDBBtn>
-            <MDBBtn onClick={getCustomer}>Customer Service</MDBBtn>
 
             <div className="d-flex flex-row align-items-center justify-content-center pb-4 mb-4 fs-4 mt-4">
               <p className="mb-0">Don't have an account?</p>

@@ -6,6 +6,8 @@ import { totalPriceReducer } from "./totalPrice/totalPrice";
 import { PaymentReducer } from "./payment/paymentSlice";
 import { rentalReducer } from "./rental/rentalSlice";
 import { customerNameReducer } from "./customer/customerNameSlice";
+import { companyNameReducer } from "./corporate/companyNameSlice";
+import { NameReducer } from "./login/nameSlice";
 const rootReducer = combineReducers({
     auth: authReducer,
     car: carReducer,
@@ -13,8 +15,9 @@ const rootReducer = combineReducers({
     totalPrice:totalPriceReducer,
     payment : PaymentReducer,
     rental:rentalReducer,
-    customerName:customerNameReducer
-   
+    customerName:customerNameReducer,
+    companyName:companyNameReducer,
+    name:NameReducer
 });
 
 export const store = configureStore({reducer:rootReducer});
