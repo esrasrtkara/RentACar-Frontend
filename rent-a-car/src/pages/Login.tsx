@@ -37,13 +37,19 @@ const Login = (props: Props) => {
       dispatch(setAccessToken(postData.email));
       console.log(response.data);
       tokenService.setToken(response.data);
-      navigate('/')
-      customerService.getCustomer().then(response =>{
-        dispatch(setCustomerName(response.data.firstName))
-      })
+     // navigate('/')
+     
     });
     
   };
+
+  const getCustomer=()=>{
+
+    customerService.getCustomer().then(response =>{
+      dispatch(setCustomerName(response.data.firstName))
+    })
+
+  }
   
 
 
@@ -102,6 +108,7 @@ const Login = (props: Props) => {
               }}>
               Log in
             </MDBBtn>
+            <MDBBtn onClick={getCustomer}>Customer Service</MDBBtn>
 
             <div className="d-flex flex-row align-items-center justify-content-center pb-4 mb-4 fs-4 mt-4">
               <p className="mb-0">Don't have an account?</p>

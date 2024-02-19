@@ -19,6 +19,7 @@ const SignIn = (props: Props) => {
     const handleToken = () => {
       tokenService.clearToken();
       navigate("/");
+      window.location.reload();
     }
     const navigate = useNavigate();
 
