@@ -9,24 +9,19 @@ import {
 import './carDetail.css';
 import Comments from '../comment/Comments';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import { GetByIdCarResponse } from '../../models/responses/Car/getByIdCarResponse';
 import carService from '../../services/carService';
 import Layout from '../layout/Layout';
-import { useParams } from 'react-router-dom'
-
-
-
+import { useParams } from 'react-router-dom';
 
 const CarDetail = () => {
   const [car, setCar] = useState<GetByIdCarResponse>();
   let { id } = useParams();
 
   useEffect(() => {
-    if(id){
+    if (id) {
       getByIdCars();
     }
-    
   });
 
   const getByIdCars = () => {
@@ -38,7 +33,7 @@ const CarDetail = () => {
   const navigate = useNavigate();
 
   const handleButtonClick = () => {
-    navigate('/rental/'+id);
+    navigate('/rental/' + id);
   };
 
   return (
@@ -138,8 +133,7 @@ const CarDetail = () => {
               style={{ backgroundColor: '#E44A48' }}
               className="mb-4 w-100"
               size="lg"
-              onClick={handleButtonClick}
-            >
+              onClick={handleButtonClick}>
               Hemen Kirala
             </MDBBtn>
           </MDBCol>

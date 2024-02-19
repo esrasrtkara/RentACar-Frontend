@@ -1,15 +1,5 @@
-import { loginRequest } from '../models/requests/Login/loginRequest';
 import { AddRentalRequest } from '../models/requests/Rental/addRentalRequest';
 import { AxiosResponse } from 'axios';
-
-import { UpdateRentalRequest } from "../models/requests/Rental/updateRentalRequest";
-import { AllDataResultResponse } from "../models/responses/BaseResponse/AllDataResultResponse";
-import { DataResultByIdResponse } from "../models/responses/BaseResponse/DataResultByIdResponse";
-import { AddRentalResponse } from "../models/responses/Rental/addRentalResponse";
-import { GetAllRentalResponse } from "../models/responses/Rental/getAllRentalResponse";
-import { GetByIdRentalResponse } from "../models/responses/Rental/getByIdRentalResponse";
-import { UpdateRentalResponse } from "../models/responses/Rental/updateRentalResponse";
-import { BaseService } from "./baseService";
 import axiosInstance from '../core/utils/interceptors/axiosInterceptors';
 import { GetFilterRentalResponse } from '../models/responses/Rental/getFilterRentalResponse';
 

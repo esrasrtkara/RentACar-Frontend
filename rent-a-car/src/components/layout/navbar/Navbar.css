@@ -37,3 +37,46 @@
     background-color: white !important;
     color: red !important;
 }
+
+/*! SignIn Style */
+
+.menu-item {
+    display: flex !important;
+    align-items: center !important;
+}
+
+.avatar {
+    width: 35px !important;
+    height: 35px !important;
+    border-radius: 50% !important;
+}
+
+.dropdown {
+    margin-left: 15px !important;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+}
+
+.dropdown-menu {
+    border-bottom-left-radius: 10px !important;
+    border-bottom-right-radius: 10px !important;
+    margin-top: 33px !important;
+    width: 155px;
+    height: 85px;
+    left: -75px !important;
+    transition: all 0.5s ease !important; 
+}
+
+.dropdown-menu .dropdown-button .dropdown-item {
+    border-bottom-left-radius: 10px !important;
+    border-bottom-right-radius: 10px !important;
+    width: 155px;
+    transition: all 0.3s ease !important; 
+    color: #FFF;
+}
+
+.dropdown-menu .dropdown-button .dropdown-item:hover {
+    background-color: white !important;
+    color: red !important;
+}

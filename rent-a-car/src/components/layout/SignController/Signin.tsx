@@ -1,17 +1,16 @@
-import { Dropdown, Image, Menu } from 'semantic-ui-react';
+import { ButtonContent, Dropdown, Image } from 'semantic-ui-react';
 import tokenService from '../../../services/tokenService';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
+import './signController.css';
 
 type Props = {};
 
 const SignIn = (props: Props) => {
-  const name = useSelector(
-    (state: any) => state.name.name
-  );
+  const name = useSelector((state: any) => state.name.name);
 
   const firstInitial = name.charAt(0).toUpperCase();
-  const avatarUrl = `https://ui-avatars.com/api/?name=${firstInitial}&size=128`;
+  const avatarUrl = `https://ui-avatars.com/api/?name=${firstInitial}&size=128&color=E44A48&background=FFFFFF&bold=true&font-size=0.7`;
   const handleToken = () => {
     tokenService.clearToken();
     navigate('/');
@@ -19,23 +18,30 @@ const SignIn = (props: Props) => {
   };
   const navigate = useNavigate();
 
-  
   return (
-    <div>
-      <Menu.Item>
-        <Image avatar spaced="right" src={avatarUrl} />
-        <Dropdown pointing="top left" text={name}>
-          <Dropdown.Menu>
-            <Dropdown.Item text="Bilgilerim" icon="info" onClick={() => navigate("/profile")}/>
-            <Dropdown.Item
-              onClick={handleToken}
-              text="Çıkış Yap"
-              icon="sign-out"
-            />
-          </Dropdown.Menu>
-        </Dropdown>
-      </Menu.Item>
-    </div>
+    <>
+      <Image className="avatar" avatar spaced="right" src={avatarUrl} />
+      <Dropdown className="dropdown" pointing="top left" text={name}>
+        <Dropdown.Menu className="dropdown-menu">
+          <ButtonContent className="dropdown-button">
+          <Dropdown.Item
+            className="dropdown-item"
+            text="Bilgilerim"
+            icon="info"
+            onClick={() => navigate('/profile')}
+          />
+          </ButtonContent>
+          <ButtonContent className="dropdown-button">
+          <Dropdown.Item
+            className="dropdown-item"
+            onClick={handleToken}
+            text="Çıkış Yap"
+            icon="sign-out"
+          />
+          </ButtonContent>
+        </Dropdown.Menu>
+      </Dropdown>
+    </>
   );
 };
 
