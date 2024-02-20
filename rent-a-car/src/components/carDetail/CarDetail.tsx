@@ -15,23 +15,54 @@ import Layout from '../layout/Layout';
 import { useParams } from 'react-router-dom';
 import commentService from '../../services/commentService';
 import { AddCommentRequest } from '../../models/requests/Comment/addCommentRequest';
+import { GetCommentCarId } from '../../models/responses/Car/getCommentCarId';
+
 
 const CarDetail = () => {
   const [car, setCar] = useState<GetByIdCarResponse>();
+  const [carComments,setCarComments] = useState<GetCommentCarId[]>([])
+ // const [userId, setUserId] = useState()
   let { id } = useParams();
+
+
+  const [likedComments, setLikedComments] = useState<number[]>([]);
+
  
 
   useEffect(() => {
     if (id) {
       getByIdCars();
     }
+    getCommentCarId();
   });
+  const handleLikeComment = (commentId: number) => {
+    if (likedComments.includes(commentId)) {
+      setLikedComments(likedComments.filter((id) => id !== commentId));
+    } else {
+      setLikedComments([...likedComments, commentId]);
+    }
+  };
+
+  const handleDeleteComment = (commentId: number) => {
+    // Silme işlemleri
+    const updatedComments = carComments.filter(
+      (comment) => comment.id !== commentId
+    );
+    setCarComments(updatedComments);
+  };
 
   const getByIdCars = () => {
     carService.getById(Number(id)).then((response) => {
       setCar(response.data.data);
     });
   };
+  const getCommentCarId=()=>{
+    carService.getComment(Number(id)).then(response=>{
+      setCarComments(response.data)
+
+    })
+  }
+ 
 
 
   const navigate = useNavigate();
@@ -144,6 +175,58 @@ const CarDetail = () => {
         </MDBRow>
       </MDBContainer>
       {car && <Comments carId={car.id} />}
+
+      <MDBContainer>
+        
+        {carComments.length !== 0 ? (
+          carComments.map((comment) => (
+            <MDBRow
+              key={comment.id}
+              className="comment my-4 align-items-center bg-border">
+              <MDBCol md="6" lg="5" xl="1" className="comment-img">
+                {/* Kullanıcı Profil Fotoğrafı */}
+                <img
+                  className="img-fluid rounded-circle"
+                  src="https://rajueditor.com/wp-content/uploads/2023/10/instagram-profil-fotografi-netlestirme-1024x1024.jpg"
+                  alt="Profil"
+                />
+              </MDBCol>
+              <MDBCol md="6" lg="5" xl="3" className="comment-text">
+                {/* Yorum Bilgileri */}
+                {/*<h5>{comment.title}</h5>*/}
+                <p>{comment.text}</p>
+              </MDBCol>
+              <MDBCol
+                md="6"
+                lg="5"
+                xl="3"
+                className="like-delete-button text-right comment-container">
+                {/* Beğen ve Sil Butonları */}
+                <MDBBtn
+                  className="like-button"
+                  outline={!likedComments.includes(comment.id)}
+                  color={
+                    likedComments.includes(comment.id) ? 'primary' : 'secondary'
+                  }
+                  onClick={() => handleLikeComment(comment.id)}>
+                  <MDBIcon icon="heart" />
+                </MDBBtn>
+                <MDBBtn
+                  color="danger"
+                  onClick={() => handleDeleteComment(comment.id)}>
+                  <MDBIcon icon="trash-alt" />
+                </MDBBtn>
+              </MDBCol>
+            </MDBRow>
+          ))
+        ) :
+
+       
+          <div className="no-data">No Comment</div>
+      
+          
+      }
+      </MDBContainer>
     </Layout>
   );
 };
