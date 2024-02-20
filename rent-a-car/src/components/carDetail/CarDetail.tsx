@@ -16,15 +16,17 @@ import { useParams } from 'react-router-dom';
 import commentService from '../../services/commentService';
 import { AddCommentRequest } from '../../models/requests/Comment/addCommentRequest';
 import { GetCommentCarId } from '../../models/responses/Car/getCommentCarId';
-import { Container } from 'react-bootstrap';
+
 
 const CarDetail = () => {
   const [car, setCar] = useState<GetByIdCarResponse>();
   const [carComments,setCarComments] = useState<GetCommentCarId[]>([])
+ // const [userId, setUserId] = useState()
   let { id } = useParams();
 
 
   const [likedComments, setLikedComments] = useState<number[]>([]);
+
  
 
   useEffect(() => {
