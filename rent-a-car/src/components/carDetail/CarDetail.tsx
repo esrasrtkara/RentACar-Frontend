@@ -14,12 +14,16 @@ import carService from '../../services/carService';
 import Layout from '../layout/Layout';
 import { useParams } from 'react-router-dom';
 import { GetCommentCarId } from '../../models/responses/Car/getCommentCarId';
+import userService from '../../services/userService';
+import { useDispatch, useSelector } from 'react-redux';
+import { UserIdResponse } from '../../models/responses/User/userIdResponse';
 
 const CarDetail = () => {
   const [car, setCar] = useState<GetByIdCarResponse>();
   const [carComments, setCarComments] = useState<GetCommentCarId[]>([]);
   const [likedComments, setLikedComments] = useState<number[]>([]);
-  // const [userId, setUserId] = useState()
+  const dispatch = useDispatch();
+   const [userId, setUserId] = useState<number>(0)
   let { id } = useParams();
 
   useEffect(() => {
@@ -27,7 +31,15 @@ const CarDetail = () => {
       getByIdCars();
     }
     getCommentCarId();
+    userService.getUserId().then((response)=>{
+      setUserId(response.data.id);
+  });
+  
+  
   }, []);
+
+  //console.log(userId);
+  carComments.map((comment) =>{console.log(comment.userId)});
 
   const getByIdCars = () => {
     carService.getById(Number(id)).then((response) => {
@@ -168,6 +180,7 @@ const CarDetail = () => {
 
         {carComments.length !== 0 ? (
           carComments.map((comment) => (
+            
             <MDBRow
               key={comment.id}
               className="comment my-4 align-items-center bg-border">
@@ -199,13 +212,24 @@ const CarDetail = () => {
                   }
                   onClick={() => handleLikeComment(comment.id)}>
                   <MDBIcon icon="heart" />
+                
                 </MDBBtn>
-                <MDBBtn
-                  color="danger"
-                  onClick={() => handleDeleteComment(comment.id)}>
-                  <MDBIcon icon="trash-alt" />
-                </MDBBtn>
-              </MDBCol>
+                
+                {comment.userId === userId ? (
+    <MDBBtn
+        color="danger"
+        onClick={() => handleDeleteComment(comment.id)}
+    >
+        <MDBIcon icon="trash-alt" />
+    </MDBBtn>
+) : (
+    <div></div>
+)}
+
+                
+
+               
+                </MDBCol>
             </MDBRow>
           ))
         ) : (
