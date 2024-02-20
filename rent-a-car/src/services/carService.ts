@@ -7,6 +7,9 @@ import { UpdateCarRequest } from "../models/requests/Car/updateCarRequest";
 import { AddCarResponse } from "../models/responses/Car/addCarResponse";
 import { UpdateCarResponse } from "../models/responses/Car/updateCarResponse";
 import { BaseService } from "./baseService";
+import { GetCommentCarId } from '../models/responses/Car/getCommentCarId';
+import { AxiosResponse } from 'axios';
+import axiosInstance from '../core/utils/interceptors/axiosInterceptors';
 
 
 class CarService extends BaseService<
@@ -20,6 +23,10 @@ class CarService extends BaseService<
     constructor(){
         super();
         this.apiUrl = "cars";
+    }
+
+    getComment(id: number): Promise<AxiosResponse<GetCommentCarId[], any>> {
+        return axiosInstance.get<GetCommentCarId[]>(this.apiUrl + "/" + id+"/comments");
     }
 }
 const carService = new CarService();

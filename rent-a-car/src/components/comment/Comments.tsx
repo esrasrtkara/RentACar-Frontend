@@ -8,8 +8,15 @@ import {
 } from 'mdb-react-ui-kit';
 import './Comments.css';
 import { useState } from 'react';
+import { GetAllCommentResponse } from '../../models/responses/Comment/getAllCommentResponse';
+import { AddCommentRequest } from '../../models/requests/Comment/addCommentRequest';
+import commentService from '../../services/commentService';
+import carService from '../../services/carService';
+import { GetCommentCarId } from '../../models/responses/Car/getCommentCarId';
 
-type Props = {};
+type Props = {
+  carId:number
+};
 
 interface Comment {
   id: number;
@@ -18,11 +25,12 @@ interface Comment {
 }
 
 const Comments = (props: Props) => {
-  const [comments, setComments] = useState<Comment[]>([]);
-  const [newComment, setNewComment] = useState<Comment>({
-    id: 1,
-    title: ' ',
+  const [comments, setComments] = useState<GetCommentCarId[]>([]);
+  const [newComment, setNewComment] = useState<AddCommentRequest>({
+    id:0,
     text: ' ',
+    carId:props.carId,
+    userId:0
   });
 
   const [likedComments, setLikedComments] = useState<number[]>([]);
@@ -31,11 +39,12 @@ const Comments = (props: Props) => {
   const [textError, setTextError] = useState<boolean>(false);
 
   const handleCommentSubmit = () => {
-    if (newComment.title.trim() === '') {
-      setTitleError(true);
-    } else {
-      setTitleError(false);
-    }
+
+    commentService.add(newComment).then(response=>{
+      console.log(response.data);
+    })
+   
+
 
     if (newComment.text.trim() === '') {
       setTextError(true);
@@ -44,9 +53,11 @@ const Comments = (props: Props) => {
     }
 
     // Başlık ve metin doluysa yorumu ekleyin
-    if (newComment.title.trim() !== '' && newComment.text.trim() !== '') {
-      setComments([...comments, newComment]);
-      setNewComment({ id: newComment.id + 1, title: '', text: '' });
+    if (newComment.text.trim() !== '') {
+     carService.getComment(props.carId).then(response=>{
+        setComments([...response.data, newComment]);
+        setNewComment({id:0,text: '',carId:props.carId ,userId:0});
+      })
     }
   };
 
@@ -79,9 +90,9 @@ const Comments = (props: Props) => {
               <MDBInput
                 type="text"
                 label="Kullanıcı Adınız"
-                value={newComment.title}
+                //value={newComment.title}
                 onChange={(e) => {
-                  setNewComment({ ...newComment, title: e.target.value });
+                //  setNewComment({ ...newComment, title: e.target.value });
                   setTitleError(false); // Input değiştiğinde hatayı temizleme
                 }}
                 // Hata durumuna göre border rengini ayarlama
@@ -140,7 +151,7 @@ const Comments = (props: Props) => {
               </MDBCol>
               <MDBCol md="6" lg="5" xl="3" className="comment-text">
                 {/* Yorum Bilgileri */}
-                <h5>{comment.title}</h5>
+               {/*<h5>{comment.title}</h5>*/} 
                 <p>{comment.text}</p>
               </MDBCol>
               <MDBCol
