@@ -38,6 +38,7 @@ const Login = (props: Props) => {
   };
 
   useEffect(() => {
+    
     if (companyName) {
       dispatch(setName(companyName));
       console.log(companyName);
