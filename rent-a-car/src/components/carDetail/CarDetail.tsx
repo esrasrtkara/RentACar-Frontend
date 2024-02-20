@@ -13,10 +13,13 @@ import { GetByIdCarResponse } from '../../models/responses/Car/getByIdCarRespons
 import carService from '../../services/carService';
 import Layout from '../layout/Layout';
 import { useParams } from 'react-router-dom';
+import commentService from '../../services/commentService';
+import { AddCommentRequest } from '../../models/requests/Comment/addCommentRequest';
 
 const CarDetail = () => {
   const [car, setCar] = useState<GetByIdCarResponse>();
   let { id } = useParams();
+ 
 
   useEffect(() => {
     if (id) {
@@ -29,6 +32,7 @@ const CarDetail = () => {
       setCar(response.data.data);
     });
   };
+
 
   const navigate = useNavigate();
 
@@ -139,7 +143,7 @@ const CarDetail = () => {
           </MDBCol>
         </MDBRow>
       </MDBContainer>
-      {car && <Comments />}
+      {car && <Comments carId={car.id} />}
     </Layout>
   );
 };

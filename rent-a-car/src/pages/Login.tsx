@@ -28,6 +28,7 @@ const Login = (props: Props) => {
   const [password, setPassword] = useState('');
   const [customerName, setCustomerName] = useState<string>();
   const [companyName, setCompanyName] = useState<string>();
+  const [error, setError] = useState(null);
 
   const token = useSelector((state: any) => state.auth.accessToken);
 
@@ -61,7 +62,11 @@ const Login = (props: Props) => {
         setCompanyName(response.data.companyName);
         console.log(response.data);
       });
+    })
+    .catch((error) =>{
+      setError(error.response.data.message);
     });
+    
   };
 
   return (
@@ -87,6 +92,7 @@ const Login = (props: Props) => {
               onChange={(e) => setEmail(e.target.value)}
               autoComplete="email"
             />
+            
             <MDBInput
               wrapperClass="mb-4"
               label="Password"
@@ -97,6 +103,7 @@ const Login = (props: Props) => {
               onChange={(e) => setPassword(e.target.value)}
               autoComplete="new-password"
             />
+           
 
             <div className="d-flex justify-content-between mx-4 mb-4">
               <MDBCheckbox
