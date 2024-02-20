@@ -22,7 +22,6 @@ const HomePage = (props: Props) => {
   const getCars = () => {
     carService.getAll().then((response) => {
       dispatch(setCars(response.data.data));
-      console.log(response.data.data)
     });
   };
 
