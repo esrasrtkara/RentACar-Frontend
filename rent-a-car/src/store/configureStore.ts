@@ -1,3 +1,4 @@
+import { userIdReducer } from './user/userIdSlice';
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { authReducer } from "./auth/authSlice";
 import { carReducer } from "./car/carSlice";
@@ -17,7 +18,8 @@ const rootReducer = combineReducers({
     rental:rentalReducer,
     customerName:customerNameReducer,
     companyName:companyNameReducer,
-    name:NameReducer
+    name:NameReducer,
+    userId:userIdReducer
 });
 
 export const store = configureStore({reducer:rootReducer});

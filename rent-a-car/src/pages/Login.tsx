@@ -18,6 +18,8 @@ import Layout from '../components/layout/Layout';
 import customerService from '../services/customerService';
 import corporeteService from '../services/corporeteService';
 import { setName } from '../store/login/nameSlice';
+import userService from '../services/userService';
+import { setUserId } from '../store/user/userIdSlice';
 
 type Props = {};
 
@@ -47,8 +49,11 @@ const Login = (props: Props) => {
       dispatch(setName(customerName));
       console.log(customerName);
       navigate("/");
+   
     }
-  }, [companyName, customerName]);
+    
+    
+  }, [companyName, customerName,token]);
 
   const login = () => {
     authService.login(postData).then((response) => {
@@ -63,6 +68,9 @@ const Login = (props: Props) => {
         setCompanyName(response.data.companyName);
         console.log(response.data);
       });
+     
+   
+     
     })
     .catch((error) =>{
       setError(error.response.data.message);
