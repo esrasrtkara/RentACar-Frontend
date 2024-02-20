@@ -13,28 +13,34 @@ import { GetByIdCarResponse } from '../../models/responses/Car/getByIdCarRespons
 import carService from '../../services/carService';
 import Layout from '../layout/Layout';
 import { useParams } from 'react-router-dom';
-import commentService from '../../services/commentService';
-import { AddCommentRequest } from '../../models/requests/Comment/addCommentRequest';
 import { GetCommentCarId } from '../../models/responses/Car/getCommentCarId';
-
 
 const CarDetail = () => {
   const [car, setCar] = useState<GetByIdCarResponse>();
-  const [carComments,setCarComments] = useState<GetCommentCarId[]>([])
- // const [userId, setUserId] = useState()
-  let { id } = useParams();
-
-
+  const [carComments, setCarComments] = useState<GetCommentCarId[]>([]);
   const [likedComments, setLikedComments] = useState<number[]>([]);
-
- 
+  // const [userId, setUserId] = useState()
+  let { id } = useParams();
 
   useEffect(() => {
     if (id) {
       getByIdCars();
     }
     getCommentCarId();
-  });
+  }, []);
+
+  const getByIdCars = () => {
+    carService.getById(Number(id)).then((response) => {
+      setCar(response.data.data);
+    });
+  };
+
+  const getCommentCarId = () => {
+    carService.getComment(Number(id)).then((response) => {
+      setCarComments(response.data);
+    });
+  };
+
   const handleLikeComment = (commentId: number) => {
     if (likedComments.includes(commentId)) {
       setLikedComments(likedComments.filter((id) => id !== commentId));
@@ -44,26 +50,11 @@ const CarDetail = () => {
   };
 
   const handleDeleteComment = (commentId: number) => {
-    // Silme işlemleri
     const updatedComments = carComments.filter(
       (comment) => comment.id !== commentId
     );
     setCarComments(updatedComments);
   };
-
-  const getByIdCars = () => {
-    carService.getById(Number(id)).then((response) => {
-      setCar(response.data.data);
-    });
-  };
-  const getCommentCarId=()=>{
-    carService.getComment(Number(id)).then(response=>{
-      setCarComments(response.data)
-
-    })
-  }
- 
-
 
   const navigate = useNavigate();
 
@@ -173,11 +164,8 @@ const CarDetail = () => {
             </MDBBtn>
           </MDBCol>
         </MDBRow>
-      </MDBContainer>
-      {car && <Comments carId={car.id} />}
+        {car && <Comments carId={car.id} />}
 
-      <MDBContainer>
-        
         {carComments.length !== 0 ? (
           carComments.map((comment) => (
             <MDBRow
@@ -186,9 +174,10 @@ const CarDetail = () => {
               <MDBCol md="6" lg="5" xl="1" className="comment-img">
                 {/* Kullanıcı Profil Fotoğrafı */}
                 <img
-                  className="img-fluid rounded-circle"
-                  src="https://rajueditor.com/wp-content/uploads/2023/10/instagram-profil-fotografi-netlestirme-1024x1024.jpg"
+                  className="profile-photo img-fluid rounded-circle"
+                  src="https://png.pngtree.com/png-vector/20191110/ourmid/pngtree-avatar-icon-profile-icon-member-login-vector-isolated-png-image_1978396.jpg"
                   alt="Profil"
+                  sizes='big'
                 />
               </MDBCol>
               <MDBCol md="6" lg="5" xl="3" className="comment-text">
@@ -219,13 +208,9 @@ const CarDetail = () => {
               </MDBCol>
             </MDBRow>
           ))
-        ) :
-
-       
+        ) : (
           <div className="no-data">No Comment</div>
-      
-          
-      }
+        )}
       </MDBContainer>
     </Layout>
   );

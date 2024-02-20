@@ -1,4 +1,3 @@
-import { Token } from 'react-stripe-checkout';
 class TokenService {
     getToken(){
         return localStorage.getItem("token");

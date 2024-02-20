@@ -11,4 +11,5 @@ class PaymentService{
         return axiosInstance.post<any>(this.apiUrl, request);
     }
 }
-export default new PaymentService();
+const paymentService = new PaymentService();
+export default paymentService;

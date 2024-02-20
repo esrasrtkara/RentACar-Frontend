@@ -7,11 +7,9 @@ import {
   MDBInput,
 } from 'mdb-react-ui-kit';
 import './Comments.css';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { AddCommentRequest } from '../../models/requests/Comment/addCommentRequest';
 import commentService from '../../services/commentService';
-import carService from '../../services/carService';
-import { GetCommentCarId } from '../../models/responses/Car/getCommentCarId';
 
 type Props = {
   carId: number;
@@ -25,25 +23,21 @@ const Comments = (props: Props) => {
     userId: 0,
   });
 
-
   const [textError, setTextError] = useState<boolean>(false);
 
   const handleCommentSubmit = () => {
-   
-
     if (newComment.text.trim() === '') {
       setTextError(true);
     } else {
       setTextError(false);
     }
 
-    // Başlık ve metin doluysa yorumu ekleyin
+    // Metin doluysa yorumu ekle
     if (newComment.text.trim() !== '') {
       commentService.add(newComment).then((response) => {
         console.log(response.data);
         setNewComment({ id: 0, text: '', carId: props.carId, userId: 0 });
       });
-
     }
   };
 
