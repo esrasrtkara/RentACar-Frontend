@@ -10,12 +10,15 @@ import {
 import Layout from '../../components/layout/Layout';
 import './profile.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
 import carService from '../../services/carService';
 import { setCars } from '../../store/car/carSlice';
 import { Col, Row } from 'react-bootstrap';
-import { GetAllCarResponse } from '../../models/responses/Car/getAllCarResponse';
 import CarCardProfile from '../../components/carCardProfile/CarCardProfile';
+import { GetAllRentalResponse } from '../../models/responses/Rental/getAllRentalResponse';
+import rentalService from '../../services/rentalService';
+import { useEffect, useState } from 'react';
+import { setRentals } from '../../store/rental/rentalsSlice';
+import { GetAllCarResponse } from '../../models/responses/Car/getAllCarResponse';
 
 type Props = {};
 
@@ -24,16 +27,33 @@ const Profile = (props: Props) => {
   const cars = useSelector((state: any) => state.car.cars);
   const name = useSelector((state: any) => state.name.name);
   const surname = useSelector((state: any) => state.surname.surname);
+  const rentals = useSelector((state: any) => state.rentals.rentals);
+  const [rentalList, setRentalList] = useState([])
+  const [rentalCount, setRentalCount] = useState(0)
+
+
+  
 
   useEffect(() => {
     getCars();
+    getRental();
+    console.log(rentals)
+    
   }, []);
+  
 
   const getCars = () => {
     carService.getAll().then((response) => {
       dispatch(setCars(response.data.data));
     });
   };
+  const getRental=()=>{
+    rentalService.getRentalUserId().then(response=>{
+      dispatch(setRentals(response.data))
+    })
+   }
+
+   
 
   return (
     <Layout>
@@ -61,15 +81,20 @@ const Profile = (props: Props) => {
                     <MDBCardText>AUTOPIA</MDBCardText>
                   </div>
                 </div>
+                
                 <div
                   className="p-4 text-black"
                   style={{ backgroundColor: '#f8f9fa' }}>
+                    
                   <div className="d-flex justify-content-end text-center py-1">
                     <div className="px-3">
-                      <MDBCardText className="mb-1 h5">15</MDBCardText>
-                      <MDBCardText className="small text-muted mb-0">
-                        Kiralamalar
-                      </MDBCardText>
+                    <div className="px-3">
+  <MDBCardText className="mb-1 h5">{rentals.length}</MDBCardText>
+  <MDBCardText className="small text-muted mb-0">
+    Kiralamalar
+  </MDBCardText>
+</div>
+                 
                     </div>
                     <div>
                       <MDBCardText className="mb-1 h5">5</MDBCardText>
@@ -99,12 +124,25 @@ const Profile = (props: Props) => {
                 {/*Car Card Alanı*/}
                 <h4 className="cars-title text-center">Kiraladığım Araçlar</h4>
                 <Row>
-                  {cars.slice(0, 3).map((car: GetAllCarResponse, i: number) => (
-                    <Col key={i} className="col-4">
-                      <CarCardProfile car={car} />
-                    </Col>
-                  ))}
-                </Row>
+  {rentals.map((rental: GetAllRentalResponse, i: number) => {
+    const foundCar = cars.find((car: GetAllCarResponse) => car.id === rental.carId);
+
+    if (foundCar) {
+      return (
+        <Col key={i} className="col-4">
+          <div>
+            <CarCardProfile
+              car={foundCar}
+              rental={rental}
+            />
+          </div>
+        </Col>
+      );
+    } else {
+      return null; // Araba bulunamadıysa, hiçbir şey gösterme
+    }
+  })}
+</Row>
                 {/*Yorumlar Alanı*/}
                 <h4 className="cars-title text-center">Yorumlarım</h4>
                 <MDBRow className="comment my-4 align-items-center bg-border">

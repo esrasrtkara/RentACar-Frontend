@@ -4,6 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import './signController.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearAccessToken } from '../../../store/auth/authSlice';
+import rentalService from '../../../services/rentalService';
+import { setRentals } from '../../../store/rental/rentalsSlice';
+
 
 type Props = {};
 
@@ -32,7 +35,7 @@ const SignIn = (props: Props) => {
             className="dropdown-item"
             text="Profilim"
             icon="info"
-            onClick={() => navigate('/profile')}
+            onClick={() => {navigate('/profile');}}
           />
           </ButtonContent>
           <ButtonContent className="dropdown-button">
