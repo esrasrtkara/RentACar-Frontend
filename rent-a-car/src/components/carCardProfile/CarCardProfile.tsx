@@ -11,10 +11,17 @@ import {
 } from 'mdb-react-ui-kit';
 import './carCardProfile.css';
 import { GetAllCarResponse } from '../../models/responses/Car/getAllCarResponse';
+import { GetAllRentalResponse } from '../../models/responses/Rental/getAllRentalResponse';
 
-type Props = { car: GetAllCarResponse };
+type Props = { rental: GetAllRentalResponse,
+              car:GetAllCarResponse
+};
+
+
 
 const CarCardProfile = (props: Props) => {
+  
+
   return (
     <>
       <MDBContainer fluid className="my-5">
@@ -44,6 +51,7 @@ const CarCardProfile = (props: Props) => {
                     <h1 className="card-title  font-weight-bold">
                       {props.car.modelName}
                     </h1>
+                    
                   </div>
                   <div>
                     <div className="star-icons justify-content-end mb-4">
@@ -72,6 +80,8 @@ const CarCardProfile = (props: Props) => {
           </MDBCol>
         </MDBRow>
       </MDBContainer>
+   
+      
     </>
   );
 };
