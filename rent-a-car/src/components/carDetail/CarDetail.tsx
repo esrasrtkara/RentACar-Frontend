@@ -13,30 +13,36 @@ import { GetByIdCarResponse } from '../../models/responses/Car/getByIdCarRespons
 import carService from '../../services/carService';
 import Layout from '../layout/Layout';
 import { useParams } from 'react-router-dom';
-import { GetCommentCarId } from '../../models/responses/Car/getCommentCarId';
-import userService from '../../services/userService';
+import { useDispatch, useSelector } from 'react-redux';
+import { GetByIdCommentResponse } from '../../models/responses/Comment/getByIdCommentResponse';
+
 
 const CarDetail = () => {
   const [car, setCar] = useState<GetByIdCarResponse>();
-  const [carComments, setCarComments] = useState<GetCommentCarId[]>([]);
-  const [likedComments, setLikedComments] = useState<number[]>([]);
-  const [userId, setUserId] = useState<number>(0);
+ 
+  const comments = useSelector((state: any) => state.comments.comments);
+  const userId = useSelector((state: any) => state.userId.userId);
   let { id } = useParams();
+  const name = useSelector((state: any) => state.name.name);
+  const [currentUserInitial, setCurrentUserInitial] = useState<string>('');
 
+  
+
+  const getCurrentUserAvatarUrl = (userId: number) => {
+    const avatarUrl = `https://ui-avatars.com/api/?name=${currentUserInitial}&size=128&color=E44A48&background=FFFFFF&bold=true&font-size=0.7`;
+    return avatarUrl;
+  };
+  
   useEffect(() => {
     if (id) {
       getByIdCars();
     }
-    getCommentCarId();
-    userService.getUserId().then((response) => {
-      setUserId(response.data.id);
-    });
-  }, []);
-
-  //console.log(userId);
-  carComments.map((comment) => {
-    console.log(comment.userId);
-  });
+    if(name){
+    const firstInitial = name.charAt(0).toUpperCase();
+    setCurrentUserInitial(firstInitial);
+    }
+   
+  }, [name]);
 
   const getByIdCars = () => {
     carService.getById(Number(id)).then((response) => {
@@ -44,32 +50,20 @@ const CarDetail = () => {
     });
   };
 
-  const getCommentCarId = () => {
-    carService.getComment(Number(id)).then((response) => {
-      setCarComments(response.data);
-    });
-  };
-
-  const handleLikeComment = (commentId: number) => {
-    if (likedComments.includes(commentId)) {
-      setLikedComments(likedComments.filter((id) => id !== commentId));
-    } else {
-      setLikedComments([...likedComments, commentId]);
-    }
-  };
 
   const handleDeleteComment = (commentId: number) => {
-    const updatedComments = carComments.filter(
-      (comment) => comment.id !== commentId
-    );
-    setCarComments(updatedComments);
+   /* const updatedComments = comments.filter(
+      (comment:AddCommentRequest) => comment.id !== commentId
+    );*/
+   // setComments(updatedComments);
   };
-
+  console.log(comments)
   const navigate = useNavigate();
 
   const handleButtonClick = () => {
     navigate('/rental/' + id);
   };
+
 
   return (
     <Layout>
@@ -103,19 +97,19 @@ const CarDetail = () => {
               <div className="row">
                 <div className="col-md-4">
                   <p>
-                    <MDBIcon far icon="calendar-alt" /> <strong>Yıl :</strong>
+                    <MDBIcon far icon="calendar-alt" /> <strong>Yıl:</strong>
                     {car?.year}
                   </p>
                 </div>
                 <div className="col-md-4">
                   <p>
                     <MDBIcon icon="tachometer-alt" />{' '}
-                    <strong>Kilometre :</strong> {car?.kilometer}
+                    <strong>Kilometre:</strong> {car?.kilometer}
                   </p>
                 </div>
                 <div className="col-md-4">
                   <p>
-                    <MDBIcon icon="car" /> <strong>Plaka :</strong>
+                    <MDBIcon icon="car" /> <strong>Plaka:</strong>
                     {car?.plate}
                   </p>
                 </div>
@@ -125,19 +119,19 @@ const CarDetail = () => {
                 <div className="col-md-4">
                   <p>
                     <MDBIcon icon="credit-card" />{' '}
-                    <strong>Min Findeks Puanı :</strong>
+                    <strong>Min Findeks Puanı:</strong>
                     {car?.minFindeksRate}
                   </p>
                 </div>
                 <div className="col-md-4">
                   <p>
-                    <MDBIcon icon="suitcase" /> <strong>Bagaç Hacmi :</strong>{' '}
+                    <MDBIcon icon="suitcase" /> <strong>Bagaç Hacmi:</strong>{' '}
                     {car?.trunkVolume}
                   </p>
                 </div>
                 <div className="col-md-4">
                   <p>
-                    <MDBIcon icon="cogs" /> <strong>Vites Türü :</strong>{' '}
+                    <MDBIcon icon="cogs" /> <strong>Vites Türü:</strong>{' '}
                     Otomatik
                   </p>
                 </div>
@@ -146,19 +140,19 @@ const CarDetail = () => {
               <div className="row">
                 <div className="col-md-4">
                   <p>
-                    <MDBIcon icon="gas-pump" /> <strong>Yakıt Tipi :</strong>
+                    <MDBIcon icon="gas-pump" /> <strong>Yakıt Tipi:</strong>
                     Benzinli
                   </p>
                 </div>
                 <div className="col-md-4">
                   <p>
-                    <MDBIcon icon="users" /> <strong>Kapasite :</strong>{' '}
+                    <MDBIcon icon="users" /> <strong>Kapasite:</strong>{' '}
                     {car?.capacity}
                   </p>
                 </div>
                 <div className="col-md-4">
                   <p>
-                    <MDBIcon icon="palette" /> <strong>Renk :</strong>{' '}
+                    <MDBIcon icon="palette" /> <strong>Renk:</strong>{' '}
                     {car?.colorName}
                   </p>
                 </div>
@@ -173,58 +167,41 @@ const CarDetail = () => {
             </MDBBtn>
           </MDBCol>
         </MDBRow>
-        {car && <Comments carId={car.id} />}
+        <Comments carId={Number(id)} />
 
-        {carComments.length !== 0 ? (
-          carComments.map((comment) => (
-            <MDBRow
-              key={comment.id}
-              className="comment my-4 align-items-center bg-border">
-              <MDBCol md="6" lg="5" xl="1" className="comment-img">
+        {comments.length !== 0 ? (
+        comments.map((comment:any,index:any) => (
+        <MDBRow key={index} className="comment my-4 align-items-center bg-border">
+            <MDBCol md="6" lg="5" xl="1" className="comment-img">
                 {/* Kullanıcı Profil Fotoğrafı */}
                 <img
-                  className="profile-photo img-fluid rounded-circle"
-                  src="https://png.pngtree.com/png-vector/20191110/ourmid/pngtree-avatar-icon-profile-icon-member-login-vector-isolated-png-image_1978396.jpg"
-                  alt="Profil"
-                  sizes="big"
+                    className="profile-photo img-fluid rounded-circle"
+                    src={getCurrentUserAvatarUrl(comment.userId)}
+                    alt="Profil"
+                    sizes='big'
                 />
-              </MDBCol>
-              <MDBCol md="6" lg="5" xl="3" className="comment-text">
+            </MDBCol>
+            <MDBCol md="6" lg="5" xl="3" className="comment-text">
                 {/* Yorum Bilgileri */}
                 {/*<h5>{comment.title}</h5>*/}
                 <p>{comment.text}</p>
-              </MDBCol>
-              <MDBCol
-                md="6"
-                lg="5"
-                xl="3"
-                className="like-delete-button text-right comment-container">
+            </MDBCol>
+            <MDBCol md="6" lg="5" xl="3" className="like-delete-button text-right comment-container">
                 {/* Beğen ve Sil Butonları */}
-                <MDBBtn
-                  className="like-button"
-                  outline={!likedComments.includes(comment.id)}
-                  color={
-                    likedComments.includes(comment.id) ? 'primary' : 'secondary'
-                  }
-                  onClick={() => handleLikeComment(comment.id)}>
-                  <MDBIcon icon="heart" />
-                </MDBBtn>
-
                 {comment.userId === userId ? (
-                  <MDBBtn
-                    color="danger"
-                    onClick={() => handleDeleteComment(comment.id)}>
-                    <MDBIcon icon="trash-alt" />
-                  </MDBBtn>
-                ) : (
-                  <div></div>
-                )}
-              </MDBCol>
-            </MDBRow>
-          ))
-        ) : (
-          <div className="no-data">No Comment</div>
-        )}
+                    <MDBBtn
+                        color="danger"
+                        onClick={() => handleDeleteComment(comment.id)}
+                    >
+                        <MDBIcon icon="trash-alt" />
+                    </MDBBtn>
+                ):(<div></div>)}
+            </MDBCol>
+        </MDBRow>
+    ))
+) : (
+    <div className="no-data">No Comment</div>
+)}
       </MDBContainer>
     </Layout>
   );

@@ -10,6 +10,10 @@ import './Comments.css';
 import { useState } from 'react';
 import { AddCommentRequest } from '../../models/requests/Comment/addCommentRequest';
 import commentService from '../../services/commentService';
+import { useDispatch, useSelector } from 'react-redux';
+import { setComments } from '../../store/comment/commentsSlice';
+import { useNavigate } from 'react-router-dom';
+import carService from '../../services/carService';
 
 type Props = {
   carId: number;
@@ -17,13 +21,21 @@ type Props = {
 
 const Comments = (props: Props) => {
   const [newComment, setNewComment] = useState<AddCommentRequest>({
-    id: 0,
     text: ' ',
     carId: props.carId,
     userId: 0,
+
   });
+  const navigate = useNavigate();
+ 
+  const comments = useSelector((state: any) => state.comments.comments);
+  const dispatch = useDispatch();
+
 
   const [textError, setTextError] = useState<boolean>(false);
+  const token = useSelector((state: any) => state.auth.accessToken);
+
+  
 
   const handleCommentSubmit = () => {
     if (newComment.text.trim() === '') {
@@ -33,24 +45,34 @@ const Comments = (props: Props) => {
     }
 
     // Metin doluysa yorumu ekle
-    if (newComment.text.trim() !== '') {
+    if (textError===false) {
       commentService.add(newComment).then((response) => {
         console.log(response.data);
-        setNewComment({ id: 0, text: '', carId: props.carId, userId: 0 });
+        dispatch(setComments([...comments,newComment]))
+        setNewComment({ ...newComment, text: '' });
+        carService.getComment(props.carId).then((response) => {
+          dispatch(setComments(response.data))
+        });
       });
     }
   };
+
+ 
+
+
 
   return (
     <>
       <MDBContainer fluid className="p-3 my-5">
         {/* Yorum Yap Alanı */}
-        <MDBRow className="semi-container">
+        {token !== null ? <MDBRow className="semi-container">
           <div className="comment-header text-center mt-4">
             <h1 className="card-title  font-weight-bold">Yorumlar</h1>
           </div>
           <div className="input-container">
+          
             <MDBCol md="6" lg="5" xl="10" className="mrl">
+           
               <MDBInput
                 type="textarea"
                 label="Yorum Metni"
@@ -76,7 +98,13 @@ const Comments = (props: Props) => {
               </MDBBtn>
             </MDBCol>
           </div>
-        </MDBRow>
+        </MDBRow> : <div></div>}
+        
+
+
+
+       
+  
       </MDBContainer>
     </>
   );
