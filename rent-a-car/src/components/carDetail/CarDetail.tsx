@@ -15,15 +15,12 @@ import Layout from '../layout/Layout';
 import { useParams } from 'react-router-dom';
 import { GetCommentCarId } from '../../models/responses/Car/getCommentCarId';
 import userService from '../../services/userService';
-import { useDispatch, useSelector } from 'react-redux';
-import { UserIdResponse } from '../../models/responses/User/userIdResponse';
 
 const CarDetail = () => {
   const [car, setCar] = useState<GetByIdCarResponse>();
   const [carComments, setCarComments] = useState<GetCommentCarId[]>([]);
   const [likedComments, setLikedComments] = useState<number[]>([]);
-  const dispatch = useDispatch();
-   const [userId, setUserId] = useState<number>(0)
+  const [userId, setUserId] = useState<number>(0);
   let { id } = useParams();
 
   useEffect(() => {
@@ -31,15 +28,15 @@ const CarDetail = () => {
       getByIdCars();
     }
     getCommentCarId();
-    userService.getUserId().then((response)=>{
+    userService.getUserId().then((response) => {
       setUserId(response.data.id);
-  });
-  
-  
+    });
   }, []);
 
   //console.log(userId);
-  carComments.map((comment) =>{console.log(comment.userId)});
+  carComments.map((comment) => {
+    console.log(comment.userId);
+  });
 
   const getByIdCars = () => {
     carService.getById(Number(id)).then((response) => {
@@ -106,19 +103,19 @@ const CarDetail = () => {
               <div className="row">
                 <div className="col-md-4">
                   <p>
-                    <MDBIcon far icon="calendar-alt" /> <strong>Yıl:</strong>
+                    <MDBIcon far icon="calendar-alt" /> <strong>Yıl :</strong>
                     {car?.year}
                   </p>
                 </div>
                 <div className="col-md-4">
                   <p>
                     <MDBIcon icon="tachometer-alt" />{' '}
-                    <strong>Kilometre:</strong> {car?.kilometer}
+                    <strong>Kilometre :</strong> {car?.kilometer}
                   </p>
                 </div>
                 <div className="col-md-4">
                   <p>
-                    <MDBIcon icon="car" /> <strong>Plaka:</strong>
+                    <MDBIcon icon="car" /> <strong>Plaka :</strong>
                     {car?.plate}
                   </p>
                 </div>
@@ -128,19 +125,19 @@ const CarDetail = () => {
                 <div className="col-md-4">
                   <p>
                     <MDBIcon icon="credit-card" />{' '}
-                    <strong>Min Findeks Puanı:</strong>
+                    <strong>Min Findeks Puanı :</strong>
                     {car?.minFindeksRate}
                   </p>
                 </div>
                 <div className="col-md-4">
                   <p>
-                    <MDBIcon icon="suitcase" /> <strong>Bagaç Hacmi:</strong>{' '}
+                    <MDBIcon icon="suitcase" /> <strong>Bagaç Hacmi :</strong>{' '}
                     {car?.trunkVolume}
                   </p>
                 </div>
                 <div className="col-md-4">
                   <p>
-                    <MDBIcon icon="cogs" /> <strong>Vites Türü:</strong>{' '}
+                    <MDBIcon icon="cogs" /> <strong>Vites Türü :</strong>{' '}
                     Otomatik
                   </p>
                 </div>
@@ -149,19 +146,19 @@ const CarDetail = () => {
               <div className="row">
                 <div className="col-md-4">
                   <p>
-                    <MDBIcon icon="gas-pump" /> <strong>Yakıt Tipi:</strong>
+                    <MDBIcon icon="gas-pump" /> <strong>Yakıt Tipi :</strong>
                     Benzinli
                   </p>
                 </div>
                 <div className="col-md-4">
                   <p>
-                    <MDBIcon icon="users" /> <strong>Kapasite:</strong>{' '}
+                    <MDBIcon icon="users" /> <strong>Kapasite :</strong>{' '}
                     {car?.capacity}
                   </p>
                 </div>
                 <div className="col-md-4">
                   <p>
-                    <MDBIcon icon="palette" /> <strong>Renk:</strong>{' '}
+                    <MDBIcon icon="palette" /> <strong>Renk :</strong>{' '}
                     {car?.colorName}
                   </p>
                 </div>
@@ -180,7 +177,6 @@ const CarDetail = () => {
 
         {carComments.length !== 0 ? (
           carComments.map((comment) => (
-            
             <MDBRow
               key={comment.id}
               className="comment my-4 align-items-center bg-border">
@@ -190,7 +186,7 @@ const CarDetail = () => {
                   className="profile-photo img-fluid rounded-circle"
                   src="https://png.pngtree.com/png-vector/20191110/ourmid/pngtree-avatar-icon-profile-icon-member-login-vector-isolated-png-image_1978396.jpg"
                   alt="Profil"
-                  sizes='big'
+                  sizes="big"
                 />
               </MDBCol>
               <MDBCol md="6" lg="5" xl="3" className="comment-text">
@@ -212,24 +208,18 @@ const CarDetail = () => {
                   }
                   onClick={() => handleLikeComment(comment.id)}>
                   <MDBIcon icon="heart" />
-                
                 </MDBBtn>
-                
+
                 {comment.userId === userId ? (
-    <MDBBtn
-        color="danger"
-        onClick={() => handleDeleteComment(comment.id)}
-    >
-        <MDBIcon icon="trash-alt" />
-    </MDBBtn>
-) : (
-    <div></div>
-)}
-
-                
-
-               
-                </MDBCol>
+                  <MDBBtn
+                    color="danger"
+                    onClick={() => handleDeleteComment(comment.id)}>
+                    <MDBIcon icon="trash-alt" />
+                  </MDBBtn>
+                ) : (
+                  <div></div>
+                )}
+              </MDBCol>
             </MDBRow>
           ))
         ) : (

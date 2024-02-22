@@ -28,11 +28,16 @@ const RentalPage = () => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [dayDifference, setDayDifference] = useState<number | null>(null);
   const [rentaldata, setRentaldata] = useState<GetFilterRentalResponse>();
-  const discountCode: string | null = null;
+  const [discountCode, setDiscountCode] = useState<string>('');
+  //const discountCode: string | null = null;
 
   const dispatch = useDispatch();
 
   let { id } = useParams();
+
+  const handleInputChange = (event:any) => {
+    setDiscountCode(event.target.value);
+  };
 
   const postData: AddRentalRequest = {
     startDate: startDate,
@@ -183,7 +188,17 @@ const RentalPage = () => {
                 <div className="error-message">{errorMessage}</div>
               )}
               <div className="days-label">
-                <label>Seçili gün miktarı: {dayDifference}</label>
+                <label>Seçili gün miktarı : {dayDifference}</label>
+              </div>
+              <div className="days-label">
+                <label>Kupon Girin :</label>
+                <input
+                  type="text"
+                  id="couponInput"
+                  name="couponInput"
+                  value={discountCode}
+                  onChange={handleInputChange}
+                />
               </div>
               <div className="days-label">
                 <label>Kiralama Bedeli :{rentaldata?.totalPrice} </label>

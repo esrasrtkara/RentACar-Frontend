@@ -1,4 +1,3 @@
-import { UserIdRequest } from './../models/requests/User/userIdRequest';
 import { AxiosResponse } from 'axios';
 import axiosInstance from "../core/utils/interceptors/axiosInterceptors";
 import { UserIdResponse } from "../models/responses/User/userIdResponse";

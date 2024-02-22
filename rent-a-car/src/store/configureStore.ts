@@ -9,6 +9,7 @@ import { rentalReducer } from "./rental/rentalSlice";
 import { customerNameReducer } from "./customer/customerNameSlice";
 import { companyNameReducer } from "./corporate/companyNameSlice";
 import { NameReducer } from "./login/nameSlice";
+import { SurnameReducer } from './login/surnameSlice';
 const rootReducer = combineReducers({
     auth: authReducer,
     car: carReducer,
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
     customerName:customerNameReducer,
     companyName:companyNameReducer,
     name:NameReducer,
+    surname:SurnameReducer,
     userId:userIdReducer
 });
 

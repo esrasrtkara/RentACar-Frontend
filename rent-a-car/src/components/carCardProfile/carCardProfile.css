@@ -1,0 +1,56 @@
+.button .rent-button {
+    background-color: #E44A48;
+    font-size: 14px;
+    border-radius: 8px;
+}
+
+.button .rent-button .rent-btn{
+    color: #fff;
+}
+
+.button .rent-button-left {
+    font-size: 14px;
+    border-radius: 8px;
+    color: #fff;
+}
+
+/*! İkona ve yazıya özel stil */
+
+.row .col-md-4 p.text-dark.description.font-lg {
+    display: flex;
+    align-items: center;
+}
+  
+/*! İkona özel stil */
+
+.row .col-md-4 p.text-dark.description.font-lg i {
+    font-size: 15px; /* Özel ikon boyutu */
+    margin-right: 8px; /* İkondan yazıya olan boşluk */
+}
+  
+/*! Yazının genel stil */
+
+.row .col-md-4 p.text-dark.description.font-lg {
+    font-size: 17px; /* Yazı boyutu */
+    font-family: "Chakra Petch", sans-serif;
+    font-weight: 500;
+}
+  
+/*! Yazı ve ikon arasındaki boşluğu ayarlamak için */
+
+.row .col-md-4 p.text-dark.description.font-lg i {
+    margin-right: 5px;
+}
+
+/*! Yıldız İkonları */
+.star-icons .star{
+    color: #E44A48;
+    margin-top: 24px !important;
+}
+
+/*! Kart Başlığı */
+.header .card-title {
+    font-family: "Chakra Petch", sans-serif;
+    font-weight: 600;
+    font-size: 24px;
+}

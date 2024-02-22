@@ -26,7 +26,7 @@ const SignIn = (props: Props) => {
           <ButtonContent className="dropdown-button">
           <Dropdown.Item
             className="dropdown-item"
-            text="Bilgilerim"
+            text="Profilim"
             icon="info"
             onClick={() => navigate('/profile')}
           />

@@ -18,19 +18,20 @@ import Layout from '../components/layout/Layout';
 import customerService from '../services/customerService';
 import corporeteService from '../services/corporeteService';
 import { setName } from '../store/login/nameSlice';
-import userService from '../services/userService';
-import { setUserId } from '../store/user/userIdSlice';
+import { setSurname } from '../store/login/surnameSlice';
 
 type Props = {};
 
 const Login = (props: Props) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [showPassword, setShowPassword] = useState<boolean>(false);
   const [customerName, setCustomerName] = useState<string>();
+  const [customerSurname, setCustomerSurname] = useState<string>();
   const [companyName, setCompanyName] = useState<string>();
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string>();
 
   const token = useSelector((state: any) => state.auth.accessToken);
 
@@ -40,42 +41,44 @@ const Login = (props: Props) => {
   };
 
   useEffect(() => {
-    
     if (companyName) {
       dispatch(setName(companyName));
       console.log(companyName);
-      navigate("/");
+      navigate('/');
     } else if (customerName) {
       dispatch(setName(customerName));
+      dispatch(setSurname(customerSurname));
       console.log(customerName);
-      navigate("/");
-   
+      navigate('/');
     }
-    
-    
-  }, [companyName, customerName,token]);
+  }, [companyName, customerName, token]);
 
   const login = () => {
-    authService.login(postData).then((response) => {
-      dispatch(setAccessToken(postData.email));
-      console.log(response.data);
-      tokenService.setToken(response.data);
-      customerService.getCustomer().then((response) => {
-        setCustomerName(response.data.firstName);
+    authService
+      .login(postData)
+      .then((response) => {
+        dispatch(setAccessToken(postData.email));
         console.log(response.data);
+        tokenService.setToken(response.data);
+        customerService.getCustomer().then((response) => {
+          setCustomerName(response.data.firstName);
+          setCustomerSurname(response.data.lastName);
+          console.log(response.data);
+        });
+        corporeteService.getCorporate().then((response) => {
+          setCompanyName(response.data.companyName);
+          console.log(response.data);
+        });
+      })
+      .catch((error) => {
+        if (error.response && error.response.status === 400) {
+          setError('Kayıtlı Kullanıcı Bulunamadı');
+        } else if (error.response && error.response.status === 401) {
+          setError('Yetkisiz erişim. Lütfen giriş yapın.');
+        } else {
+          setError('Kayıtlı Kullanıcı Bulunamadı. E-mail ve Şifrenizi Kontrol Edin');
+        }
       });
-      corporeteService.getCorporate().then((response) => {
-        setCompanyName(response.data.companyName);
-        console.log(response.data);
-      });
-     
-   
-     
-    })
-    .catch((error) =>{
-      setError(error.response.data.message);
-    });
-    
   };
 
   return (
@@ -101,7 +104,7 @@ const Login = (props: Props) => {
               onChange={(e) => setEmail(e.target.value)}
               autoComplete="email"
             />
-            
+
             <MDBInput
               wrapperClass="mb-4"
               label="Password"
@@ -112,16 +115,27 @@ const Login = (props: Props) => {
               onChange={(e) => setPassword(e.target.value)}
               autoComplete="new-password"
             />
-           
+
+            {error && (
+              <p
+                style={{
+                  color: '#E44A48',
+                  fontFamily: 'Chakra Petch',
+                  fontSize: 18,
+                  fontWeight:"bold"
+                }}>
+                {error}
+              </p>
+            )}
 
             <div className="d-flex justify-content-between mx-4 mb-4">
               <MDBCheckbox
                 name="flexCheck"
                 value=""
                 id="flexCheckDefault"
-                label="Remember me"
+                label="Beni Hatırla"
               />
-              <a href="/signin">Forgot password?</a>
+              <a href="/signin">Şifremi Unuttum?</a>
             </div>
 
             <MDBBtn
@@ -135,10 +149,10 @@ const Login = (props: Props) => {
             </MDBBtn>
 
             <div className="d-flex flex-row align-items-center justify-content-center pb-4 mb-4 fs-4 mt-4">
-              <p className="mb-0">Don't have an account?</p>
+              <p className="mb-0">Hesabınız yok mu?</p>
               <Link to={'/signin'}>
                 <MDBBtn outline className="mx-2" color="danger">
-                  Create New
+                  Hesap Oluştur
                 </MDBBtn>
               </Link>
             </div>
