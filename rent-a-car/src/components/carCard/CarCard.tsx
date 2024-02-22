@@ -30,15 +30,19 @@ const CarCard = (props: Props) => {
 
   useEffect(() => {
     // Kullanıcı girişi kontrolü yap
-    if(token){
-      userService.getUserId()
-      .then((response) => {
-        console.log(response.data)
-        dispatch(setUserId(response.data));
-      })
+   if(token!==null){
+      getUserId();
     }
   }, []);
 
+
+  const getUserId=()=>{
+    userService.getUserId()
+    .then((response) => {
+      console.log(response.data)
+      dispatch(setUserId(response.data));
+    })
+  }
 
   
 
