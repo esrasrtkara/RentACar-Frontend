@@ -50,6 +50,7 @@ const RentalPage = () => {
     if (id) {
       getByIdCars();
     }
+    console.log(discountCode)
   }, []);
 
   const getByIdCars = () => {
