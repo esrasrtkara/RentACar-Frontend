@@ -12,12 +12,42 @@ import {
 import './CarCard.css';
 import { Link } from 'react-router-dom';
 import { GetAllCarResponse } from '../../models/responses/Car/getAllCarResponse';
+import { useEffect, useState } from 'react';
+import carService from '../../services/carService';
+import { useDispatch, useSelector } from 'react-redux';
+import { setComments } from '../../store/comment/commentsSlice';
+import userService from '../../services/userService';
+import { setUserId } from '../../store/user/userIdSlice';
 
 type Props = {
   car: GetAllCarResponse;
 };
 
 const CarCard = (props: Props) => {
+  const dispatch = useDispatch();
+  const token = useSelector((state: any) => state.auth.accessToken);
+
+
+  useEffect(() => {
+    // Kullanıcı girişi kontrolü yap
+    if(token){
+      userService.getUserId()
+      .then((response) => {
+        console.log(response.data)
+        dispatch(setUserId(response.data));
+      })
+    }
+  }, []);
+
+
+  
+
+  const getCommentCarId = () => {
+    carService.getComment(props.car.id).then((response) => {
+      dispatch(setComments(response.data))
+    });
+  };
+  
   return (
     <>
       <MDBContainer fluid className="my-5">
@@ -105,7 +135,7 @@ const CarCard = (props: Props) => {
               <hr className="my-0" />
               <MDBCardBody className="pb-0">
                 <div className="button d-flex justify-content-between align-items-center pb-2 mb-4">
-                  <MDBBtn className="rent-button-left fw-bold" color="primary">
+                  <MDBBtn className="rent-button-left fw-bold" color="primary"onClick={()=>{getCommentCarId();}}>
                     <Link
                       to={'/cardetail/' + props.car.id}
                       className="link-left">
@@ -113,7 +143,7 @@ const CarCard = (props: Props) => {
                       Aracı İncele
                     </Link>
                   </MDBBtn>
-                  <MDBBtn className="rent-button fw-bold" color="danger">
+                  <MDBBtn className="rent-button fw-bold" color="danger" >
                     <Link to={'/rental/' + props.car.id} className="rent-btn">
                       {' '}
                       Hemen Kİrala{' '}
