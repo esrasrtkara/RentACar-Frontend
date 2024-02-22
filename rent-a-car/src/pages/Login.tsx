@@ -12,7 +12,7 @@ import {
 import { Link } from 'react-router-dom';
 import { loginRequest } from '../models/requests/Login/loginRequest';
 import authService from '../services/authService';
-import { setAccessToken } from '../store/auth/authSlice';
+import { clearAccessToken, setAccessToken } from '../store/auth/authSlice';
 import tokenService from '../services/tokenService';
 import Layout from '../components/layout/Layout';
 import customerService from '../services/customerService';
@@ -73,10 +73,13 @@ const Login = (props: Props) => {
       .catch((error) => {
         if (error.response && error.response.status === 400) {
           setError('Kayıtlı Kullanıcı Bulunamadı');
+          dispatch(clearAccessToken());
         } else if (error.response && error.response.status === 401) {
           setError('Yetkisiz erişim. Lütfen giriş yapın.');
+          dispatch(clearAccessToken());
         } else {
           setError('Kayıtlı Kullanıcı Bulunamadı. E-mail ve Şifrenizi Kontrol Edin');
+          dispatch(clearAccessToken());
         }
       });
   };
