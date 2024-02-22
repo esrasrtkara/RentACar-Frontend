@@ -16,4 +16,4 @@ const customerNameSlice =createSlice({
 
 export const {setCustomerName,clearCustomerName} =customerNameSlice.actions;
 export const selectCustomerName =(state:any) => state.customerName.customerName;
-export  const customerNameReducer = customerNameSlice.reducer;
+export const customerNameReducer = customerNameSlice.reducer;
