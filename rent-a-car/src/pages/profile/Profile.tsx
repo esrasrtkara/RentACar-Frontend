@@ -25,7 +25,6 @@ import corporateService from '../../services/corporeteService';
 import discountService from '../../services/discountService';
 import { GetAllDiscountResponse } from '../../models/responses/Discount/GetAllDiscountResponse';
 
-
 type Props = {};
 
 const Profile = (props: Props) => {
@@ -34,14 +33,10 @@ const Profile = (props: Props) => {
   const name = useSelector((state: any) => state.name.name);
   const surname = useSelector((state: any) => state.surname.surname);
   const rentals = useSelector((state: any) => state.rentals.rentals);
-  const [comments, setComments] = useState<GetAllCommentResponse[]>()
-  const [taxNo, setTaxNo] = useState<string>("")
-  const [discounts, setDiscounts] = useState<GetAllDiscountResponse[]>([])
+  const [comments, setComments] = useState<GetAllCommentResponse[]>();
+  const [taxNo, setTaxNo] = useState<string>('');
+  const [discounts, setDiscounts] = useState<GetAllDiscountResponse[]>([]);
   const [copiedCoupon, setCopiedCoupon] = useState<string | null>(null);
-
-
-
-  
 
   useEffect(() => {
     getCars();
@@ -49,45 +44,41 @@ const Profile = (props: Props) => {
     getComment();
     getCorporate();
     getDiscount();
-    
-    
   }, []);
-  
 
   const getCars = () => {
     carService.getAll().then((response) => {
       dispatch(setCars(response.data.data));
     });
   };
-  const getRental=()=>{
-    rentalService.getRentalUserId().then(response=>{
-      dispatch(setRentals(response.data))
-    })
-   }
-   const getComment=()=>{
-    commentService.getCommentUserId().then(response=>{
+  const getRental = () => {
+    rentalService.getRentalUserId().then((response) => {
+      dispatch(setRentals(response.data));
+    });
+  };
+  const getComment = () => {
+    commentService.getCommentUserId().then((response) => {
       setComments(response.data);
-    })
-   }
+    });
+  };
 
-   const getCorporate=()=>{
-    corporateService.getCorporate().then(response=>{
+  const getCorporate = () => {
+    corporateService.getCorporate().then((response) => {
       setTaxNo(response.data.taxNo);
-    })
-   }
-   const getDiscount=()=>{
-    discountService.getDiscountUserId().then(response=>{
+    });
+  };
+  const getDiscount = () => {
+    discountService.getDiscountUserId().then((response) => {
       setDiscounts(response.data);
-    })
-   }
-   const handleCopyCoupon = (couponCode:string) => {
+    });
+  };
+  const handleCopyCoupon = (couponCode: string) => {
     navigator.clipboard.writeText(couponCode);
     setCopiedCoupon(couponCode);
     setTimeout(() => {
       setCopiedCoupon(null);
     }, 2000); // 2 saniye sonra geri bildirimi temizle
   };
-   
 
   return (
     <Layout>
@@ -115,112 +106,123 @@ const Profile = (props: Props) => {
                     <MDBCardText>AUTOPIA</MDBCardText>
                   </div>
                 </div>
-                
+
                 <div
                   className="p-4 text-black"
                   style={{ backgroundColor: '#f8f9fa' }}>
-                    
                   <div className="d-flex justify-content-end text-center py-1">
                     <div className="px-3">
-                    <div className="px-3">
-                <MDBCardText className="mb-1 h5">{rentals.length}</MDBCardText>
-                <MDBCardText className="small text-muted mb-0">
-                 Kiralamalar
-                </MDBCardText>
-                </div>
-                 
+                      <div className="px-3">
+                        <MDBCardText className="mb-1 h5">
+                          {rentals.length}
+                        </MDBCardText>
+                        <MDBCardText className="small text-muted mb-0">
+                          Kiralamalar
+                        </MDBCardText>
+                      </div>
                     </div>
                     <div>
-                      <MDBCardText className="mb-1 h5">{comments?.length}</MDBCardText>
+                      <MDBCardText className="mb-1 h5">
+                        {comments?.length}
+                      </MDBCardText>
                       <MDBCardText className="small text-muted mb-0">
                         Yorumlar
                       </MDBCardText>
                     </div>
                   </div>
                 </div>
-                {surname?(<div></div>):(
+                {surname ? (
+                  <div></div>
+                ) : (
                   <MDBCardBody className="text-black p-4">
-                  <div className="mb-5">
-                    <p className="lead fw-normal mb-1">Bilgilerim</p>
-                    <div className="p-4" style={{ backgroundColor: '#f8f9fa' }}>
-                      <MDBCardText className="font-italic mb-1">
-                       Tax No:{taxNo}
-                      </MDBCardText>
+                    <div className="mb-5">
+                      <p className="lead fw-normal mb-1">Bilgilerim</p>
+                      <div
+                        className="p-4"
+                        style={{ backgroundColor: '#f8f9fa' }}>
+                        <MDBCardText className="font-italic mb-1">
+                          Tax No:{taxNo}
+                        </MDBCardText>
+                      </div>
                     </div>
-                  </div>
-                </MDBCardBody>
+                  </MDBCardBody>
                 )}
-                
+
                 <div className="discount-coupons">
-      <h4 className="title">İndirim Kuponlarınız</h4>
-      <div className="coupon-tags">
-        {discounts.map((discount, index: number) => (
-          <span
-            key={index}
-            className="coupon-tag"
-            onClick={() => handleCopyCoupon(discount.code)}
-            style={{ cursor: 'pointer' }}
-          >
-            <span className="coupon-code">{discount.code}</span>
-            <span className="coupon-discount">İndirim: %{discount.rate*100}</span>
-            {copiedCoupon === discount.code && <span style={{ marginLeft: '5px', color: 'green' }}>Kopyalandı!</span>}
-          </span>
-        ))}
-      </div>
-    </div>
- 
-                
-                
+                  <h4 className="title">İndirim Kuponlarınız</h4>
+                  {discounts.length === 0 ? (
+                    <p className='no-coupon'>Henüz Kuponunuz Yok</p>
+                  ) : (
+                    <div className="coupon-tags">
+                      {discounts.map((discount, index: number) => (
+                        <span
+                          key={index}
+                          className="coupon-tag"
+                          onClick={() => handleCopyCoupon(discount.code)}
+                          style={{ cursor: 'pointer' }}>
+                          <span className="coupon-code">{discount.code}</span>
+                          <span className="coupon-discount">
+                            İndirim: %{discount.rate * 100}
+                          </span>
+                          {copiedCoupon === discount.code && (
+                            <span style={{ marginLeft: '5px', color: 'green' }}>
+                              Kopyalandı!
+                            </span>
+                          )}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </div>
 
                 {/*Car Card Alanı*/}
                 <h4 className="cars-title text-center">Kiraladığım Araçlar</h4>
                 <Row>
-  {rentals.map((rental:GetAllRentalResponse, i: number) => {
-    const foundCar:GetAllCarResponse = cars.find((car: GetAllCarResponse) => car.id === rental.carId);
+                  {rentals.map((rental: GetAllRentalResponse, i: number) => {
+                    const foundCar: GetAllCarResponse = cars.find(
+                      (car: GetAllCarResponse) => car.id === rental.carId
+                    );
 
-    if (foundCar) {
-      return (
-        <Col key={i} className="col-4">
-          <div>
-            <CarCardProfile
-              rental={rental}
-              car={foundCar}
-            />
-          </div>
-        </Col>
-      );
-    } else {
-      return null; // Araba bulunamadıysa, hiçbir şey gösterme
-    }
-  })}
-</Row>
+                    if (foundCar) {
+                      return (
+                        <Col key={i} className="col-4">
+                          <div>
+                            <CarCardProfile rental={rental} car={foundCar} />
+                          </div>
+                        </Col>
+                      );
+                    } else {
+                      return null; // Araba bulunamadıysa, hiçbir şey gösterme
+                    }
+                  })}
+                </Row>
                 {/*Yorumlar Alanı*/}
                 <h4 className="cars-title text-center">Yorumlarım</h4>
                 {comments?.map((comment, i: number) => (
-                <MDBRow className="comment my-4 align-items-center bg-border">
-                  <MDBCol md="6" lg="4" xl="1" className="comment-img">
-                    <img
-                      className="profile-photo img-fluid rounded-circle"
-                      src="https://png.pngtree.com/png-vector/20191110/ourmid/pngtree-avatar-icon-profile-icon-member-login-vector-isolated-png-image_1978396.jpg"
-                      alt="Profil"
-                      sizes="big"
-                    />
-                  </MDBCol>
-                  <MDBCol md="6" lg="5" xl="3" className="comment-text">
-                    {/* Yorum Bilgileri */}
-                    {/*<h5>{comment.title}</h5>*/}
-                   
-                    <p key={i}>{comment.text}</p>
-            
-                    
-                  </MDBCol>
-                  <MDBCol
-                    md="6"
-                    lg="5"
-                    xl="3"
-                    className="like-delete-button text-right comment-container">
-                    {/* Beğen ve Sil Butonları */}
-                    {/*<MDBBtn
+                  <MDBRow
+                    key={comment.id}
+                    className="comment my-4 align-items-center bg-border">
+                    <MDBCol md="6" lg="4" xl="1" className="comment-img">
+                      <img
+                        className="profile-photo img-fluid rounded-circle"
+                        src="https://png.pngtree.com/png-vector/20191110/ourmid/pngtree-avatar-icon-profile-icon-member-login-vector-isolated-png-image_1978396.jpg"
+                        alt="Profil"
+                        sizes="big"
+                      />
+                    </MDBCol>
+                    <MDBCol md="6" lg="5" xl="3" className="comment-text">
+                      {/* Yorum Bilgileri */}
+                      {/*<h5>{comment.title}</h5>*/}
+
+                      <p key={i}>{comment.text}</p>
+                    </MDBCol>
+                    <MDBCol
+                      md="6"
+                      lg="5"
+                      xl="3"
+                      className="like-delete-button text-right comment-container">
+                      {/* Beğen ve Sil Butonları */}
+                      {/*<MDBBtn
                       className="like-button"
                       {outline={!likedComments.includes(comment.id)}
                       color={
@@ -232,7 +234,7 @@ const Profile = (props: Props) => {
                       <MDBIcon icon="heart" />
                     </MDBBtn>*/}
 
-                    {/*comment.userId === userId ? (
+                      {/*comment.userId === userId ? (
                       <MDBBtn
                         color="danger"
                         onClick={() => handleDeleteComment(comment.id)}>
@@ -241,9 +243,9 @@ const Profile = (props: Props) => {
                     ) : (
                       <div></div>
                     )*/}
-                  </MDBCol>
-                </MDBRow>
-                        ))}
+                    </MDBCol>
+                  </MDBRow>
+                ))}
               </MDBCard>
             </MDBCol>
           </MDBRow>

@@ -3,7 +3,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  height: 100vh;
+  margin-top: 35px;
 }
 
 .order-card {
@@ -12,15 +12,22 @@
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   padding: 20px;
   margin-bottom: 20px;
-  width: 1000px; /* Kartın genişliğini ayarlayabilirsiniz */
+  width: 1000px;
+  /* Kartın genişliğini ayarlayabilirsiniz */
   position: relative;
 }
 
 .order-header {
-  background-color: #f2f2f2;
+  /*background: linear-gradient(to right, #E44A48, #8C8D90);*/
+  background-color: #E44A48;
   border-radius: 8px 8px 0 0;
   padding: 10px;
   text-align: center;
+}
+
+.order-header h1 {
+  font-weight: 600;
+  color: #fff;
 }
 
 .order-details {
@@ -29,6 +36,13 @@
 
 .order-info {
   padding: 10px;
+  margin-top: 15px;
+  font-size: 17px;
+  font-weight: 500;
+}
+
+.order-info p span {
+  margin-right: 6px;
 }
 
 .order-table {
@@ -36,14 +50,35 @@
   border-collapse: collapse;
 }
 
-.order-table th, .order-table td {
+.order-table th,
+.order-table td {
   border: 1px solid #ddd;
   padding: 8px;
   text-align: center;
 }
 
 .order-table th {
-  background-color: #f2f2f2;
+  background-color: #E44A48;
+  color: white;
+}
+
+.order-table td {
+  font-size: 17px;
+  font-weight: 500;
+}
+
+.order-table .return-date-td .date {
+  border-radius: 10px;
+  width: 200px;
+  font-size: 20px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.order-table .return-date-td .date:focus {
+  border: none;
+  outline: none;
+  border-bottom: 2px solid #3B71CA;
 }
 
 .order-buttons {
@@ -51,12 +86,9 @@
   margin-top: 20px;
 }
 
-.cancel-order-button, .update-order-button {
+.order-buttons button {
   margin-right: 10px;
-}
-
-.invoice-button-container {
-  position: absolute;
-  top: 20px; /* Kartın üst kısmından ne kadar uzaklıkta olmasını istiyorsanız buradaki değeri ayarlayabilirsiniz */
-  right: 20px; /* Kartın sağ tarafından ne kadar uzaklıkta olmasını istiyorsanız buradaki değeri ayarlayabilirsiniz */
+  background-color: #3B71CA;
+  font-size: 14px;
+  border-radius: 8px;
 }
