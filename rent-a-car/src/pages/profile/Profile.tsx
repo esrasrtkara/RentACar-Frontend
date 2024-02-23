@@ -19,6 +19,12 @@ import rentalService from '../../services/rentalService';
 import { useEffect, useState } from 'react';
 import { setRentals } from '../../store/rental/rentalsSlice';
 import { GetAllCarResponse } from '../../models/responses/Car/getAllCarResponse';
+import commentService from '../../services/commentService';
+import { GetAllCommentResponse } from '../../models/responses/Comment/getAllCommentResponse';
+import corporateService from '../../services/corporeteService';
+import discountService from '../../services/discountService';
+import { GetAllDiscountResponse } from '../../models/responses/Discount/GetAllDiscountResponse';
+
 
 type Props = {};
 
@@ -28,8 +34,11 @@ const Profile = (props: Props) => {
   const name = useSelector((state: any) => state.name.name);
   const surname = useSelector((state: any) => state.surname.surname);
   const rentals = useSelector((state: any) => state.rentals.rentals);
-  const [rentalList, setRentalList] = useState([])
-  const [rentalCount, setRentalCount] = useState(0)
+  const [comments, setComments] = useState<GetAllCommentResponse[]>()
+  const [taxNo, setTaxNo] = useState<string>("")
+  const [discounts, setDiscounts] = useState<GetAllDiscountResponse[]>([])
+  const [copiedCoupon, setCopiedCoupon] = useState<string | null>(null);
+
 
 
   
@@ -37,7 +46,10 @@ const Profile = (props: Props) => {
   useEffect(() => {
     getCars();
     getRental();
-    console.log(rentals)
+    getComment();
+    getCorporate();
+    getDiscount();
+    
     
   }, []);
   
@@ -52,7 +64,29 @@ const Profile = (props: Props) => {
       dispatch(setRentals(response.data))
     })
    }
+   const getComment=()=>{
+    commentService.getCommentUserId().then(response=>{
+      setComments(response.data);
+    })
+   }
 
+   const getCorporate=()=>{
+    corporateService.getCorporate().then(response=>{
+      setTaxNo(response.data.taxNo);
+    })
+   }
+   const getDiscount=()=>{
+    discountService.getDiscountUserId().then(response=>{
+      setDiscounts(response.data);
+    })
+   }
+   const handleCopyCoupon = (couponCode:string) => {
+    navigator.clipboard.writeText(couponCode);
+    setCopiedCoupon(couponCode);
+    setTimeout(() => {
+      setCopiedCoupon(null);
+    }, 2000); // 2 saniye sonra geri bildirimi temizle
+  };
    
 
   return (
@@ -89,51 +123,68 @@ const Profile = (props: Props) => {
                   <div className="d-flex justify-content-end text-center py-1">
                     <div className="px-3">
                     <div className="px-3">
-  <MDBCardText className="mb-1 h5">{rentals.length}</MDBCardText>
-  <MDBCardText className="small text-muted mb-0">
-    Kiralamalar
-  </MDBCardText>
-</div>
+                <MDBCardText className="mb-1 h5">{rentals.length}</MDBCardText>
+                <MDBCardText className="small text-muted mb-0">
+                 Kiralamalar
+                </MDBCardText>
+                </div>
                  
                     </div>
                     <div>
-                      <MDBCardText className="mb-1 h5">5</MDBCardText>
+                      <MDBCardText className="mb-1 h5">{comments?.length}</MDBCardText>
                       <MDBCardText className="small text-muted mb-0">
                         Yorumlar
                       </MDBCardText>
                     </div>
                   </div>
                 </div>
-                <MDBCardBody className="text-black p-4">
+                {surname?(<div></div>):(
+                  <MDBCardBody className="text-black p-4">
                   <div className="mb-5">
                     <p className="lead fw-normal mb-1">Bilgilerim</p>
                     <div className="p-4" style={{ backgroundColor: '#f8f9fa' }}>
                       <MDBCardText className="font-italic mb-1">
-                        Web Developers
-                      </MDBCardText>
-                      <MDBCardText className="font-italic mb-1">
-                        Lives in New York
-                      </MDBCardText>
-                      <MDBCardText className="font-italic mb-0">
-                        Photographer
+                       Tax No:{taxNo}
                       </MDBCardText>
                     </div>
                   </div>
                 </MDBCardBody>
+                )}
+                
+                <div className="discount-coupons">
+      <h4 className="title">İndirim Kuponlarınız</h4>
+      <div className="coupon-tags">
+        {discounts.map((discount, index: number) => (
+          <span
+            key={index}
+            className="coupon-tag"
+            onClick={() => handleCopyCoupon(discount.code)}
+            style={{ cursor: 'pointer' }}
+          >
+            <span className="coupon-code">{discount.code}</span>
+            <span className="coupon-discount">İndirim: %{discount.rate*100}</span>
+            {copiedCoupon === discount.code && <span style={{ marginLeft: '5px', color: 'green' }}>Kopyalandı!</span>}
+          </span>
+        ))}
+      </div>
+    </div>
+ 
+                
+                
 
                 {/*Car Card Alanı*/}
                 <h4 className="cars-title text-center">Kiraladığım Araçlar</h4>
                 <Row>
-  {rentals.map((rental: GetAllRentalResponse, i: number) => {
-    const foundCar = cars.find((car: GetAllCarResponse) => car.id === rental.carId);
+  {rentals.map((rental:GetAllRentalResponse, i: number) => {
+    const foundCar:GetAllCarResponse = cars.find((car: GetAllCarResponse) => car.id === rental.carId);
 
     if (foundCar) {
       return (
         <Col key={i} className="col-4">
           <div>
             <CarCardProfile
-              car={foundCar}
               rental={rental}
+              car={foundCar}
             />
           </div>
         </Col>
@@ -145,6 +196,7 @@ const Profile = (props: Props) => {
 </Row>
                 {/*Yorumlar Alanı*/}
                 <h4 className="cars-title text-center">Yorumlarım</h4>
+                {comments?.map((comment, i: number) => (
                 <MDBRow className="comment my-4 align-items-center bg-border">
                   <MDBCol md="6" lg="4" xl="1" className="comment-img">
                     <img
@@ -157,7 +209,10 @@ const Profile = (props: Props) => {
                   <MDBCol md="6" lg="5" xl="3" className="comment-text">
                     {/* Yorum Bilgileri */}
                     {/*<h5>{comment.title}</h5>*/}
-                    <p>comment.text</p>
+                   
+                    <p key={i}>{comment.text}</p>
+            
+                    
                   </MDBCol>
                   <MDBCol
                     md="6"
@@ -188,6 +243,7 @@ const Profile = (props: Props) => {
                     )*/}
                   </MDBCol>
                 </MDBRow>
+                        ))}
               </MDBCard>
             </MDBCol>
           </MDBRow>

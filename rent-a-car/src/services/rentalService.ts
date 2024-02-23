@@ -16,8 +16,8 @@ class RentalService{
      addRental(request:AddRentalRequest):Promise<AxiosResponse<DataResultByIdResponse<AddRentalResponse>, any>> {
 		return axiosInstance.post<DataResultByIdResponse<AddRentalResponse>>(this.apiUrl, request);
 	}
-    getRentalUserId():Promise<AxiosResponse<GetAllRentalResponse,any>> {
-		return axiosInstance.get<GetAllRentalResponse>(this.apiUrl+"/userId");
+    getRentalUserId():Promise<AxiosResponse<GetAllRentalResponse[],any>> {
+		return axiosInstance.get<GetAllRentalResponse[]>(this.apiUrl+"/userId");
 	}
 }
 

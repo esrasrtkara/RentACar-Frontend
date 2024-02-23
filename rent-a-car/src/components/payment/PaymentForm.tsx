@@ -3,11 +3,13 @@ import paymentService from '../../services/paymentService';
 import { PaymentRequest } from '../../models/requests/Payment/paymentRequest';
 import { useSelector } from 'react-redux';
 import rentalService from '../../services/rentalService';
+import { useNavigate } from 'react-router-dom';
 
 const PaymentForm = () => {
   const accessToken = useSelector((state: any) => state.auth.accessToken);
   const totalPrice = useSelector((state: any) => state.totalPrice.totalPrice);
   const rentalData = useSelector((state: any) => state.rental.rental);
+  const navigate = useNavigate();
 
   const handleToken = (token: Token) => {
     console.log(token);
@@ -31,6 +33,7 @@ const PaymentForm = () => {
 
     rentalService.addRental(rentalData).then((response) => {
       console.log(response);
+      navigate("/profile")
     });
   };
 
@@ -39,7 +42,7 @@ const PaymentForm = () => {
       <StripeCheckout
         stripeKey="pk_test_51Oc4oEJE8sDL3wBycwudyGP1zzmMX2QkGfWL24IVqflheGEW65wSwgXhHmHaYebjSVm8H4LZs2l3i5f0Etpvt3H000eJvEX0mR"
         token={handleToken}
-        amount={totalPrice}
+        amount={totalPrice*100}
         currency="USD"
         name="RentACar Payment"
         description="Ödeme işlemi"

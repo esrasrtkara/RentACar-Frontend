@@ -12,9 +12,12 @@ import {
 import './carCardProfile.css';
 import { GetAllCarResponse } from '../../models/responses/Car/getAllCarResponse';
 import { GetAllRentalResponse } from '../../models/responses/Rental/getAllRentalResponse';
+import { Link } from 'react-router-dom';
+import Order from '../../pages/order/Order';
 
-type Props = { rental: GetAllRentalResponse,
-              car:GetAllCarResponse
+type Props = { 
+  rental: GetAllRentalResponse,
+  car:GetAllCarResponse
 };
 
 
@@ -24,6 +27,7 @@ const CarCardProfile = (props: Props) => {
 
   return (
     <>
+     
       <MDBContainer fluid className="my-5">
         <MDBRow className="justify-content-center">
           <MDBCol md="6" lg="12" xl="12">
@@ -66,14 +70,12 @@ const CarCardProfile = (props: Props) => {
               <hr className="my-0" />
               <MDBCardBody className="pb-0">
                 <div className="button d-flex justify-content-between align-items-center pb-2 mb-4">
-                  <MDBBtn className="rent-button-left fw-bold" color="primary">
-                      {' '}
-                      Aracı İncele
+                <Link to="/order" className="rent-button-left fw-bold" style={{ textDecoration: 'none' }}>
+                  <MDBBtn className="rent-button-left fw-bold" color="primary" to='/order'>
+                      SİPARİŞİ İNCELE
                   </MDBBtn>
-                  <MDBBtn className="rent-button fw-bold" color="danger">       
-                      {' '}
-                      Kİralamayı İptal Et{' '}
-                  </MDBBtn>
+                  </Link>
+                
                 </div>
               </MDBCardBody>
             </MDBCard>

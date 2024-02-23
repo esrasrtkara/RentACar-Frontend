@@ -1,0 +1,25 @@
+.discount-coupons {
+    /* İndirim kuponları için genel stil */
+  }
+  
+  .coupon-tags {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .coupon-tag {
+    background-color: #f8f9fa;
+    border: 1px solid #ced4da;
+    border-radius: 15px;
+    padding: 5px 10px;
+    margin: 5px;
+  }
+  
+  .coupon-code {
+    font-weight: bold;
+  }
+  
+  .coupon-discount {
+    font-size: 0.8em;
+    color: #6c757d;
+  }

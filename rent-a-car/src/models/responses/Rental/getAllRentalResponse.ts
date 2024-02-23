@@ -7,4 +7,5 @@ export interface GetAllRentalResponse {
 	endKilometer: number;
 	carId: number;
 	userId: number;
+	createDate:Date;
 }

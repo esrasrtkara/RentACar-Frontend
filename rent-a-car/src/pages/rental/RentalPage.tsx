@@ -28,21 +28,21 @@ const RentalPage = () => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [dayDifference, setDayDifference] = useState<number | null>(null);
   const [rentaldata, setRentaldata] = useState<GetFilterRentalResponse>();
-  const [discountCode, setDiscountCode] = useState<string>('');
+  const [discountCode, setDiscountCode] = useState<string|null>(null);
   //const discountCode: string | null = null;
 
   const dispatch = useDispatch();
 
   let { id } = useParams();
 
-  const handleInputChange = (event:any) => {
+  const handleInputChange = (event:React.ChangeEvent<HTMLInputElement>) => {
     setDiscountCode(event.target.value);
   };
 
   const postData: AddRentalRequest = {
     startDate: startDate,
     endDate: endDate,
-    discountCode: discountCode,
+    discountCode:discountCode,
     carId: Number(id),
   };
 
@@ -50,7 +50,7 @@ const RentalPage = () => {
     if (id) {
       getByIdCars();
     }
-    console.log(discountCode)
+   
   }, []);
 
   const getByIdCars = () => {
@@ -66,6 +66,7 @@ const RentalPage = () => {
       dispatch(setTotalPrice(response.data.totalPrice));
       console.log(response.data);
       dispatch(setRental(response.data));
+      console.log(discountCode)
     });
   };
 
@@ -197,7 +198,7 @@ const RentalPage = () => {
                   type="text"
                   id="couponInput"
                   name="couponInput"
-                  value={discountCode}
+                  value={discountCode ?? ''}
                   onChange={handleInputChange}
                 />
               </div>
