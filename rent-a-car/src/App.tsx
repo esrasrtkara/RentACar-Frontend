@@ -9,6 +9,7 @@ import Rental from './pages/rental/RentalPage'
 import 'react-toastify/dist/ReactToastify.css';
 import Cars from './pages/cars/Cars';
 import Profile from './pages/profile/Profile';
+import Order from './pages/order/Order';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path='/rental/:id' element={<Rental/>}/>
         <Route path='/cars' element={<Cars/>}/>
         <Route path='/profile' element={<Profile/>}/>
+        <Route path='/order' element={<Order/>}/>
       </Routes>
     </div>
   );

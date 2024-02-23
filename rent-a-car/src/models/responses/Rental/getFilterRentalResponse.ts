@@ -11,5 +11,5 @@ export interface GetFilterRentalResponse {
 	endKilometer: number;
 	carId: number;
 	userId: number;
-	discountCode?: any;
+	discountCode: string|null;
 }

@@ -1,0 +1,62 @@
+.order-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.order-card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+  width: 1000px; /* Kartın genişliğini ayarlayabilirsiniz */
+  position: relative;
+}
+
+.order-header {
+  background-color: #f2f2f2;
+  border-radius: 8px 8px 0 0;
+  padding: 10px;
+  text-align: center;
+}
+
+.order-details {
+  margin-bottom: 20px;
+}
+
+.order-info {
+  padding: 10px;
+}
+
+.order-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.order-table th, .order-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.order-table th {
+  background-color: #f2f2f2;
+}
+
+.order-buttons {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.cancel-order-button, .update-order-button {
+  margin-right: 10px;
+}
+
+.invoice-button-container {
+  position: absolute;
+  top: 20px; /* Kartın üst kısmından ne kadar uzaklıkta olmasını istiyorsanız buradaki değeri ayarlayabilirsiniz */
+  right: 20px; /* Kartın sağ tarafından ne kadar uzaklıkta olmasını istiyorsanız buradaki değeri ayarlayabilirsiniz */
+}
