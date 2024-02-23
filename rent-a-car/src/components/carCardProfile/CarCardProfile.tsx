@@ -13,7 +13,9 @@ import './carCardProfile.css';
 import { GetAllCarResponse } from '../../models/responses/Car/getAllCarResponse';
 import { GetAllRentalResponse } from '../../models/responses/Rental/getAllRentalResponse';
 import { Link } from 'react-router-dom';
-import Order from '../../pages/order/Order';
+import { useDispatch, useSelector } from 'react-redux';
+import { setRental } from '../../store/rental/rentalSlice';
+
 
 type Props = { 
   rental: GetAllRentalResponse,
@@ -23,8 +25,11 @@ type Props = {
 
 
 const CarCardProfile = (props: Props) => {
-  
 
+  const dispatch = useDispatch();
+  const getRental=()=>{
+    dispatch(setRental(props.rental));
+  }
   return (
     <>
      
@@ -71,11 +76,10 @@ const CarCardProfile = (props: Props) => {
               <MDBCardBody className="pb-0">
                 <div className="button d-flex justify-content-between align-items-center pb-2 mb-4">
                 <Link to="/order" className="rent-button-left fw-bold" style={{ textDecoration: 'none' }}>
-                  <MDBBtn className="rent-button-left fw-bold" color="primary" to='/order'>
+                  <MDBBtn className="rent-button-left fw-bold" color="primary" to='/order' onClick={getRental}>
                       SİPARİŞİ İNCELE
                   </MDBBtn>
                   </Link>
-                
                 </div>
               </MDBCardBody>
             </MDBCard>

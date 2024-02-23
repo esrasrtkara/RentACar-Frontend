@@ -5,6 +5,7 @@ import { GetAllRentalResponse } from '../../models/responses/Rental/getAllRental
 import { GetAllCarResponse } from '../../models/responses/Car/getAllCarResponse';
 import invoiceService from '../../services/invoiceService';
 import { GetByIdInvoiceResponse } from '../../models/responses/Invoice/getByIdInvoiceResponse';
+import { useDispatch, useSelector } from 'react-redux';
 
 type Props = { 
  
@@ -12,6 +13,16 @@ type Props = {
 
 const Order = (props: Props) => {
   const [invoice, setInvoice] = useState<GetByIdInvoiceResponse>()
+  const rental = useSelector((state: any) => state.rental.rental);
+  useEffect(() => {
+    if(rental){
+      handleShowInvoice();
+    }
+   
+   console.log(rental.id)
+    
+  }, [])
+  
   const handleCancelOrder = () => {
     // Siparişi iptal etme işlemleri burada gerçekleştirilebilir
     console.log('Sipariş iptal edildi.');
@@ -23,9 +34,10 @@ const Order = (props: Props) => {
   };
 
   const handleShowInvoice = () => {
-    /*invoiceService.getInvoice("props.rental.id").then(response=>{
+    invoiceService.getInvoice(rental.id).then(response=>{
       setInvoice(response.data)
-    })*/
+      console.log(response.data)
+    })
     console.log('Fatura gösterildi.');
   };
 
@@ -38,10 +50,10 @@ const Order = (props: Props) => {
         <div className="order-details">
           <div className="order-info">
             <p>
-              <span className="bold">Sipariş No:</span>{"props.rental.id+"}
+              <span className="bold">Sipariş No:</span>{rental.id+"12345"}
             </p>
             <p>
-              <span className="bold">Tarih:</span>{"props.rental.createDate.toLocaleString()"}
+              <span className="bold">Tarih:</span>{rental.createDate.toLocaleString()}
             </p>
           </div>
         </div>
@@ -56,10 +68,10 @@ const Order = (props: Props) => {
           </thead>
           <tbody>
             <tr>
-              <td>{"props.rental.startDate"}</td>
-              <td>{"props.rental.endDate"}</td>
-              <td>{"props.rental.returnDate"}</td>
-              <td>{"invoice?.totalPrice"}</td>
+              <td>{rental.startDate}</td>
+              <td>{rental.endDate}</td>
+              <td>{rental.returnDate}</td>
+              <td>{invoice?.totalPrice}</td>
             </tr>
           </tbody>
         </table>

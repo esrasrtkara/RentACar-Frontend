@@ -10,7 +10,7 @@ class InvoiceServive{
     }
 
     getInvoice(rentalId:number):Promise<AxiosResponse<GetByIdInvoiceResponse,any>> {
-		return axiosInstance.get<GetByIdInvoiceResponse>(this.apiUrl+"/rentalId");
+		return axiosInstance.get<GetByIdInvoiceResponse>(this.apiUrl+"/rental/"+rentalId);
 	}
 }
 const invoiceService = new InvoiceServive();
