@@ -73,13 +73,24 @@ const CarCardProfile = (props: Props) => {
                     to="/order"
                     className="rent-button-left fw-bold"
                     style={{ textDecoration: 'none' }}>
-                    <MDBBtn
+                    {props.rental.returnDate ? (
+                      <MDBBtn
+                      className="rent-button-left fw-bold"
+                      color="secondary"
+                      to="/order"
+                      onClick={getRental}>
+                      SİPARİŞİ İNCELE
+                    </MDBBtn>
+                    ):(
+                      <MDBBtn
                       className="rent-button-left fw-bold"
                       color="primary"
                       to="/order"
                       onClick={getRental}>
                       SİPARİŞİ İNCELE
                     </MDBBtn>
+                    )}
+                    
                   </Link>
                 </div>
               </MDBCardBody>
