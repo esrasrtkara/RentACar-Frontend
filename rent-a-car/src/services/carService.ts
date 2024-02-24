@@ -28,6 +28,10 @@ class CarService extends BaseService<
     getComment(id: number): Promise<AxiosResponse<GetCommentCarId[], any>> {
         return axiosInstance.get<GetCommentCarId[]>(this.apiUrl + "/" + id+"/comments");
     }
+    getAllActiveCar(): Promise<AxiosResponse<AllDataResultResponse<GetAllCarResponse>, any>> {
+		return axiosInstance.get<AllDataResultResponse<GetAllCarResponse>>(this.apiUrl+"/active");
+	}
+
 }
 const carService = new CarService();
 export default carService

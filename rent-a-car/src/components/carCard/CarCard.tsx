@@ -20,7 +20,7 @@ import userService from '../../services/userService';
 import { setUserId } from '../../store/user/userIdSlice';
 
 type Props = {
-  car: GetAllCarResponse;
+  activeCar: GetAllCarResponse;
 };
 
 const CarCard = (props: Props) => {
@@ -47,7 +47,7 @@ const CarCard = (props: Props) => {
   
 
   const getCommentCarId = () => {
-    carService.getComment(props.car.id).then((response) => {
+    carService.getComment(props.activeCar.id).then((response) => {
       dispatch(setComments(response.data))
     });
   };
@@ -63,7 +63,7 @@ const CarCard = (props: Props) => {
                 rippleTag="div"
                 className="bg-image rounded hover-overlay">
                 <MDBCardImage
-                  src={props.car.imagePath}
+                  src={props.activeCar.imagePath}
                   fluid
                   className="w-100"
                   style={{
@@ -79,7 +79,7 @@ const CarCard = (props: Props) => {
                 <div className="d-flex justify-content-between">
                   <div className="header mt-4">
                     <h1 className="card-title  font-weight-bold">
-                      {props.car.modelName}
+                      {props.activeCar.modelName}
                     </h1>
                   </div>
                   <div>
@@ -98,19 +98,19 @@ const CarCard = (props: Props) => {
                   <div className="col-md-4">
                     <p className="text-dark description font-lg">
                       <i className="fas fa-dollar-sign" title="Daily Price"></i>{' '}
-                      {props.car.dailyPrice}
+                      {props.activeCar.dailyPrice}
                     </p>
                   </div>
                   <div className="col-md-4">
                     <p className="text-dark description font-lg">
                       <i className="fas fa-users" title="Capacity"></i>{' '}
-                      {props.car.capacity + ' Yetişkin'}
+                      {props.activeCar.capacity + ' Yetişkin'}
                     </p>
                   </div>
                   <div className="col-md-4">
                     <p className="text-dark description font-lg">
                       <i className="fas fa-paint-brush" title="Color"></i>{' '}
-                      {props.car.colorName}
+                      {props.activeCar.colorName}
                     </p>
                   </div>
                 </div>
@@ -118,19 +118,19 @@ const CarCard = (props: Props) => {
                   <div className="col-md-4">
                     <p className="text-dark description font-lg">
                       <i className="fas fa-road" title="Kilometer"></i>{' '}
-                      {props.car.kilometer}
+                      {props.activeCar.kilometer}
                     </p>
                   </div>
                   <div className="col-md-4">
                     <p className="text-dark description font-lg">
                       <i className="fas fa-calendar-alt" title="Year"></i>{' '}
-                      {props.car.year}
+                      {props.activeCar.year}
                     </p>
                   </div>
                   <div className="col-md-4">
                     <p className="text-dark description font-lg">
                       <i className="fas fa-box" title="Trunk Volume"></i>{' '}
-                      {props.car.trunkVolume}
+                      {props.activeCar.trunkVolume}
                     </p>
                   </div>
                 </div>
@@ -141,14 +141,14 @@ const CarCard = (props: Props) => {
                 <div className="button d-flex justify-content-between align-items-center pb-2 mb-4">
                   <MDBBtn className="rent-button-left fw-bold" color="primary"onClick={()=>{getCommentCarId();}}>
                     <Link
-                      to={'/cardetail/' + props.car.id}
+                      to={'/cardetail/' + props.activeCar.id}
                       className="link-left">
                       {' '}
                       Aracı İncele
                     </Link>
                   </MDBBtn>
                   <MDBBtn className="rent-button fw-bold" color="danger" >
-                    <Link to={'/rental/' + props.car.id} className="rent-btn">
+                    <Link to={'/rental/' + props.activeCar.id} className="rent-btn">
                       {' '}
                       Hemen Kİrala{' '}
                     </Link>

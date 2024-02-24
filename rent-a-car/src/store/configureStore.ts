@@ -13,6 +13,7 @@ import { SurnameReducer } from './login/surnameSlice';
 import { commentReducer } from './comment/commentsSlice';
 import { rentalsReducer } from './rental/rentalsSlice';
 import { updateRentalReducer } from './rental/updateRentalSlice';
+import { activeCarReducer } from './car/activeCarSlice';
 const rootReducer = combineReducers({
     auth: authReducer,
     car: carReducer,
@@ -27,7 +28,8 @@ const rootReducer = combineReducers({
     userId:userIdReducer,
     comments:commentReducer,
     rentals:rentalsReducer,
-    updateRental:updateRentalReducer
+    updateRental:updateRentalReducer,
+    activeCar:activeCarReducer
 
 });
 
