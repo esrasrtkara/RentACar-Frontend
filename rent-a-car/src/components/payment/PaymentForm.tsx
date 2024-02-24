@@ -1,15 +1,17 @@
 import StripeCheckout, { Token } from 'react-stripe-checkout';
 import paymentService from '../../services/paymentService';
 import { PaymentRequest } from '../../models/requests/Payment/paymentRequest';
-import { useSelector } from 'react-redux';
 import rentalService from '../../services/rentalService';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { setRental } from '../../store/rental/rentalSlice';
 
 const PaymentForm = () => {
   const accessToken = useSelector((state: any) => state.auth.accessToken);
   const totalPrice = useSelector((state: any) => state.totalPrice.totalPrice);
   const rentalData = useSelector((state: any) => state.rental.rental);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleToken = (token: Token) => {
     console.log(token);
@@ -33,7 +35,8 @@ const PaymentForm = () => {
 
     rentalService.addRental(rentalData).then((response) => {
       console.log(response);
-      navigate("/profile")
+      dispatch(setRental(response.data.data));
+      navigate("/order")
     });
   };
 
