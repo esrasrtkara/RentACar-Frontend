@@ -26,6 +26,10 @@ class RentalService{
 	): Promise<AxiosResponse<UpdateRentalResponse, any>> {
 		return axiosInstance.put<UpdateRentalResponse>(this.apiUrl, request);
 	}
+	delete(id: number) {
+		return axiosInstance.delete(this.apiUrl + "/" + id);
+	}
+	
 }
 
 const rentalService = new RentalService();

@@ -14,6 +14,8 @@ import { commentReducer } from './comment/commentsSlice';
 import { rentalsReducer } from './rental/rentalsSlice';
 import { updateRentalReducer } from './rental/updateRentalSlice';
 import { activeCarReducer } from './car/activeCarSlice';
+import { ChargeIdReducer } from './payment/chargeIdSlice';
+import { RefundedAmountReducer } from './payment/refundedAmount';
 const rootReducer = combineReducers({
     auth: authReducer,
     car: carReducer,
@@ -29,7 +31,9 @@ const rootReducer = combineReducers({
     comments:commentReducer,
     rentals:rentalsReducer,
     updateRental:updateRentalReducer,
-    activeCar:activeCarReducer
+    activeCar:activeCarReducer,
+    chargeId:ChargeIdReducer,
+    refundedAmount:RefundedAmountReducer
 
 });
 

@@ -5,6 +5,8 @@ import rentalService from '../../services/rentalService';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setRental } from '../../store/rental/rentalSlice';
+import { setChargeId } from '../../store/payment/chargeIdSlice';
+import { setRefundedAmount } from '../../store/payment/refundedAmount';
 
 const PaymentForm = () => {
   const accessToken = useSelector((state: any) => state.auth.accessToken);
@@ -26,6 +28,9 @@ const PaymentForm = () => {
         .payment(paymentData)
         .then((response) => {
           console.log(response);
+          dispatch(setChargeId(response.data))
+          console.log(response.data)
+          dispatch(setRefundedAmount(paymentData.amount))
         })
 
         .catch((error) => console.error('Ödeme işleminde hata oluştu:', error));
