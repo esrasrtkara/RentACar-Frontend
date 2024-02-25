@@ -12,6 +12,9 @@ import { clearRental, setRental } from '../../store/rental/rentalSlice';
 import { setUpdateRental } from '../../store/rental/updateRentalSlice';
 import moment from 'moment';
 import jsPDF from 'jspdf';
+import { RefundRequest } from '../../models/requests/Payment/refundRequest';
+import paymentService from '../../services/paymentService';
+import { ToastContainer, toast } from 'react-toastify';
 
 type Props = {};
 
@@ -23,6 +26,10 @@ const Order = (props: Props) => {
   const [endKilometer, setEndKilometer] = useState<number>();
   const dispatch = useDispatch();
   const defaultDate = new Date();
+  const chargeId = useSelector((state: any) => state.chargeId.chargeId);
+  const refundedAmount = useSelector((state: any) => state.refundedAmount.refundedAmount);
+  const [deleteStatus, setDeleteStatus] = useState(0)
+  
 
   useEffect(() => {
     if (rental) {
@@ -44,6 +51,10 @@ const Order = (props: Props) => {
     createDate:rental.createDate,
     incoiceId:invoice?.id,
   };
+  const refundRequest:RefundRequest={
+    chargeId:chargeId,
+    amount:refundedAmount,
+  }
   const generatePDF = () => {
     if (invoice !== null) {
       const doc = new jsPDF();
@@ -86,7 +97,17 @@ const Order = (props: Props) => {
   };
 
   const handleCancelOrder = () => {
-    console.log('Sipariş iptal edildi.');
+    paymentService.refundPayment(refundRequest).then(response=>{
+      console.log(response.data);
+    })
+    rentalService.delete(rental.id).then(response=>{
+      console.log(response.data);
+      setDeleteStatus(1);
+    
+    })
+    toast.success("Siparişiniz iptal edildi.", {
+      position: "bottom-left"
+    });
   };
 
   const handleUpdateOrder = () => {
@@ -96,15 +117,16 @@ const Order = (props: Props) => {
       dispatch(setRental(updateData));
       console.log(rental)
     });
-    console.log('Sipariş güncellendi.');
+    toast.success("Siparişiniz güncellendi.", {
+      position: "bottom-left"
+    });
   };
 
   const handleShowInvoice = () => {
     invoiceService.getInvoice(rental.id).then(response => {
       setInvoice(response.data);
       console.log(response.data);
-    });
-    console.log('Fatura gösterildi.');
+    })
   };
 
   return (
@@ -158,7 +180,7 @@ const Order = (props: Props) => {
                 </td>
                 <td>{rental.startKilometer}</td>
                 <td>
-                  {rental.endKilometer !== null && rental.endKilometer !== 0 ? (
+                  {rental.endKilometer !== null? (
                     <>{rental.endKilometer}</>
                   ) : (
                     <div className="days-label">
@@ -177,13 +199,13 @@ const Order = (props: Props) => {
             </tbody>
           </table>
           <div className="order-buttons">
-            
-            {rental.returnDate !==null ?(<div></div>):(
+          <ToastContainer />
+            {rental.returnDate!==null || deleteStatus===1?(<div></div>):(
               <MDBBtn className="cancel-order-button" onClick={handleCancelOrder}>
               Sİparİşİ İptal Et
             </MDBBtn>
             )}
-            {rental.returnDate !==null ?(<div></div>):(
+            {rental.returnDate!==null || deleteStatus===1?(<div></div>):(
               <MDBBtn className="update-order-button" onClick={handleUpdateOrder}>
               Sİparİşİ Güncelle
             </MDBBtn>
