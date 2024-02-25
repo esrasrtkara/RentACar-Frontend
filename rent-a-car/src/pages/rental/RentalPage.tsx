@@ -20,6 +20,7 @@ import PaymentForm from '../../components/payment/PaymentForm';
 import { setTotalPrice } from '../../store/totalPrice/totalPrice';
 import rentalFilterService from '../../services/rentalFilterService';
 import { setRental } from '../../store/rental/rentalSlice';
+import {  useSelector } from 'react-redux';
 
 const RentalPage = () => {
   const [car, setCar] = useState<GetByIdCarResponse>();
@@ -29,6 +30,7 @@ const RentalPage = () => {
   const [dayDifference, setDayDifference] = useState<number | null>(null);
   const [rentaldata, setRentaldata] = useState<GetFilterRentalResponse>();
   const [discountCode, setDiscountCode] = useState<string|null>(null);
+  const token = useSelector((state: any) => state.auth.accessToken);
   //const discountCode: string | null = null;
 
   const dispatch = useDispatch();
@@ -211,7 +213,8 @@ const RentalPage = () => {
                 color="danger">
                 Kiralama Bedeli Hesapla
               </MDBBtn>
-              <PaymentForm />
+              {token?(<PaymentForm />):(<div></div>)}
+              
             </div>
           </MDBCol>
         </MDBRow>

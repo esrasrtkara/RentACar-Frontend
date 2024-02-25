@@ -31,6 +31,9 @@ class CarService extends BaseService<
     getAllActiveCar(): Promise<AxiosResponse<AllDataResultResponse<GetAllCarResponse>, any>> {
 		return axiosInstance.get<AllDataResultResponse<GetAllCarResponse>>(this.apiUrl+"/active");
 	}
+    getDiscountCar():Promise<AxiosResponse<GetAllCarResponse[], any>> {
+		return axiosInstance.get<GetAllCarResponse[]>(this.apiUrl+"/discountCar");
+	}
 
 }
 const carService = new CarService();

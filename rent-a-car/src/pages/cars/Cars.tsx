@@ -5,9 +5,9 @@ import { setCars } from '../../store/car/carSlice';
 import './cars.css';
 import { useEffect } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
-import CarCard from '../../components/carCard/CarCard';
 import { GetAllCarResponse } from '../../models/responses/Car/getAllCarResponse';
 import { setActiveCar } from '../../store/car/activeCarSlice';
+import CarCardActive from '../../components/carCardActive/CarCardActive';
 type Props = {};
 
 const Cars = (props: Props) => {
@@ -34,7 +34,7 @@ const Cars = (props: Props) => {
         <Row>
           {activeCars.map((activeCar: GetAllCarResponse, i: number) => (
             <Col key={i} className="col-4">
-              <CarCard activeCar={activeCar} />
+              <CarCardActive activeCar={activeCar} />
             </Col>
           ))}
         </Row>

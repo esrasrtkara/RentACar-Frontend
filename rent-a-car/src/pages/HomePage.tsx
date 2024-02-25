@@ -9,6 +9,7 @@ import { setCars } from '../store/car/carSlice';
 import Layout from '../components/layout/Layout';
 import Banner from '../components/banner/Banner';
 import { setActiveCar } from '../store/car/activeCarSlice';
+import { setDiscountCar } from '../store/car/discountCarSlice';
 
 type Props = {};
 
@@ -16,6 +17,7 @@ const HomePage = (props: Props) => {
   const dispatch = useDispatch();
   const cars = useSelector((state: any) => state.car.cars);
   const activeCars = useSelector((state: any) => state.activeCar.activeCar);
+  const discountCars = useSelector((state: any) => state.discountCar.discountCar);
   
   useEffect(() => {
     getCars();
@@ -27,6 +29,9 @@ const HomePage = (props: Props) => {
     });
     carService.getAllActiveCar().then(response=>{
       dispatch(setActiveCar(response.data.data));
+    });
+    carService.getDiscountCar().then(response=>{
+      dispatch(setDiscountCar(response.data));
     })
   };
 
@@ -38,9 +43,9 @@ const HomePage = (props: Props) => {
           <h2 className="cars-title text-center">KAMPANYALI ARAÇLARIMIZ</h2>
         </Row>
         <Row>
-          {activeCars.map((activeCar: GetAllCarResponse, i: number) => (
+          {discountCars.map((discountCar: GetAllCarResponse, i: number) => (
             <Col key={i} className="col-4">
-              <CarCard activeCar={activeCar} />
+              <CarCard discountCar={discountCar} />
             </Col>
           ))}
         </Row>

@@ -9,7 +9,7 @@ import {
   MDBBtn,
   MDBRipple,
 } from 'mdb-react-ui-kit';
-import './CarCard.css';
+import './CarCardActive.css'
 import { Link } from 'react-router-dom';
 import { GetAllCarResponse } from '../../models/responses/Car/getAllCarResponse';
 import { useEffect, useState } from 'react';
@@ -20,11 +20,10 @@ import userService from '../../services/userService';
 import { setUserId } from '../../store/user/userIdSlice';
 
 type Props = {
-  discountCar: GetAllCarResponse;
- 
+  activeCar:GetAllCarResponse;
 };
 
-const CarCard = (props: Props) => {
+const CarCardActive = (props: Props) => {
   const dispatch = useDispatch();
   const token = useSelector((state: any) => state.auth.accessToken);
 
@@ -48,7 +47,7 @@ const CarCard = (props: Props) => {
   
 
   const getCommentCarId = () => {
-    carService.getComment(props.discountCar.id).then((response) => {
+    carService.getComment(props.activeCar.id).then((response) => {
       dispatch(setComments(response.data))
     });
   };
@@ -64,7 +63,7 @@ const CarCard = (props: Props) => {
                 rippleTag="div"
                 className="bg-image rounded hover-overlay">
                 <MDBCardImage
-                  src={props.discountCar.imagePath}
+                  src={props.activeCar.imagePath}
                   fluid
                   className="w-100"
                   style={{
@@ -80,7 +79,7 @@ const CarCard = (props: Props) => {
                 <div className="d-flex justify-content-between">
                   <div className="header mt-4">
                     <h1 className="card-title  font-weight-bold">
-                      {props.discountCar.modelName}
+                      {props.activeCar.modelName}
                     </h1>
                   </div>
                   <div>
@@ -99,19 +98,19 @@ const CarCard = (props: Props) => {
                   <div className="col-md-4">
                     <p className="text-dark description font-lg">
                       <i className="fas fa-dollar-sign" title="Daily Price"></i>{' '}
-                      {props.discountCar.dailyPrice}
+                      {props.activeCar.dailyPrice}
                     </p>
                   </div>
                   <div className="col-md-4">
                     <p className="text-dark description font-lg">
                       <i className="fas fa-users" title="Capacity"></i>{' '}
-                      {props.discountCar.capacity + ' Yetişkin'}
+                      {props.activeCar.capacity + ' Yetişkin'}
                     </p>
                   </div>
                   <div className="col-md-4">
                     <p className="text-dark description font-lg">
                       <i className="fas fa-paint-brush" title="Color"></i>{' '}
-                      {props.discountCar.colorName}
+                      {props.activeCar.colorName}
                     </p>
                   </div>
                 </div>
@@ -119,19 +118,19 @@ const CarCard = (props: Props) => {
                   <div className="col-md-4">
                     <p className="text-dark description font-lg">
                       <i className="fas fa-road" title="Kilometer"></i>{' '}
-                      {props.discountCar.kilometer}
+                      {props.activeCar.kilometer}
                     </p>
                   </div>
                   <div className="col-md-4">
                     <p className="text-dark description font-lg">
                       <i className="fas fa-calendar-alt" title="Year"></i>{' '}
-                      {props.discountCar.year}
+                      {props.activeCar.year}
                     </p>
                   </div>
                   <div className="col-md-4">
                     <p className="text-dark description font-lg">
                       <i className="fas fa-box" title="Trunk Volume"></i>{' '}
-                      {props.discountCar.trunkVolume}
+                      {props.activeCar.trunkVolume}
                     </p>
                   </div>
                 </div>
@@ -142,14 +141,14 @@ const CarCard = (props: Props) => {
                 <div className="button d-flex justify-content-between align-items-center pb-2 mb-4">
                   <MDBBtn className="rent-button-left fw-bold" color="primary"onClick={()=>{getCommentCarId();}}>
                     <Link
-                      to={'/cardetail/' + props.discountCar.id}
+                      to={'/cardetail/' + props.activeCar.id}
                       className="link-left">
                       {' '}
                       Aracı İncele
                     </Link>
                   </MDBBtn>
                   <MDBBtn className="rent-button fw-bold" color="danger" >
-                    <Link to={'/rental/' + props.discountCar.id} className="rent-btn">
+                    <Link to={'/rental/' + props.activeCar.id} className="rent-btn">
                       {' '}
                       Hemen Kİrala{' '}
                     </Link>
@@ -164,4 +163,4 @@ const CarCard = (props: Props) => {
   );
 };
 
-export default CarCard;
+export default CarCardActive;

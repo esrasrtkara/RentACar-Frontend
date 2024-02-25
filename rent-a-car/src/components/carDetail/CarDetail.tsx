@@ -6,13 +6,18 @@ import {
   MDBRow,
 } from 'mdb-react-ui-kit';
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+
 import { useNavigate, useParams } from 'react-router-dom';
 import { GetByIdCarResponse } from '../../models/responses/Car/getByIdCarResponse';
 import carService from '../../services/carService';
 import Comments from '../comment/Comments';
 import Layout from '../layout/Layout';
 import './carDetail.css';
+import { GetAllCommentResponse } from '../../models/responses/Comment/getAllCommentResponse';
+import { useDispatch, useSelector } from 'react-redux';
+import { setComments } from '../../store/comment/commentsSlice';
+import { GetCommentCarId } from '../../models/responses/Car/getCommentCarId';
+import commentService from '../../services/commentService';
 
 const CarDetail = () => {
   const [car, setCar] = useState<GetByIdCarResponse>();
@@ -20,23 +25,20 @@ const CarDetail = () => {
   const comments = useSelector((state: any) => state.comments.comments);
   const userId = useSelector((state: any) => state.userId.userId);
   let { id } = useParams();
-  const name = useSelector((state: any) => state.name.name);
-  const [currentUserInitial, setCurrentUserInitial] = useState<string>('');
 
-  const getCurrentUserAvatarUrl = (userId: number) => {
-    const avatarUrl = `https://ui-avatars.com/api/?name=${currentUserInitial}&size=128&color=E44A48&background=FFFFFF&bold=true&font-size=0.7`;
-    return avatarUrl;
-  };
+  
+  const dispatch = useDispatch();
 
+  
   useEffect(() => {
     if (id) {
       getByIdCars();
     }
-    if (name) {
-      const firstInitial = name.charAt(0).toUpperCase();
-      setCurrentUserInitial(firstInitial);
-    }
-  }, [name]);
+    carService.getComment(Number(id)).then((response) => {
+      dispatch(setComments(response.data));
+    });
+  
+  }, []);
 
   const getByIdCars = () => {
     carService.getById(Number(id)).then((response) => {
@@ -45,10 +47,11 @@ const CarDetail = () => {
   };
 
   const handleDeleteComment = (commentId: number) => {
-    /* const updatedComments = comments.filter(
-      (comment:AddCommentRequest) => comment.id !== commentId
-    );*/
-    // setComments(updatedComments);
+     const updatedComments = comments.filter(
+      (comment:GetCommentCarId) => comment.id !== commentId
+    );
+     dispatch(setComments(updatedComments));
+    commentService.delete(commentId);
   };
   console.log(comments);
   const navigate = useNavigate();
@@ -162,19 +165,11 @@ const CarDetail = () => {
         <Comments carId={Number(id)} />
 
         {comments.length !== 0 ? (
-          comments.map((comment: any, index: any) => (
+          comments.map((comment: GetCommentCarId) => (
             <MDBRow
-              key={index}
+              key={comment.id}
               className="comment my-4 align-items-center bg-border">
-              <MDBCol md="6" lg="5" xl="1" className="comment-img">
-                {/* Kullanıcı Profil Fotoğrafı */}
-                <img
-                  className="profile-photo img-fluid rounded-circle"
-                  src={getCurrentUserAvatarUrl(comment.userId)}
-                  alt="Profil"
-                  sizes="big"
-                />
-              </MDBCol>
+              
               <MDBCol md="6" lg="5" xl="3" className="comment-text">
                 {/* Yorum Bilgileri */}
                 {/*<h5>{comment.title}</h5>*/}

@@ -180,7 +180,7 @@ const Order = (props: Props) => {
                 </td>
                 <td>{rental.startKilometer}</td>
                 <td>
-                  {rental.endKilometer !== null? (
+                  {rental.endKilometer !== null && rental.endKilometer !==0? (
                     <>{rental.endKilometer}</>
                   ) : (
                     <div className="days-label">
