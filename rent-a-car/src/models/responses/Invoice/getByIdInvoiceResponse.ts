@@ -1,3 +1,4 @@
+
 export interface GetByIdInvoiceResponse {
 	id: number;
 	invoiceNo: string;
@@ -5,4 +6,5 @@ export interface GetByIdInvoiceResponse {
 	discountRate: number;
 	taxRate: number;
 	rentalId: number;
+	createDate: string;
 }

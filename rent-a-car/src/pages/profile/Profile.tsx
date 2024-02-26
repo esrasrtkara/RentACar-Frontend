@@ -205,7 +205,7 @@ const Profile = (props: Props) => {
                     <MDBCol md="6" lg="4" xl="1" className="comment-img">
                       <img
                         className="profile-photo img-fluid rounded-circle"
-                        src="https://png.pngtree.com/png-vector/20191110/ourmid/pngtree-avatar-icon-profile-icon-member-login-vector-isolated-png-image_1978396.jpg"
+                        src="https://img.pixers.pics/pho_wat(s3:700/FO/58/46/71/94/700_FO58467194_7cede552ba2758deb49dfb72c3630c51.jpg,700,400,cms:2018/10/5bd1b6b8d04b8_220x50-watermark.png,over,480,350,jpg)/cikartmalar-sevimli-kirmizi-araba-cizgi-film-karakteri.jpg.jpg"
                         alt="Profil"
                         sizes="big"
                       />
