@@ -205,7 +205,7 @@ const RentalPage = () => {
                 />
               </div>
               <div className="days-label">
-                <label>Kiralama Bedeli :{rentaldata?.totalPrice} </label>
+                <label>Kiralama Bedeli :{rentaldata?.totalPrice}$</label>
               </div>
               <MDBBtn
                 onClick={handleGetTotal}

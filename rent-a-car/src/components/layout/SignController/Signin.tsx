@@ -4,8 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import './signController.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearAccessToken } from '../../../store/auth/authSlice';
-import rentalService from '../../../services/rentalService';
-import { setRentals } from '../../../store/rental/rentalsSlice';
+
+
 
 
 type Props = {};
@@ -17,6 +17,7 @@ const SignIn = (props: Props) => {
   const avatarUrl = `https://ui-avatars.com/api/?name=${firstInitial}&size=128&color=E44A48&background=FFFFFF&bold=true&font-size=0.7`;
   const handleToken = () => {
     tokenService.clearToken();
+    tokenService.clearRefreshToken();
     navigate('/');
     window.location.reload();
     dispatch(clearAccessToken());

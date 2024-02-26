@@ -29,6 +29,8 @@ const Order = (props: Props) => {
   const chargeId = useSelector((state: any) => state.chargeId.chargeId);
   const refundedAmount = useSelector((state: any) => state.refundedAmount.refundedAmount);
   const [deleteStatus, setDeleteStatus] = useState(0)
+  const name = useSelector((state: any) => state.name.name);
+  const surname = useSelector((state: any) => state.surname.surname);
   
 
   useEffect(() => {
@@ -58,35 +60,37 @@ const Order = (props: Props) => {
   const generatePDF = () => {
     if (invoice !== null) {
       const doc = new jsPDF();
-      const turkishFont = 'times';
+      const englishFont = 'times';
   
-      // Başlık
+      // Title
       doc.setFontSize(20);
-      doc.setFont(turkishFont, 'bold');
+      doc.setFont(englishFont, 'bold');
       doc.text('Invoice Details', 105, 20, { align: 'center' });
   
-      // Çizgi
+      // Line
       doc.setLineWidth(0.5);
       doc.line(20, 30, 190, 30);
   
-      // Fatura Detayları
+      // Invoice Details
       doc.setFontSize(12);
-      doc.setFont(turkishFont, 'normal');
+      doc.setFont(englishFont, 'normal');
       doc.text(`Invoice No: ${invoice.invoiceNo}`, 20, 40);
-      doc.text(`Discount Rate:% ${invoice.discountRate*100}`, 20, 50);
-      doc.text(`Tax Rate:% ${invoice.taxRate*100}`, 20, 60);
-     
+      doc.text(`Create Date: ${invoice.createDate}`, 20, 50);
+      doc.text(` ${name} ${surname}`, 20, 60);
   
-      // Çizgi
-      doc.line(20, 80, 190, 80);
+      // Line
+      doc.line(20, 70, 190, 70);
   
-      // Ödeme Toplamı
+      // Payment Details
+      doc.text(`Discount Rate: %${(invoice.discountRate * 100).toFixed(2)}`, 20, 80);
+      doc.text(`Tax Rate: %${(invoice.taxRate * 100).toFixed(2)}`, 20, 90);
       doc.setTextColor(0, 0, 255);
-      doc.text(`Total Price: ${invoice.totalPrice}`, 20, 90);
+      doc.text(`Total Price: ${invoice.totalPrice}$`, 20, 100);
   
       doc.save('invoice.pdf');
     }
-  };
+  }; 
+  
   const handleEndKilometer = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(event.target.value, 10);
     if (!isNaN(value)) {
@@ -165,25 +169,28 @@ const Order = (props: Props) => {
               <tr>
                 <td>{rental.startDate}</td>
                 <td>{rental.endDate}</td>
-                <td>
+                
                   {rental.returnDate !== null ? (
-                    <>{rental.returnDate}</>
+                    <><td>{rental.returnDate}</td></>
                   ) : (
+                    <td className='return-date-td'>
                     <ReactDatePicker
   className="date"
   selected={returnDate ? new Date(returnDate) : null}
   minDate={new Date(rental.endDate)}
   onChange={(date: Date | null) => setReturnDate(date ? date.toISOString().substring(0, 10) : null)}
   dateFormat="dd/MM/yyyy"
-/>
-                  )}
-                </td>
+  />
+  </td>)}
+
+                
                 <td>{rental.startKilometer}</td>
-                <td>
+              
                   {rental.endKilometer !== null && rental.endKilometer !==0? (
-                    <>{rental.endKilometer}</>
+                    <><td>{rental.endKilometer}</td></>
                   ) : (
-                    <div className="days-label">
+                    <td className='return-date-td'>
+                    <div className="date">
                       <input
                         type="number"
                         id="couponInput"
@@ -192,8 +199,9 @@ const Order = (props: Props) => {
                         onChange={handleEndKilometer}
                       />
                     </div>
+                    </td>
                   )}
-                </td>
+               
                 <td>{invoice?.totalPrice}</td>
               </tr>
             </tbody>

@@ -8,6 +8,15 @@ class TokenService {
     clearToken(){
         localStorage.removeItem("token");
     }
+    getRefreshToken(){
+        return localStorage.getItem("refreshToken");
+    }
+    setRefreshToken(refreshToken:string){
+        localStorage.setItem("refreshToken",refreshToken);
+    }
+    clearRefreshToken(){
+        localStorage.removeItem("refreshToken");
+    }
 }
 
 const tokenService = new TokenService()

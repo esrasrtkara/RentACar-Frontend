@@ -1,5 +1,6 @@
-import { userIdReducer } from './user/userIdSlice';
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import { persistReducer, persistStore } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 import { authReducer } from "./auth/authSlice";
 import { carReducer } from "./car/carSlice";
 import { carIdReducer } from "./carId/carIdSlice";
@@ -17,8 +18,13 @@ import { activeCarReducer } from './car/activeCarSlice';
 import { ChargeIdReducer } from './payment/chargeIdSlice';
 import { RefundedAmountReducer } from './payment/refundedAmount';
 import { discountCarReducer } from './car/discountCarSlice';
+import { refreshReducer } from './auth/refreshSlice';
+import { userIdReducer } from "./user/userIdSlice";
+
+
+// Kök Reducer'ı tanımlayın
 const rootReducer = combineReducers({
-    auth: authReducer,
+  auth: authReducer,
     car: carReducer,
     carId:carIdReducer,
     totalPrice:totalPriceReducer,
@@ -35,8 +41,11 @@ const rootReducer = combineReducers({
     activeCar:activeCarReducer,
     chargeId:ChargeIdReducer,
     refundedAmount:RefundedAmountReducer,
-    discountCar:discountCarReducer
+    discountCar:discountCarReducer,
 
+  refresh: refreshReducer,
+ 
 });
+
 
 export const store = configureStore({reducer:rootReducer});

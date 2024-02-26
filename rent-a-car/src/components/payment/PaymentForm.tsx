@@ -20,7 +20,7 @@ const PaymentForm = () => {
     if (token && token.id) {
       const paymentData: PaymentRequest = {
         tokenId: token.id,
-        amount: totalPrice,
+        amount: totalPrice*100,
         currency: 'USD',
       };
 

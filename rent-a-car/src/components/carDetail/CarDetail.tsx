@@ -169,6 +169,14 @@ const CarDetail = () => {
             <MDBRow
               key={comment.id}
               className="comment my-4 align-items-center bg-border">
+                <MDBCol md="6" lg="4" xl="1" className="comment-img">
+                      <img
+                        className="profile-photo img-fluid rounded-circle"
+                        src="https://img.pixers.pics/pho_wat(s3:700/FO/58/46/71/94/700_FO58467194_7cede552ba2758deb49dfb72c3630c51.jpg,700,400,cms:2018/10/5bd1b6b8d04b8_220x50-watermark.png,over,480,350,jpg)/cikartmalar-sevimli-kirmizi-araba-cizgi-film-karakteri.jpg.jpg"
+                        alt="Profil"
+                        sizes="big"
+                      />
+                    </MDBCol>
               
               <MDBCol md="6" lg="5" xl="3" className="comment-text">
                 {/* Yorum Bilgileri */}

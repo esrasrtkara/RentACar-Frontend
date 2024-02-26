@@ -19,6 +19,8 @@ import customerService from '../services/customerService';
 import corporeteService from '../services/corporeteService';
 import { setName } from '../store/login/nameSlice';
 import { setSurname } from '../store/login/surnameSlice';
+import { setRefreshToken } from '../store/auth/refreshSlice';
+
 
 type Props = {};
 
@@ -34,6 +36,7 @@ const Login = (props: Props) => {
   const [error, setError] = useState<string>();
 
   const token = useSelector((state: any) => state.auth.accessToken);
+  const refreshToken = useSelector((state: any) => state.refresh.refreshToken);
 
   const postData: loginRequest = {
     email: email,
@@ -58,8 +61,10 @@ const Login = (props: Props) => {
       .login(postData)
       .then((response) => {
         dispatch(setAccessToken(postData.email));
-        console.log(response.data);
-        tokenService.setToken(response.data);
+        dispatch(setRefreshToken(response.data.refreshToken))
+        tokenService.setToken(response.data.accessToken);
+        tokenService.setRefreshToken(response.data.refreshToken)
+
         customerService.getCustomer().then((response) => {
           setCustomerName(response.data.firstName);
           setCustomerSurname(response.data.lastName);
