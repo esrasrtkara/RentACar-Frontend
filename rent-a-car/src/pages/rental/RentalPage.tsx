@@ -1,26 +1,25 @@
 import {
-  MDBCol,
   MDBBtn,
+  MDBCol,
   MDBContainer,
   MDBIcon,
   MDBRow,
 } from 'mdb-react-ui-kit';
-import './Rental.css';
-import 'react-datepicker/dist/react-datepicker.css';
-import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
-import carService from '../../services/carService';
-import { GetByIdCarResponse } from '../../models/responses/Car/getByIdCarResponse';
-import Layout from '../../components/layout/Layout';
 import DatePicker from 'react-datepicker';
-import { AddRentalRequest } from '../../models/requests/Rental/addRentalRequest';
-import { GetFilterRentalResponse } from '../../models/responses/Rental/getFilterRentalResponse';
+import 'react-datepicker/dist/react-datepicker.css';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import Layout from '../../components/layout/Layout';
 import PaymentForm from '../../components/payment/PaymentForm';
-import { setTotalPrice } from '../../store/totalPrice/totalPrice';
+import { AddRentalRequest } from '../../models/requests/Rental/addRentalRequest';
+import { GetByIdCarResponse } from '../../models/responses/Car/getByIdCarResponse';
+import { GetFilterRentalResponse } from '../../models/responses/Rental/getFilterRentalResponse';
+import carService from '../../services/carService';
 import rentalFilterService from '../../services/rentalFilterService';
 import { setRental } from '../../store/rental/rentalSlice';
-import {  useSelector } from 'react-redux';
+import { setTotalPrice } from '../../store/totalPrice/totalPrice';
+import './Rental.css';
 
 const RentalPage = () => {
   const [car, setCar] = useState<GetByIdCarResponse>();
@@ -29,7 +28,7 @@ const RentalPage = () => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [dayDifference, setDayDifference] = useState<number | null>(null);
   const [rentaldata, setRentaldata] = useState<GetFilterRentalResponse>();
-  const [discountCode, setDiscountCode] = useState<string|null>(null);
+  const [discountCode, setDiscountCode] = useState<string | null>(null);
   const token = useSelector((state: any) => state.auth.accessToken);
   //const discountCode: string | null = null;
 
@@ -37,14 +36,14 @@ const RentalPage = () => {
 
   let { id } = useParams();
 
-  const handleInputChange = (event:React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setDiscountCode(event.target.value);
   };
 
   const postData: AddRentalRequest = {
     startDate: startDate,
     endDate: endDate,
-    discountCode:discountCode,
+    discountCode: discountCode,
     carId: Number(id),
   };
 
@@ -52,13 +51,11 @@ const RentalPage = () => {
     if (id) {
       getByIdCars();
     }
-   
   }, []);
 
   const getByIdCars = () => {
     carService.getById(Number(id)).then((response) => {
       setCar(response.data.data);
-      console.log(response.data.data);
     });
   };
 
@@ -66,9 +63,7 @@ const RentalPage = () => {
     rentalFilterService.getTotal(postData).then((response) => {
       setRentaldata(response.data);
       dispatch(setTotalPrice(response.data.totalPrice));
-      console.log(response.data);
       dispatch(setRental(response.data));
-      console.log(discountCode)
     });
   };
 
@@ -213,8 +208,7 @@ const RentalPage = () => {
                 color="danger">
                 Kiralama Bedeli Hesapla
               </MDBBtn>
-              {token?(<PaymentForm />):(<div></div>)}
-              
+              {token ? <PaymentForm /> : <div></div>}
             </div>
           </MDBCol>
         </MDBRow>

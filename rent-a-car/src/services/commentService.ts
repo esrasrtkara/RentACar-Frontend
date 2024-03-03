@@ -1,5 +1,4 @@
 import { AxiosResponse } from 'axios';
-
 import { UpdateCommentResponse } from './../models/responses/Comment/updateCommentResponse';
 import { AddCommentResponse } from './../models/responses/Comment/addCommentResponse';
 import { DataResultByIdResponse } from './../models/responses/BaseResponse/DataResultByIdResponse';

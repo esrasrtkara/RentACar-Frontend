@@ -41,7 +41,6 @@ const Comments = (props: Props) => {
     // Metin doluysa yorumu ekle
     if (textError === false) {
       commentService.add(newComment).then((response) => {
-        console.log(response.data);
         dispatch(setComments([...comments, newComment]));
         setNewComment({ ...newComment, text: '' });
         carService.getComment(props.carId).then((response) => {

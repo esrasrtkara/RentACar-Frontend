@@ -21,7 +21,6 @@ import { setName } from '../store/login/nameSlice';
 import { setSurname } from '../store/login/surnameSlice';
 import { setRefreshToken } from '../store/auth/refreshSlice';
 
-
 type Props = {};
 
 const Login = (props: Props) => {
@@ -36,7 +35,6 @@ const Login = (props: Props) => {
   const [error, setError] = useState<string>();
 
   const token = useSelector((state: any) => state.auth.accessToken);
-  const refreshToken = useSelector((state: any) => state.refresh.refreshToken);
 
   const postData: loginRequest = {
     email: email,
@@ -46,12 +44,11 @@ const Login = (props: Props) => {
   useEffect(() => {
     if (companyName) {
       dispatch(setName(companyName));
-      console.log(companyName);
+
       navigate('/');
     } else if (customerName) {
       dispatch(setName(customerName));
       dispatch(setSurname(customerSurname));
-      console.log(customerName);
       navigate('/');
     }
   }, [companyName, customerName, token]);
@@ -61,18 +58,16 @@ const Login = (props: Props) => {
       .login(postData)
       .then((response) => {
         dispatch(setAccessToken(postData.email));
-        dispatch(setRefreshToken(response.data.refreshToken))
+        dispatch(setRefreshToken(response.data.refreshToken));
         tokenService.setToken(response.data.accessToken);
-        tokenService.setRefreshToken(response.data.refreshToken)
+        tokenService.setRefreshToken(response.data.refreshToken);
 
         customerService.getCustomer().then((response) => {
           setCustomerName(response.data.firstName);
           setCustomerSurname(response.data.lastName);
-          console.log(response.data);
         });
         corporeteService.getCorporate().then((response) => {
           setCompanyName(response.data.companyName);
-          console.log(response.data);
         });
       })
       .catch((error) => {
@@ -83,7 +78,9 @@ const Login = (props: Props) => {
           setError('Yetkisiz erişim. Lütfen giriş yapın.');
           dispatch(clearAccessToken());
         } else {
-          setError('Kayıtlı Kullanıcı Bulunamadı. E-mail ve Şifrenizi Kontrol Edin');
+          setError(
+            'Kayıtlı Kullanıcı Bulunamadı. E-mail ve Şifrenizi Kontrol Edin'
+          );
           dispatch(clearAccessToken());
         }
       });
@@ -130,7 +127,7 @@ const Login = (props: Props) => {
                   color: '#E44A48',
                   fontFamily: 'Chakra Petch',
                   fontSize: 18,
-                  fontWeight:"bold"
+                  fontWeight: 'bold',
                 }}>
                 {error}
               </p>

@@ -1,29 +1,29 @@
 import {
+  MDBCard,
+  MDBCardBody,
+  MDBCardText,
   MDBCol,
   MDBContainer,
   MDBRow,
-  MDBCard,
-  MDBCardText,
-  MDBCardBody,
   MDBTypography,
 } from 'mdb-react-ui-kit';
-import Layout from '../../components/layout/Layout';
-import './profile.css';
-import { useDispatch, useSelector } from 'react-redux';
-import carService from '../../services/carService';
-import { setCars } from '../../store/car/carSlice';
-import { Col, Row } from 'react-bootstrap';
-import CarCardProfile from '../../components/carCardProfile/CarCardProfile';
-import { GetAllRentalResponse } from '../../models/responses/Rental/getAllRentalResponse';
-import rentalService from '../../services/rentalService';
 import { useEffect, useState } from 'react';
-import { setRentals } from '../../store/rental/rentalsSlice';
+import { Col, Row } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import CarCardProfile from '../../components/carCardProfile/CarCardProfile';
+import Layout from '../../components/layout/Layout';
 import { GetAllCarResponse } from '../../models/responses/Car/getAllCarResponse';
-import commentService from '../../services/commentService';
 import { GetAllCommentResponse } from '../../models/responses/Comment/getAllCommentResponse';
+import { GetAllDiscountResponse } from '../../models/responses/Discount/GetAllDiscountResponse';
+import { GetAllRentalResponse } from '../../models/responses/Rental/getAllRentalResponse';
+import carService from '../../services/carService';
+import commentService from '../../services/commentService';
 import corporateService from '../../services/corporeteService';
 import discountService from '../../services/discountService';
-import { GetAllDiscountResponse } from '../../models/responses/Discount/GetAllDiscountResponse';
+import rentalService from '../../services/rentalService';
+import { setCars } from '../../store/car/carSlice';
+import { setRentals } from '../../store/rental/rentalsSlice';
+import './profile.css';
 
 type Props = {};
 
@@ -151,7 +151,7 @@ const Profile = (props: Props) => {
                 <div className="discount-coupons">
                   <h4 className="title">İndirim Kuponlarınız</h4>
                   {discounts.length === 0 ? (
-                    <p className='no-coupon'>Henüz Kuponunuz Yok</p>
+                    <p className="no-coupon">Henüz Kuponunuz Yok</p>
                   ) : (
                     <div className="coupon-tags">
                       {discounts.map((discount, index: number) => (

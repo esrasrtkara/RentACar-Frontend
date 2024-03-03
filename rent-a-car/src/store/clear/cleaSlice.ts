@@ -10,5 +10,4 @@ const clearSlice = createSlice({
 
 export const { clearState } = clearSlice.actions;
 export const CLEAR_STATE = 'clear/CLEAR_STATE';
-
 export default clearSlice.reducer;

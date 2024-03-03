@@ -15,5 +15,4 @@ const userIdSlice = createSlice({
 
 export const {setUserId,clearUserId} = userIdSlice.actions;
 export const selectUserId=(state:any)=>state.userId.userId;
-
 export const userIdReducer = userIdSlice.reducer;

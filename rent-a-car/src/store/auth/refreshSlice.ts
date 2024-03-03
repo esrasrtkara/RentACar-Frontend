@@ -17,4 +17,4 @@ const refreshSlice = createSlice({
 
 export const { setRefreshToken, clearRefreshToken } = refreshSlice.actions;
 export const selectRefreshToken = (state: any) => state.refresh.refreshToken;
-export  const refreshReducer = refreshSlice.reducer;
+export const refreshReducer = refreshSlice.reducer;
