@@ -1,25 +1,25 @@
-import { useState } from 'react';
 import {
+  MDBBtn,
+  MDBCheckbox,
+  MDBCol,
   MDBContainer,
+  MDBIcon,
+  MDBInput,
+  MDBRow,
   MDBTabs,
+  MDBTabsContent,
   MDBTabsItem,
   MDBTabsLink,
-  MDBTabsContent,
   MDBTabsPane,
-  MDBBtn,
-  MDBInput,
-  MDBCheckbox,
-  MDBRow,
-  MDBCol,
-  MDBIcon,
 } from 'mdb-react-ui-kit';
-import { CustomerRequest } from '../models/requests/Customer/customerRequest';
-import authCustomer from '../services/authCustomer';
-import authCorporate from '../services/authCorporate';
-import { CorporateRequest } from '../models/requests/Corporate/CorporateRequest';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import Layout from '../components/layout/Layout';
+import { CorporateRequest } from '../models/requests/Corporate/CorporateRequest';
+import { CustomerRequest } from '../models/requests/Customer/customerRequest';
+import authCorporate from '../services/authCorporate';
+import authCustomer from '../services/authCustomer';
 
 type Props = {};
 

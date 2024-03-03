@@ -1,15 +1,15 @@
-import './App.css';
-import 'semantic-ui-css/semantic.min.css'
 import { Route, Routes } from 'react-router-dom';
+import 'react-toastify/dist/ReactToastify.css';
+import 'semantic-ui-css/semantic.min.css';
+import './App.css';
+import CarDetail from './components/carDetail/CarDetail';
 import HomePage from './pages/HomePage';
 import Login from './pages/Login';
 import Signin from './pages/Signin';
-import CarDetail from './components/carDetail/CarDetail';
-import Rental from './pages/rental/RentalPage'
-import 'react-toastify/dist/ReactToastify.css';
 import Cars from './pages/cars/Cars';
-import Profile from './pages/profile/Profile';
 import Order from './pages/order/Order';
+import Profile from './pages/profile/Profile';
+import Rental from './pages/rental/RentalPage';
 
 
 function App() {

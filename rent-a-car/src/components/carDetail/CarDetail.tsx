@@ -7,17 +7,16 @@ import {
 } from 'mdb-react-ui-kit';
 import { useEffect, useState } from 'react';
 
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { GetByIdCarResponse } from '../../models/responses/Car/getByIdCarResponse';
+import { GetCommentCarId } from '../../models/responses/Car/getCommentCarId';
 import carService from '../../services/carService';
+import commentService from '../../services/commentService';
+import { setComments } from '../../store/comment/commentsSlice';
 import Comments from '../comment/Comments';
 import Layout from '../layout/Layout';
 import './carDetail.css';
-import { GetAllCommentResponse } from '../../models/responses/Comment/getAllCommentResponse';
-import { useDispatch, useSelector } from 'react-redux';
-import { setComments } from '../../store/comment/commentsSlice';
-import { GetCommentCarId } from '../../models/responses/Car/getCommentCarId';
-import commentService from '../../services/commentService';
 
 const CarDetail = () => {
   const [car, setCar] = useState<GetByIdCarResponse>();
@@ -26,10 +25,8 @@ const CarDetail = () => {
   const userId = useSelector((state: any) => state.userId.userId);
   let { id } = useParams();
 
-  
   const dispatch = useDispatch();
 
-  
   useEffect(() => {
     if (id) {
       getByIdCars();
@@ -37,7 +34,6 @@ const CarDetail = () => {
     carService.getComment(Number(id)).then((response) => {
       dispatch(setComments(response.data));
     });
-  
   }, []);
 
   const getByIdCars = () => {
@@ -47,13 +43,12 @@ const CarDetail = () => {
   };
 
   const handleDeleteComment = (commentId: number) => {
-     const updatedComments = comments.filter(
-      (comment:GetCommentCarId) => comment.id !== commentId
+    const updatedComments = comments.filter(
+      (comment: GetCommentCarId) => comment.id !== commentId
     );
-     dispatch(setComments(updatedComments));
+    dispatch(setComments(updatedComments));
     commentService.delete(commentId);
   };
-  console.log(comments);
   const navigate = useNavigate();
 
   const handleButtonClick = () => {
@@ -169,15 +164,15 @@ const CarDetail = () => {
             <MDBRow
               key={comment.id}
               className="comment my-4 align-items-center bg-border">
-                <MDBCol md="6" lg="4" xl="1" className="comment-img">
-                      <img
-                        className="profile-photo img-fluid rounded-circle"
-                        src="https://img.pixers.pics/pho_wat(s3:700/FO/58/46/71/94/700_FO58467194_7cede552ba2758deb49dfb72c3630c51.jpg,700,400,cms:2018/10/5bd1b6b8d04b8_220x50-watermark.png,over,480,350,jpg)/cikartmalar-sevimli-kirmizi-araba-cizgi-film-karakteri.jpg.jpg"
-                        alt="Profil"
-                        sizes="big"
-                      />
-                    </MDBCol>
-              
+              <MDBCol md="6" lg="4" xl="1" className="comment-img">
+                <img
+                  className="profile-photo img-fluid rounded-circle"
+                  src="https://img.pixers.pics/pho_wat(s3:700/FO/58/46/71/94/700_FO58467194_7cede552ba2758deb49dfb72c3630c51.jpg,700,400,cms:2018/10/5bd1b6b8d04b8_220x50-watermark.png,over,480,350,jpg)/cikartmalar-sevimli-kirmizi-araba-cizgi-film-karakteri.jpg.jpg"
+                  alt="Profil"
+                  sizes="big"
+                />
+              </MDBCol>
+
               <MDBCol md="6" lg="5" xl="3" className="comment-text">
                 {/* Yorum Bilgileri */}
                 {/*<h5>{comment.title}</h5>*/}

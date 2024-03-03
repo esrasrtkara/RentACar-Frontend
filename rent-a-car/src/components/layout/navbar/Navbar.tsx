@@ -37,7 +37,9 @@ const Navbar = (props: Props) => {
         </Menu.Menu>
 
         <MenuMenu position="right">
-          <MenuItem className="menu-item">{token ? <SignIn /> : <SignOut />}</MenuItem>
+          <MenuItem className="menu-item">
+            {token ? <SignIn /> : <SignOut />}
+          </MenuItem>
         </MenuMenu>
       </Menu>
     </>

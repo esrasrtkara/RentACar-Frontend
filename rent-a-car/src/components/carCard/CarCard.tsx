@@ -21,38 +21,31 @@ import { setUserId } from '../../store/user/userIdSlice';
 
 type Props = {
   discountCar: GetAllCarResponse;
- 
 };
 
 const CarCard = (props: Props) => {
   const dispatch = useDispatch();
   const token = useSelector((state: any) => state.auth.accessToken);
 
-
   useEffect(() => {
     // Kullanıcı girişi kontrolü yap
-   if(token!==null){
+    if (token !== null) {
       getUserId();
     }
   }, []);
 
-
-  const getUserId=()=>{
-    userService.getUserId()
-    .then((response) => {
-      console.log(response.data)
+  const getUserId = () => {
+    userService.getUserId().then((response) => {
       dispatch(setUserId(response.data));
-    })
-  }
-
-  
+    });
+  };
 
   const getCommentCarId = () => {
     carService.getComment(props.discountCar.id).then((response) => {
-      dispatch(setComments(response.data))
+      dispatch(setComments(response.data));
     });
   };
-  
+
   return (
     <>
       <MDBContainer fluid className="my-5">
@@ -140,7 +133,12 @@ const CarCard = (props: Props) => {
               <hr className="my-0" />
               <MDBCardBody className="pb-0">
                 <div className="button d-flex justify-content-between align-items-center pb-2 mb-4">
-                  <MDBBtn className="rent-button-left fw-bold" color="primary"onClick={()=>{getCommentCarId();}}>
+                  <MDBBtn
+                    className="rent-button-left fw-bold"
+                    color="primary"
+                    onClick={() => {
+                      getCommentCarId();
+                    }}>
                     <Link
                       to={'/cardetail/' + props.discountCar.id}
                       className="link-left">
@@ -148,8 +146,10 @@ const CarCard = (props: Props) => {
                       Aracı İncele
                     </Link>
                   </MDBBtn>
-                  <MDBBtn className="rent-button fw-bold" color="danger" >
-                    <Link to={'/rental/' + props.discountCar.id} className="rent-btn">
+                  <MDBBtn className="rent-button fw-bold" color="danger">
+                    <Link
+                      to={'/rental/' + props.discountCar.id}
+                      className="rent-btn">
                       {' '}
                       Hemen Kİrala{' '}
                     </Link>

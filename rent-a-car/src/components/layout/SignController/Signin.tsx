@@ -1,12 +1,9 @@
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { ButtonContent, Dropdown, Image } from 'semantic-ui-react';
 import tokenService from '../../../services/tokenService';
-import { useNavigate } from 'react-router-dom';
-import './signController.css';
-import { useDispatch, useSelector } from 'react-redux';
 import { clearAccessToken } from '../../../store/auth/authSlice';
-
-
-
+import './signController.css';
 
 type Props = {};
 
@@ -24,28 +21,28 @@ const SignIn = (props: Props) => {
   };
   const navigate = useNavigate();
 
- 
-
   return (
     <>
       <Image className="avatar" avatar spaced="right" src={avatarUrl} />
       <Dropdown className="dropdown" pointing="top left" text={name}>
         <Dropdown.Menu className="dropdown-menu">
           <ButtonContent className="dropdown-button">
-          <Dropdown.Item
-            className="dropdown-item"
-            text="Profilim"
-            icon="info"
-            onClick={() => {navigate('/profile');}}
-          />
+            <Dropdown.Item
+              className="dropdown-item"
+              text="Profilim"
+              icon="info"
+              onClick={() => {
+                navigate('/profile');
+              }}
+            />
           </ButtonContent>
           <ButtonContent className="dropdown-button">
-          <Dropdown.Item
-            className="dropdown-item"
-            onClick={handleToken}
-            text="Çıkış Yap"
-            icon="sign-out"
-          />
+            <Dropdown.Item
+              className="dropdown-item"
+              onClick={handleToken}
+              text="Çıkış Yap"
+              icon="sign-out"
+            />
           </ButtonContent>
         </Dropdown.Menu>
       </Dropdown>

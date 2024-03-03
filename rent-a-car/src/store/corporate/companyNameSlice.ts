@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-
 const companyNameSlice = createSlice({
     name:"companyName",
     initialState:{

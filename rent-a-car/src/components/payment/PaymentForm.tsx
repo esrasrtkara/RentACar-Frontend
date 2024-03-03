@@ -16,21 +16,18 @@ const PaymentForm = () => {
   const dispatch = useDispatch();
 
   const handleToken = (token: Token) => {
-    console.log(token);
     if (token && token.id) {
       const paymentData: PaymentRequest = {
         tokenId: token.id,
-        amount: totalPrice*100,
+        amount: totalPrice * 100,
         currency: 'USD',
       };
 
       paymentService
         .payment(paymentData)
         .then((response) => {
-          console.log(response);
-          dispatch(setChargeId(response.data))
-          console.log(response.data)
-          dispatch(setRefundedAmount(paymentData.amount))
+          dispatch(setChargeId(response.data));
+          dispatch(setRefundedAmount(paymentData.amount));
         })
 
         .catch((error) => console.error('Ödeme işleminde hata oluştu:', error));
@@ -39,9 +36,8 @@ const PaymentForm = () => {
     }
 
     rentalService.addRental(rentalData).then((response) => {
-      console.log(response);
       dispatch(setRental(response.data.data));
-      navigate("/order")
+      navigate('/order');
     });
   };
 
@@ -50,7 +46,7 @@ const PaymentForm = () => {
       <StripeCheckout
         stripeKey="pk_test_51Oc4oEJE8sDL3wBycwudyGP1zzmMX2QkGfWL24IVqflheGEW65wSwgXhHmHaYebjSVm8H4LZs2l3i5f0Etpvt3H000eJvEX0mR"
         token={handleToken}
-        amount={totalPrice*100}
+        amount={totalPrice * 100}
         currency="USD"
         name="RentACar Payment"
         description="Ödeme işlemi"

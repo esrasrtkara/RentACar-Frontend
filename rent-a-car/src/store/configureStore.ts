@@ -1,28 +1,24 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { persistReducer, persistStore } from "redux-persist";
-import storage from "redux-persist/lib/storage";
 import { authReducer } from "./auth/authSlice";
+import { refreshReducer } from './auth/refreshSlice';
+import { activeCarReducer } from './car/activeCarSlice';
 import { carReducer } from "./car/carSlice";
+import { discountCarReducer } from './car/discountCarSlice';
 import { carIdReducer } from "./carId/carIdSlice";
-import { totalPriceReducer } from "./totalPrice/totalPrice";
-import { PaymentReducer } from "./payment/paymentSlice";
-import { rentalReducer } from "./rental/rentalSlice";
-import { customerNameReducer } from "./customer/customerNameSlice";
+import { commentReducer } from './comment/commentsSlice';
 import { companyNameReducer } from "./corporate/companyNameSlice";
+import { customerNameReducer } from "./customer/customerNameSlice";
 import { NameReducer } from "./login/nameSlice";
 import { SurnameReducer } from './login/surnameSlice';
-import { commentReducer } from './comment/commentsSlice';
+import { ChargeIdReducer } from './payment/chargeIdSlice';
+import { PaymentReducer } from "./payment/paymentSlice";
+import { RefundedAmountReducer } from './payment/refundedAmount';
+import { rentalReducer } from "./rental/rentalSlice";
 import { rentalsReducer } from './rental/rentalsSlice';
 import { updateRentalReducer } from './rental/updateRentalSlice';
-import { activeCarReducer } from './car/activeCarSlice';
-import { ChargeIdReducer } from './payment/chargeIdSlice';
-import { RefundedAmountReducer } from './payment/refundedAmount';
-import { discountCarReducer } from './car/discountCarSlice';
-import { refreshReducer } from './auth/refreshSlice';
+import { totalPriceReducer } from "./totalPrice/totalPrice";
 import { userIdReducer } from "./user/userIdSlice";
 
-
-// Kök Reducer'ı tanımlayın
 const rootReducer = combineReducers({
   auth: authReducer,
     car: carReducer,
@@ -42,10 +38,7 @@ const rootReducer = combineReducers({
     chargeId:ChargeIdReducer,
     refundedAmount:RefundedAmountReducer,
     discountCar:discountCarReducer,
-
-  refresh: refreshReducer,
- 
+    refresh: refreshReducer,
 });
-
 
 export const store = configureStore({reducer:rootReducer});

@@ -1,5 +1,4 @@
 export interface AddCarRequest {
-   
 	kilometer: number;
 	year: number;
 	plate: string;
@@ -8,5 +7,4 @@ export interface AddCarRequest {
 	minFindeksRate: number;
 	modelId: number;
 	colorId: number;
-
 }

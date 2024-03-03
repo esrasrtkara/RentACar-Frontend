@@ -9,13 +9,9 @@ class RentalFilterService{
         
         this.apiUrl = "rentals/filter";
     }
-
-   
-
     getTotal(request:AddRentalRequest):Promise<AxiosResponse<GetFilterRentalResponse, any>>{
         return axiosInstance.post<GetFilterRentalResponse>(this.apiUrl, request);
     }
-
 }
 const rentalFilterService = new RentalFilterService();
 export default rentalFilterService;
