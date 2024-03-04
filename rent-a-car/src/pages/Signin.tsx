@@ -82,9 +82,9 @@ const Signin = (props: Props) => {
       setEmail('');
       setPassword('');
       notify();
-      setTimeout(() => {
+      
         navigate('/login');
-      }, 5800);
+      
     } else {
       if (!validateEmail(email)) {
         setEmailError('Geçersiz email adresi');

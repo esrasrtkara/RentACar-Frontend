@@ -29,7 +29,7 @@ const RentalPage = () => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [dayDifference, setDayDifference] = useState<number | null>(null);
   const [rentaldata, setRentaldata] = useState<GetFilterRentalResponse>();
-  const [discountCode, setDiscountCode] = useState<string|null>(null);
+  const [discountCode, setDiscountCode] = useState<string>("");
   const token = useSelector((state: any) => state.auth.accessToken);
   //const discountCode: string | null = null;
 

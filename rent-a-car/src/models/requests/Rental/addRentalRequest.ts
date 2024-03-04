@@ -2,6 +2,6 @@
 export interface AddRentalRequest {
 	startDate: Date;
 	endDate: Date;
-	discountCode: string|null;
+	discountCode: string;
 	carId: number;
 }
